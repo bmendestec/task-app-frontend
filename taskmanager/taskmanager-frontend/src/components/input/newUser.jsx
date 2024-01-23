@@ -1,8 +1,9 @@
 import React from 'react'
+import "../../App.css"
 import "./loginPage.css"
 import { Input } from '@chakra-ui/react'
 
-function LoginPage(props) {  
+function newUser(props) {  
   const [value, setValue] = React.useState('')
   const handleChange = (event) => setValue(event.target.value)
   return (
@@ -19,4 +20,4 @@ function LoginPage(props) {
   )
 }
 
-export default LoginPage
+export default newUser
