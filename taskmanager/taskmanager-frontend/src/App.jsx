@@ -26,7 +26,7 @@ function App() {
           <Spacer height='2' />
           <div className="button-login">            
             <Button colorScheme='green'>Entrar</Button>          
-            <Link href='/newUserRecord'>Esqueci minha senha</Link>
+            <Link href='/#'>Esqueci minha senha</Link>
           </div>
         </form>
       </div>      
