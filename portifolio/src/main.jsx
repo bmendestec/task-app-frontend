@@ -3,7 +3,7 @@ import App from './App.jsx'
 import Home from './Routes/Home/Home'
 // import Work from './Routes/Work/Work'
 // import WorkDetails from './Routes/Work/WorkDetails'
-// import About from './Routes/About/About'
+import About from './Routes/About/About'
 // import Contact from './Routes/Contact/Contact'
 import ErrorPage from './Routes/ErrorPage'
 import ReactDOM from "react-dom/client"
@@ -17,14 +17,14 @@ const router = createBrowserRouter([
     element: <Home />,
     errorElement: <ErrorPage />,
   },
-  // {
-  //   element: <App />,
-  //   errorElement: <ErrorPage />,
-  //   children: [
-  //     {
-  //       path: "/about",
-  //       element: <About />
-  //     },
+  {
+    element: <App />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        path: "/about",
+        element: <About />
+      },
   //     {
   //       path: "/work",
   //       element: <Work />
@@ -37,8 +37,8 @@ const router = createBrowserRouter([
   //       path: "/contact",
   //       element: <Contact />,
   //     },
-  //   ]
-  // }
+    ],
+  },
 ]);
 
 // Renderiza a raiz do aplicativo com reatador de navegação.

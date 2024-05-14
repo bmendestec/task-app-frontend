@@ -81,7 +81,7 @@ function Home() {
                                 onMouseLeave={() => handleHover("")}
                                 className={isLoad ? "animate_three" : "div_home_three"}
                             >
-                                {!isHovered.divThree ? "Hello" : "Contact"}
+                                {!isHovered.divThree ? "Bruno" : "Contact"}
                             </div>
                         </Link>
                     </h1>
