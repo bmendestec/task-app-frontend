@@ -7,7 +7,7 @@ function Footer() {
         <footer>
             <section className="social_section_footer">
                 <article className="title_article_footer">
-                    <h2>LC - Code</h2>
+                    <h2>Bruno Mendes</h2>
                     <p>
                         A Fullstack Web Developer
                         proficient in both frontend and 
