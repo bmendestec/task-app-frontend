@@ -31,15 +31,15 @@ function LogoHeader() {
           className="logo_header"
         >
           {/* Monitor */}
-          <rect x="30" y="20" rx="10" ry="10" width="140" height="100" fill="#cccccc" stroke="#000000" strokeWidth="2"/>
+          <rect x="30" y="20" rx="10" ry="10" width="140" height="100" fill="#808080" stroke="#000000" strokeWidth="2"/>
           {/* Tela */}
-          <rect x="40" y="30" width="120" height="80" fill={"#ffff"} />
+          <rect x="40" y="30" width="120" height="80" fill={"#D3D3D3"} />
           {/* Suporte */}
           <rect x="85" y="120" width="30" height="10" fill="#000000"/>
           {/* Base */}
           <rect x="70" y="130" width="60" height="10" fill="#000000" stroke="#000000" strokeWidth="2"/>
           {/* Botão */}
-          <circle cx="170" cy="110" r="5" fill={"#00ff00"} />
+          <circle cx="155" cy="115" r="5" fill={"#d82020"} />
         </svg>        
         <div className={
           changeColor
