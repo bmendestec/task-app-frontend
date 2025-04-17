@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import { getAuth, sendPasswordResetEmail, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
-import server from '../service/server';
+import apiClient from '../service/server';
 
 export function useLogin() {
     const [loginData, setLoginData] = useState({
@@ -36,24 +36,31 @@ export function useLogin() {
 
         try {
 
-            await signInWithEmailAndPassword(getAuth(), loginData.email, loginData.password).then(() => {
-                navigate('/home');
-            })
-                .catch((error) => {
-                    if (error.code === 'auth/user-not-found') {
-                        setModalMessage('Usuário não encontrado. Verifique o e-mail.');
-                        throw new Error('Usuário não encontrado. Verifique o e-mail.');
-                    } else if (error.code === 'auth/invalid-credential') {
-                        setModalMessage('Senha incorreta. Tente novamente.');
-                        setLoginData({ ...loginData, password: '' });
-                        passwordInputRef.current.focus();
-                        throw new Error('Senha incorreta. Tente novamente.');
-                    } else if (error.code === 'auth/too-many-requests') {
-                        throw new Error('Muitas tentativas de login. Tente novamente mais tarde.');
-                    } else {
-                        throw new Error('Erro ao fazer login. Tente novamente.');
-                    }
-                });
+            const loginDataBody = {
+                email: loginData.email,
+                senha: loginData.password,
+            };
+            const response = apiClient.post( "/usuarios", loginDataBody);
+            console.log('Login response:', response.data);
+
+            // await signInWithEmailAndPassword(getAuth(), loginData.email, loginData.password).then(() => {
+            //     navigate('/home');
+            // })
+            //     .catch((error) => {
+            //         if (error.code === 'auth/user-not-found') {
+            //             setModalMessage('Usuário não encontrado. Verifique o e-mail.');
+            //             throw new Error('Usuário não encontrado. Verifique o e-mail.');
+            //         } else if (error.code === 'auth/invalid-credential') {
+            //             setModalMessage('Senha incorreta. Tente novamente.');
+            //             setLoginData({ ...loginData, password: '' });
+            //             passwordInputRef.current.focus();
+            //             throw new Error('Senha incorreta. Tente novamente.');
+            //         } else if (error.code === 'auth/too-many-requests') {
+            //             throw new Error('Muitas tentativas de login. Tente novamente mais tarde.');
+            //         } else {
+            //             throw new Error('Erro ao fazer login. Tente novamente.');
+            //         }
+            //     });
         } catch (error) {
             console.log('Erro ao fazer login:', error.message);
         }
