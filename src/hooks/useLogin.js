@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import apiClient from '../service/server';
+import bcrypt from 'bcryptjs';
 
 export function useLogin() {
     const [loginData, setLoginData] = useState({
@@ -36,11 +37,36 @@ export function useLogin() {
 
         try {
 
-            const loginDataBody = {
-                email: loginData.email,
-                senha: loginData.password,
-            };
-            const response = apiClient.post( "/usuarios", loginDataBody);
+            // const loginDataBody = {
+            //     email: loginData.email,
+            //     senha: loginData.password,
+            // };
+            const response = await apiClient.get("/usuarios?search=", loginData.email);
+            if (response.status !== 200 || !response.data) {
+                setModalMessage('Usuário não encontrado. Verifique o e-mail.');
+                setLoading(false);
+                throw new Error('Erro ao fazer login. Tente novamente.');
+            }
+
+            const user = response.data.find(user => user.email === loginData.email);
+            if (!user) {
+                setModalMessage('Usuário não encontrado. Verifique o e-mail.');
+                setLoading(false);
+                throw new Error('Usuário não encontrado. Verifique o e-mail.');
+            }
+
+            const isPasswordValid = await bcrypt.compare(loginData.password, user.senha);
+            if (!isPasswordValid) {
+                setModalMessage('Senha incorreta. Tente novamente.');
+                setLoginData({ ...loginData, password: '' });
+                passwordInputRef.current.focus();
+                setLoading(false);
+                return;
+            } else {
+                setLoading(false);
+                navigate('/home');
+            }
+
             console.log('Login response:', response.data);
 
             // await signInWithEmailAndPassword(getAuth(), loginData.email, loginData.password).then(() => {
