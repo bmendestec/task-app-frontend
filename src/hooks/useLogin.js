@@ -36,11 +36,6 @@ export function useLogin() {
         }
 
         try {
-
-            // const loginDataBody = {
-            //     email: loginData.email,
-            //     senha: loginData.password,
-            // };
             const response = await apiClient.get("/usuarios?search=", loginData.email);
             if (response.status !== 200 || !response.data) {
                 setModalMessage('Usuário não encontrado. Verifique o e-mail.');
@@ -63,30 +58,12 @@ export function useLogin() {
                 setLoading(false);
                 return;
             } else {
-                setLoading(false);
-                navigate('/home');
+                // setLoading(false);
+                // navigate('/home');
+                window.location.href = '/home';
             }
 
             console.log('Login response:', response.data);
-
-            // await signInWithEmailAndPassword(getAuth(), loginData.email, loginData.password).then(() => {
-            //     navigate('/home');
-            // })
-            //     .catch((error) => {
-            //         if (error.code === 'auth/user-not-found') {
-            //             setModalMessage('Usuário não encontrado. Verifique o e-mail.');
-            //             throw new Error('Usuário não encontrado. Verifique o e-mail.');
-            //         } else if (error.code === 'auth/invalid-credential') {
-            //             setModalMessage('Senha incorreta. Tente novamente.');
-            //             setLoginData({ ...loginData, password: '' });
-            //             passwordInputRef.current.focus();
-            //             throw new Error('Senha incorreta. Tente novamente.');
-            //         } else if (error.code === 'auth/too-many-requests') {
-            //             throw new Error('Muitas tentativas de login. Tente novamente mais tarde.');
-            //         } else {
-            //             throw new Error('Erro ao fazer login. Tente novamente.');
-            //         }
-            //     });
         } catch (error) {
             console.log('Erro ao fazer login:', error.message);
         }
