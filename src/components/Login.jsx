@@ -1,35 +1,44 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useLogin } from '../hooks/useLogin';
+import { useAuth } from '../context/AuthContext';
 import './styles/Login.css';
 
 export function Login() {
-    const { handleInputChange, 
-            handleLogin, 
-            handleNewUserRegister, 
-            handleBackToHome, 
-            setModalMessage,
-            handlePasswordReset,
-            loginData, 
-            passwordInputRef, 
-            modalMessage } = useLogin();             
+    const { actionLogin,
+        handleNewUserRegister,
+        handleBackToHome,
+        setModalMessage,
+        passwordInputRef,
+        modalMessage,
+        loading,
+        error } = useLogin();
     
-    const handleForgetPassword = () => {
-        handlePasswordReset(loginData.email);
+    const { login } = useAuth();
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        await actionLogin(email, password);
+        const userData = { email }
+        const token = localStorage.getItem('authToken');
+        login(userData, token);
     }
 
     return (
         <>
             <div className="login-container">
                 <h2>Login</h2>
-                <form>
+                <form onSubmit={handleSubmit}>
                     <div className="form-group">
                         <label>Usuário:</label>
                         <div>
                             <input
                                 type="text"
                                 name="email"
-                                value={loginData.email}
-                                onChange={handleInputChange}
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
                                 placeholder="E-mail" />
                         </div>
                     </div>
@@ -38,21 +47,24 @@ export function Login() {
                         <div>
                             <input type="password"
                                 name="password"
-                                value={loginData.password}
-                                onChange={handleInputChange}
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
                                 ref={passwordInputRef}
                                 placeholder='Senha'
                             />
                         </div>
                     </div>
-                    <button onClick={handleLogin}>Login</button>
+                    <button type='submit' disabled={loading}>
+                        {loading ? 'Carregando...' : 'Entrar'}
+                    </button>
                     {/* <button onClick={loginWithGoogle}>Google Login</button> */}
                     <button onClick={handleNewUserRegister}>Cadastre-se agora mesmo</button>
-                    <button onClick={handleForgetPassword}>Esqueci minha senha</button>
+                    <button onClick={() => setModalMessage(null)}>Esqueci minha senha</button>
                     <div className="form-footer">
                         <a href="/">Voltar ao início</a>
                     </div>
                 </form>
+                {error && <p style={{ color: 'red' }}>{error}</p>}
                 {modalMessage && (
                     <div className="modal">
                         <div className="modal-content">

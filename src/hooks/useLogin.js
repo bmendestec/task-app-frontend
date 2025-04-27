@@ -1,73 +1,83 @@
-import { useEffect, useRef, useState } from "react";
-import { getAuth, sendPasswordResetEmail } from "firebase/auth";
+import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import apiClient from '../service/server';
-import bcrypt from 'bcryptjs';
 
 export function useLogin() {
-    const [loginData, setLoginData] = useState({
-        email: '',
-        password: '',
-    });
-
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
     const [modalMessage, setModalMessage] = useState(null);
     const navigate = useNavigate();
     const passwordInputRef = useRef(null);
 
-    const [error, setError] = useState(null);
-    const [loading, setLoading] = useState(false);
+    const actionLogin = async (email, password) => {        
+        try {
+            setLoading(true);
+            setError(null);
+            
+            const loginRoute = await apiClient.post('/login', {
+                email: email,
+                senha: password,
+            });
+            const token = loginRoute.data.token;
 
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setLoginData({ ...loginData, [name]: value });
+            const { isValid, email: validatedEmail } = await isTokenValid(token);
+            if (isValid) {
+                localStorage.setItem('authToken', token);
+                localStorage.setItem('email', validatedEmail);
+                navigate('/home');
+            } else {
+                setModalMessage('Erro ao validar o token. Tente novamente.');
+            }
+
+        } catch (error) {
+            console.log('Erro ao fazer login:', error.message);
+            setModalMessage('E-mail ou senha inválidos. Tente novamente.');
+        } finally {
+            setLoading(false);
+        }
+
     }
 
-    const handleLogin = async (e) => {
-        e.preventDefault();
+    const logout = async () => {
         setLoading(true);
         setError(null);
 
-        if (!/\S+@\S+\.\S+/.test(loginData.email)) {
-            alert('Por favor, insira um e-mail válido.');
-            return;
-        } else if (!loginData.password) {
-            alert('Por favor, insira a senha.');
-            return;
-        }
-
         try {
-            const response = await apiClient.get("/usuarios?search=", loginData.email);
-            if (response.status !== 200 || !response.data) {
-                setModalMessage('Usuário não encontrado. Verifique o e-mail.');
-                setLoading(false);
-                throw new Error('Erro ao fazer login. Tente novamente.');
-            }
-
-            const user = response.data.find(user => user.email === loginData.email);
-            if (!user) {
-                setModalMessage('Usuário não encontrado. Verifique o e-mail.');
-                setLoading(false);
-                throw new Error('Usuário não encontrado. Verifique o e-mail.');
-            }
-
-            const isPasswordValid = await bcrypt.compare(loginData.password, user.senha);
-            if (!isPasswordValid) {
-                setModalMessage('Senha incorreta. Tente novamente.');
-                setLoginData({ ...loginData, password: '' });
-                passwordInputRef.current.focus();
+            const logoutRoute = await apiClient.get('/logout', {});
+            if (logoutRoute.status !== 200) {
+                setModalMessage('Erro ao fazer logout. Tente novamente.');
                 setLoading(false);
                 return;
             } else {
-                // setLoading(false);
-                // navigate('/home');
-                window.location.href = '/home';
+                localStorage.removeItem('authToken');
+                navigate('/login');
             }
-
-            console.log('Login response:', response.data);
         } catch (error) {
-            console.log('Erro ao fazer login:', error.message);
+            console.log('Erro ao fazer logout:', error.message);
+        } finally {
+            setLoading(false);
+        }
+    }
+
+    const isTokenValid = async (token) => {
+        if (!token) {
+            return false;
         }
 
+        try {
+            const response = await apiClient.get('/validate-token', {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                },
+            });
+            return {
+                isValid: response.data.message,
+                email: response.data.decoded?.email || null,
+            };
+        } catch (error) {
+            console.error('Erro ao validar o token:', error);
+            return false;
+        }
     }
 
     const handleNewUserRegister = () => {
@@ -78,31 +88,5 @@ export function useLogin() {
         navigate('/');
     };
 
-    useEffect(() => {
-        const auth = getAuth();
-        const unsubscribe = auth.onAuthStateChanged((user) => {
-            if (user) {
-                navigate('/home');
-            }
-        });
-
-        return () => unsubscribe();
-    });
-
-    const handlePasswordReset = async (email) => {
-        try {
-            const auth = getAuth();
-            await sendPasswordResetEmail(auth, email);
-            setModalMessage('E-mail de redefinição de senha enviado. Verifique sua caixa de entrada.');
-        } catch (error) {
-            if (error.code === 'auth/user-not-found') {
-                setModalMessage('Usuário não encontrado. Verifique o e-mail.');
-            } else {
-                setModalMessage('Erro ao enviar e-mail de redefinição de senha. Tente novamente.');
-            }
-            console.error('Erro ao enviar e-mail de redefinição de senha:', error);
-        }
-    };
-
-    return { handleInputChange, handleLogin, handleNewUserRegister, handleBackToHome, setModalMessage, handlePasswordReset, modalMessage, loginData, error, loading, passwordInputRef };
+    return { actionLogin, logout, isTokenValid, handleNewUserRegister, handleBackToHome, setModalMessage, modalMessage, error, loading, passwordInputRef };
 }
