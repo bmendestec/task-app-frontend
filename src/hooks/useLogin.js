@@ -19,6 +19,10 @@ export function useLogin() {
                 senha: password,
             });
             const token = loginRoute.data.token;
+            const userName = loginRoute.data.user.nome;
+            if (userName) {
+                localStorage.setItem('userName', userName);
+            }
 
             const { isValid, email: validatedEmail } = await isTokenValid(token);
             if (isValid) {
@@ -36,27 +40,6 @@ export function useLogin() {
             setLoading(false);
         }
 
-    }
-
-    const logout = async () => {
-        setLoading(true);
-        setError(null);
-
-        try {
-            const logoutRoute = await apiClient.get('/logout', {});
-            if (logoutRoute.status !== 200) {
-                setModalMessage('Erro ao fazer logout. Tente novamente.');
-                setLoading(false);
-                return;
-            } else {
-                localStorage.removeItem('authToken');
-                navigate('/login');
-            }
-        } catch (error) {
-            console.log('Erro ao fazer logout:', error.message);
-        } finally {
-            setLoading(false);
-        }
     }
 
     const isTokenValid = async (token) => {
@@ -88,5 +71,5 @@ export function useLogin() {
         navigate('/');
     };
 
-    return { actionLogin, logout, isTokenValid, handleNewUserRegister, handleBackToHome, setModalMessage, modalMessage, error, loading, passwordInputRef };
+    return { actionLogin, isTokenValid, handleNewUserRegister, handleBackToHome, setModalMessage, modalMessage, error, loading, passwordInputRef };
 }

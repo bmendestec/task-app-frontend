@@ -1,51 +1,33 @@
 import React from 'react';
-// import { useNavigate } from 'react-router-dom';
-// import '../components/styles/Home.css';
 import { useHome } from '../hooks/useHome';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Stack from 'react-bootstrap/Stack';
+// import { useNavigate } from 'react-router-dom';
+import { Spinner } from 'react-bootstrap';
+import { useAuth } from '../context/AuthContext';
+import { NavbarComponent } from './Navbar';
+import { LogoutButton } from './Logout';
 
 export function Home() {
-  const { handleLogout } = useHome();
-  // const navigate = useNavigate();
-
-  // const userName = getUser(user);
+  const { logout } = useAuth();
+  const { user, loading } = useHome();
 
   return (
-    <Container>
-      <header className="home-header">
-        <div className='home-small-header'>
-          <h1>Bem-vindo,{"Usuário"}!</h1>
-          <p className="home-email">user@gmail.com</p>
-          <button onClick={handleLogout}>Sair</button>
-        </div>
-      </header>
-      <Row>
-        <Col>1 of 1</Col>
-        <Col>2 of 2</Col>
-      </Row>
-    </Container>
+    <div className="d-flex vh-100">
+      <NavbarComponent />
 
+      <div className="flex-grow-1 p-4">
+        <LogoutButton onLogout={logout} />
+        {loading ? (
+          <Spinner animation="border" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </Spinner>
+        ) :
+          <div>
 
-
-
-
-    // <div className="home-container">
-    //   <header className="home-header">
-    //     <div className='home-small-header'>
-    //       <h1>Bem-vindo,${user}{"Usuário"}!</h1>
-    //       <p className="home-email">user@gmail.com</p>
-    //       <button className="logout-button">Sair</button>
-    //     </div>
-    //   </header>
-    //   <main className="home-main">
-    //     <button className="home-button" onClick={() => navigate('/usuarios')}>Usuários</button>
-    //     <button className="home-button" onClick={handleLogout}>Sair</button>
-    //   </main>
-    //   <footer className="home-footer">
-    //   </footer>
-    // </div>
+            <h1>Home</h1>
+            <p className="lead">Bem-vindo(a) ao seu organizador de tarefas, {user}!</p>           
+          </div>
+        }
+      </div>
+    </div>
   );
 }

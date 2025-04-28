@@ -8,7 +8,7 @@ export function Register() {
     return (
         <div className='register-container'>
             <div className="back-icon-container">
-                <a href="/login" className="back-icon-link">
+                <a href="/home" className="back-icon-link">
                     <img src="src/assets/back.png" className="back-icon" alt="Voltar" />
                 </a>
             </div>

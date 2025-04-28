@@ -15,7 +15,6 @@ export const AuthProvider = ({ children }) => {
 
         if (userStored) {
             setUser(JSON.parse(userStored));
-            navigate('/home');
         }
         setLoading(false);
     }, []);
@@ -29,7 +28,7 @@ export const AuthProvider = ({ children }) => {
         setUser(userData);
         localStorage.setItem('email', JSON.stringify(userData));
         localStorage.setItem('authToken', token);
-        navigate('/home');
+        navigate('/');
     };
 
     const logout = () => {
@@ -41,6 +40,7 @@ export const AuthProvider = ({ children }) => {
         });
         localStorage.removeItem('email');
         localStorage.removeItem('authToken');
+        localStorage.removeItem('userName');
         if (logginOutRoute.status !== 200) {
             console.log('Erro ao fazer logout:', logginOutRoute.message);
         } else {

@@ -20,6 +20,7 @@ export function useHome() {
             navigate('/login');
         } else {
             setUser(userStored);
+            navigate('/home');
         }
         setLoading(false);
     }, []);
@@ -42,6 +43,7 @@ export function useHome() {
     const handleLogout = async () => {
         localStorage.removeItem('email');
         localStorage.removeItem('authToken');
+        localStorage.removeItem('userName');
         setUser(null);
         await logout();
         navigate('/login');
