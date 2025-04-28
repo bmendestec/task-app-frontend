@@ -1,8 +1,6 @@
 import { useRef, useState } from "react";
-import { collection, addDoc } from "firebase/firestore";
-import { db } from "../service/firebase";
-import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import apiClient from "../service/server";
 
 export function useRegister() {
     const [formData, setFormData] = useState({
@@ -56,7 +54,9 @@ export function useRegister() {
                 formData.gender,
                 formData.email,
                 formData.password
-            );
+            ).then(() => {
+                setModalMessage('Usuário cadastrado com sucesso!');            
+            });
         }
     };
 
@@ -64,25 +64,21 @@ export function useRegister() {
         nome_cadastro, data_nascimento, idade, sexo, email, senha
     ) {
         try {
-            const auth = getAuth();
-
-            const userCredential = await createUserWithEmailAndPassword(auth, email, senha);
-            const user = userCredential.user;
-            
-            await addDoc(collection(db, "usuarios"), {
-                uid: user.uid,
-                nome_cadastro: nome_cadastro,
+            const userData = {
+                nome: nome_cadastro,
                 data_nascimento: data_nascimento,
                 idade: idade,
                 sexo: sexo,
                 email: email,
+                senha: senha,
+            };
+            await apiClient.post("/usuarios", userData).then((response) => {
+                return response.data;
             });
-
-            setModalMessage('Usuário cadastrado com sucesso!');            
         } catch (error) {
-            if (error.code === 'auth/email-already-in-use') {                
+            if (error.code === 'auth/email-already-in-use') {
                 setModalMessage('Este e-mail já está em uso. Tente outro.');
-                emailInputRef.current.focus();              
+                emailInputRef.current.focus();
             }
         }
     }
