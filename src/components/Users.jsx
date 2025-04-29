@@ -1,7 +1,7 @@
 import '../components/styles/Users.css';
 import { useUsers } from '../hooks/useUsers';
 import { Spinner, CloseButton, Button, Table } from 'react-bootstrap';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../context/AuthContextProvider';
 import { useEffect, useState } from 'react';
 import { NavbarComponent } from './Navbar';
 import { LogoutButton } from './Logout';
