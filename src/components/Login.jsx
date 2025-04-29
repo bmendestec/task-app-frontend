@@ -5,26 +5,19 @@ import './styles/Login.css';
 import { Spinner } from 'react-bootstrap';
 
 export function Login() {
-    const { actionLogin,
-        handleNewUserRegister,
+    const { handleNewUserRegister,
         handleBackToHome,
         setModalMessage,
         passwordInputRef,
-        modalMessage,
-        loading,
-        error } = useLogin();
+        modalMessage} = useLogin();
 
-    const { login } = useAuth();
+    const { login, loading } = useAuth();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
-
-        await actionLogin(email, password);
-        const userData = { email }
-        const token = localStorage.getItem('authToken');
-        login(userData, token);
+        e.preventDefault();        
+        login(email, password);
     }
 
     return (
@@ -93,8 +86,7 @@ export function Login() {
                         alt="Produtividade"
                         className="img-fluid"
                     />
-                </div>
-                {error && <p style={{ color: 'red' }}>{error}</p>}
+                </div>                
                 {modalMessage && (
                     <div className="modal">
                         <div className="modal-content">
