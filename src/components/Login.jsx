@@ -1,72 +1,85 @@
-import React from 'react';
-import { useLogin } from '../hooks/useLogin';
+import React, { useState } from 'react';
+import { useAuth } from '../context/AuthContextProvider';
 import './styles/Login.css';
+import { Spinner } from 'react-bootstrap';
 
 export function Login() {
-    const { handleInputChange, 
-            handleLogin, 
-            handleNewUserRegister, 
-            handleBackToHome, 
-            setModalMessage,
-            handlePasswordReset,
-            loginData, 
-            passwordInputRef, 
-            modalMessage } = useLogin();             
-    
-    const handleForgetPassword = () => {
-        handlePasswordReset(loginData.email);
+    const { login, loading } = useAuth();
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();        
+        login(email, password);
     }
 
     return (
         <>
-            <div className="login-container">
-                <h2>Login</h2>
-                <form>
-                    <div className="form-group">
-                        <label>Usuário:</label>
-                        <div>
-                            <input
-                                type="text"
-                                name="email"
-                                value={loginData.email}
-                                onChange={handleInputChange}
-                                placeholder="E-mail" />
-                        </div>
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="password">Senha:</label>
-                        <div>
-                            <input type="password"
-                                name="password"
-                                value={loginData.password}
-                                onChange={handleInputChange}
-                                ref={passwordInputRef}
-                                placeholder='Senha'
-                            />
-                        </div>
-                    </div>
-                    <button onClick={handleLogin}>Login</button>
-                    {/* <button onClick={loginWithGoogle}>Google Login</button> */}
-                    <button onClick={handleNewUserRegister}>Cadastre-se agora mesmo</button>
-                    <button onClick={handleForgetPassword}>Esqueci minha senha</button>
-                    <div className="form-footer">
-                        <a href="/">Voltar ao início</a>
-                    </div>
-                </form>
-                {modalMessage && (
-                    <div className="modal">
-                        <div className="modal-content">
-                            <div>
-                                <h2>Atenção</h2>
-                                <p>{modalMessage}</p>
-                                <button onClick={handleNewUserRegister}>Cadastre-se agora mesmo</button>
-                                <button onClick={handleBackToHome}>Voltar ao início</button>
+            <div className="container-fluid vh-100 d-flex p-0">
+                <div className="col-lg-6 d-flex flex-column justify-content-center align-items-center p-5 bg-white">
+                    <div className="w-100" style={{ maxWidth: "400px" }}>
+                        <h2 className="mb-4 text-primary fw-bold">Login</h2>
+                        <h1 className="h3 mb-2 fw-semibold">Bem-vindo de volta!</h1>
+                        <p className="text-muted mb-4">Organize seu dia de forma inteligente.</p>
+                        <form onSubmit={handleSubmit}>
+                            <div className="mb-3">
+                                <input
+                                    type="text"
+                                    className='form-control'
+                                    name="email"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    placeholder="E-mail" />
                             </div>
-                            <button onClick={() => setModalMessage(null)}>OK</button>
-                        </div>
+                            <div className="mb-3">
+                                <input
+                                    type="password"
+                                    className='form-control'
+                                    name="password"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}                                    
+                                    placeholder='Senha'
+                                />
+                            </div>
+
+                            <div className="d-flex justify-content-between align-items-center mb-3">
+                                <div className="form-check">
+                                    <input type="checkbox" className="form-check-input" id="rememberMe" />
+                                    <label className="form-check-label" htmlFor="rememberMe">
+                                        Lembrar de mim
+                                    </label>
+                                </div>
+                                <a href="#" className="text-decoration-none">Esqueci minha senha</a>
+                            </div>
+                            <div className="d-grid mb-3">
+                                <button
+                                    type='submit'
+                                    className="btn btn-primary"
+                                    disabled={loading}>
+                                    {loading ?
+                                        <Spinner animation="border" role="status">
+                                            <span className="visually-hidden">Loading...</span>
+                                        </Spinner> : 'Entrar'}
+                                </button>
+                            </div>
+                            <div className="text-center my-3 text-muted">ou</div>
+                            <div className="d-grid">
+                                <button type="button" className="btn btn-outline-secondary">
+                                    <i className="bi bi-google me-2"></i> Entrar com Google
+                                </button>
+                            </div>
+                        </form>
                     </div>
-                )}
-            </div>
+                </div>
+
+                <div className="col-lg-6 d-none d-lg-flex justify-content-center align-items-center bg-light">
+                    <img
+                        src='src\assets\login_bckg.png'
+                        alt="Produtividade"
+                        className="img-fluid"
+                    />
+                </div>                                
+            </div >
         </>
     )
 }

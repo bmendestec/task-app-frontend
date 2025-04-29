@@ -8,16 +8,14 @@ const apiClient = axios.create({
     },
 });
 
-// Exemplo de interceptor para adicionar token de autenticação
-apiClient.interceptors.request.use(
-    (config) => {
-        const token = localStorage.getItem('authToken'); // Substitua pela lógica de obtenção do token
-        if (token) {
-            config.headers.Authorization = `Bearer ${token}`;
-        }
-        return config;
-    },
-    (error) => Promise.reject(error)
-);
+apiClient.interceptors.request.use((config) => {
+    const token = localStorage.getItem('authToken');
+    if (token) {
+        config.headers['Authorization'] = `Bearer ${token}`;
+    }
+    return config;
+}, (error) => {
+    return Promise.reject(error);
+});
 
 export default apiClient;

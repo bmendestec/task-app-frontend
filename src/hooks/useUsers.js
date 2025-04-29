@@ -1,30 +1,50 @@
-import { collection, getDocs, query } from "firebase/firestore";
-import { db } from "../service/firebase";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import apiClient from "../service/server";
 
 export function useUsers() {
-    const [usuarios, setUsuarios] = useState([]);
-
-    const fetchUserData = async () => {
-        try {
-            const userRef = collection(db, 'usuarios');
-            const q = query(userRef);
-            const querySnap = await getDocs(q);
-
-            const usuarios = querySnap.docs.map((doc) => ({
-                id: doc.id,
-                ...doc.data(),
-            }));
-
-            setUsuarios(usuarios);
-        } catch (error) {
-            console.error("Error fetching user data:", error);
-        }
-    }
+    const [user, setUser] = useState([]);
+    const navigate = useNavigate();
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetchUserData();
+        setLoading(true);
+        const userStored = localStorage.getItem('email');
+        const tokenStored = localStorage.getItem('authToken');
+        if (!userStored && !tokenStored) {
+            setUser(null);
+            navigate('/login');
+        } else {
+            setUser(userStored);            
+            navigate('/usuarios');
+        }
+        setLoading(false);
     }, []);
+
+    const fetchUserData = async (user) => {
+        try {
+            const userStored = localStorage.getItem('email');
+            const tokenStored = localStorage.getItem('authToken');
+            if (!userStored && !tokenStored) {
+                navigate('/login');
+            } else {
+                const findUserName = await apiClient.get('/usuarios', user, {
+                    headers: {
+                        Authorization: `Bearer ${tokenStored}`,
+                    }
+                });
+                if (findUserName.status !== 200) {
+                    console.log('Erro ao buscar usuário:', findUserName.message);
+                    return;
+                } else {
+                    return findUserName.data.user;
+                }
+            }
+        } catch (error) {
+            console.log('Erro ao buscar usuário:', error.message);
+            return null;
+        }
+    }
 
     const formatDate = (dateString) => {
         const date = new Date(dateString);
@@ -36,7 +56,11 @@ export function useUsers() {
 
     return {
         formatDate,
-        usuarios
+        setUser,
+        fetchUserData,   
+        setLoading,     
+        user,
+        loading
     };
 
 }

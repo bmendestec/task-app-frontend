@@ -1,4 +1,4 @@
-.home-container {
+/* .home-container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -13,26 +13,13 @@
 
 .home-header h1 {
     font-size: 3rem;
-    margin: 0;
-    font-weight: bold;
-    color: #333; /* Título em cinza escuro */
-}
-
-.home-header .home-email {
-    font-size: 1.2rem;
-    color: #555; /* Texto em cinza médio */
-    margin-top: 10px;
+    color: #333;
 }
 
 .home-small-header {
     display: flex;
-    justify-content: space-between;    
-    width: 2120px;
-    background-color: rgba(255, 255, 255, 0.5);
-    /* border: 1px solid #333; */
 }
 
-/* Conteúdo principal */
 .home-main {
     text-align: center;
     margin: 20px 0;
@@ -48,13 +35,12 @@
     font-size: 1.4rem;
     margin-bottom: 30px;
     line-height: 1.6;
-    color: #555; /* Texto em cinza médio */
+    color: #555;
 }
 
-/* Botão principal */
 .home-button {
-    background-color: #4CAF50; /* Verde claro */
-    color: #fff; /* Texto branco */
+    background-color: #4CAF50;
+    color: #fff;
     border: none;
     padding: 14px 24px;
     border-radius: 8px;
@@ -62,22 +48,20 @@
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra leve */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .home-button:hover {
-    background-color: #45a049; /* Verde mais escuro ao passar o mouse */
-    transform: scale(1.05);
+    background-color: #45a049;
 }
 
-/* Rodapé */
 .home-footer {
     margin-top: 40px;
 }
 
 .logout-button {
-    background-color: #ff4d4d; /* Vermelho claro */
-    color: #fff; /* Texto branco */
+    background-color: #ff4d4d;
+    color: #fff;
     border: none;
     padding: 12px 20px;
     border-radius: 8px;
@@ -85,15 +69,14 @@
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra leve */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .logout-button:hover {
-    background-color: #ff6666; /* Vermelho mais escuro ao passar o mouse */
+    background-color: #ff6666;
     transform: scale(1.05);
 }
 
-/* Responsividade */
 @media (max-width: 768px) {
     .home-header h1 {
         font-size: 2rem;
@@ -112,4 +95,4 @@
         font-size: 1rem;
         padding: 10px 16px;
     }
-}
+} */

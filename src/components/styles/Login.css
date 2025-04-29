@@ -1,96 +1,119 @@
-.form-footer {
-    position: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem;
-    background-color: #f9f9f9;
-    border-top: 1px solid #ddd;
-    font-size: 0.9rem;
-    color: #666666;
+Reset básico
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-.form-footer a {
-    color: #2404db;
-    text-decoration: none;
-    font-weight: bold;
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #F9FAFB;
+    height: 100vh;
+    overflow: hidden;
 }
 
-.form-footer a:hover {
-    text-decoration: underline;
-}
-
-.login-container {
-    padding: 3rem;
-    border-radius: 50px;
-    box-shadow: 0 40px 15px rgba(0, 0, 0, 0.2);
+.container-fluid {
+    display: flex;
+    height: 100vh;
     width: 100%;
-    max-width: 800px;
-    text-align: center;    
 }
 
-.login-container h2 {
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-    margin-bottom: 20px;
-    font-size: 2.5rem;
-    font-weight: 700;    
-}
-
-.login-container form {
+.col-lg-6 {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 5rem;
+    background-color: white;
+}
+
+.col-lg-6 h2 {
+    font-size: 2rem;
+    color: #3B82F6;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.col-lg-6 h1 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.col-lg-6 p {
+    color: #6B7280;
+    margin-bottom: 2rem;
+}
+
+form {
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+form .form-control {
+    padding: 0.75rem 1rem;
+    border: 1px solid #D1D5DB;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+}
+
+form .form-control:focus {
+    border-color: #3B82F6;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+.form-check {
+    display: flex;
+    align-items: center;
     gap: 0.5rem;
 }
 
-.form-group label {    
-    color: #ffffff;
-    font-weight: bold;
-    margin-right: 10rem;    
+.form-check-label {
+    font-size: 0.875rem;
+    color: #6B7280;
 }
 
-.login-container input {
-    padding: 0.6rem;
-    margin-bottom: 1rem;
-    border: 1px solid #ddd;  
-    font-size: 1rem;    
-}
-
-.login-container input:focus {
-    border-color: #6a11cb;
-    outline: none;
-    box-shadow: 0 0 5px rgba(106, 17, 203, 0.5);
-}
-
-.login-container button {
-    padding: 0.8rem;
-    background: #13b40e;
-    color: #ffffff;
-    border-radius: 5px;
-    transition: background 0.3s ease;
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    width: 100%;
-    max-width: 300px;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-}
-
-.login-container button:hover {
-    background: #119c0c;
-}
-
-.login-container a {
-    display: block;
-    margin-top: 1rem;
-    color: #6a11cb;
+a.text-decoration-none {
+    font-size: 0.875rem;
+    color: #3B82F6;
     text-decoration: none;
-    font-size: 0.9rem;
 }
 
-.login-container a:hover {
+a.text-decoration-none:hover {
     text-decoration: underline;
+}
+
+button.btn-primary {
+    background-color: #3B82F6;
+    color: white;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button.btn-primary:disabled {
+    background-color: #93C5FD;
+    cursor: not-allowed;
+}
+
+button.btn-outline-secondary {
+    border: 1px solid #D1D5DB;
+    color: #6B7280;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+button.btn-outline-secondary:hover {
+    background-color: #F3F4F6;
 }
 
 .modal {
@@ -99,61 +122,42 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5); /* Fundo semitransparente */
+    background-color: rgba(0, 0, 0, 0.5);
     display: flex;
-    align-items: center;
     justify-content: center;
-    z-index: 1000;
+    align-items: center;
 }
 
 .modal-content {
-    background: #fff; /* Fundo branco */
-    padding: 20px 30px;
-    border-radius: 10px;
+    background-color: white;
+    padding: 2rem;
+    border-radius: 0.5rem;
     text-align: center;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Sombra leve */
-    max-width: 400px;
     width: 90%;
-    animation: fadeIn 0.3s ease-in-out;
+    max-width: 400px;
 }
 
-.modal-title {
+.modal-content h2 {
     font-size: 1.5rem;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 10px;
+    margin-bottom: 1rem;
 }
 
-.modal-message {
-    font-size: 1.2rem;
-    color: #555;
-    margin-bottom: 20px;
+.modal-content p {
+    margin-bottom: 1.5rem;
+    color: #6B7280;
 }
 
-.modal-button {
-    background-color: #4CAF50; /* Verde claro */
-    color: #fff;
+.modal-content button {
+    background-color: #3B82F6;
+    color: white;
+    padding: 0.5rem 1rem;
     border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
+    border-radius: 0.5rem;
     font-size: 1rem;
-    font-weight: bold;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin: 0.5rem;
 }
 
-.modal-button:hover {
-    background-color: #45a049; /* Verde mais escuro */
-    transform: scale(1.05);
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: scale(0.9);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
+.modal-content button:hover {
+    background-color: #2563EB;
 }
