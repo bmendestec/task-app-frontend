@@ -1,6 +1,6 @@
 import '../components/styles/Initial.css';
 import { Spinner } from 'react-bootstrap';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../context/AuthContextProvider';
 import { NavbarComponent } from './Navbar';
 import { LogoutButton } from './Logout';
 
