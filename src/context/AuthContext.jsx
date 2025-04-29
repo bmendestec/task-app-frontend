@@ -10,28 +10,80 @@ export const AuthProvider = ({ children }) => {
 
     const navigate = useNavigate();
 
-    useEffect(() => {        
+    useEffect(() => {
+        setLoading(true);
         const userStored = localStorage.getItem('email');
+        const tokenStored = localStorage.getItem('authToken');
+        const userName = localStorage.getItem('userName');
 
-        if (userStored) {
-            setUser(JSON.parse(userStored));
-        }
-        setLoading(false);
-    }, []);
-
-    const login = (userData, token) => {
-        if (!userData || !token) {
-            console.error('Dados de login inválidos');
+        if (!tokenStored && !userStored && !userName) {
+            setUser(null);
+            setLoading(false);
             return;
         }
+        setUser(userName);
+        setLoading(false);        
+    }, []);
+
+
+    const login = async (email, password) => {
+        checkToken();
         setLoading(true);
-        setUser(userData);
-        localStorage.setItem('email', JSON.stringify(userData));
-        localStorage.setItem('authToken', token);
-        navigate('/');
+        setUser(null);
+        const loginRoute = await apiClient.post('/login', {
+            email: email,
+            senha: password,
+        });
+        const token = loginRoute.data.token;
+        const userName = loginRoute.data.user.nome;
+
+        const { isValid, email: validatedEmail } = await isTokenValid(token);
+        if (isValid) {
+            localStorage.setItem('authToken', token);
+            localStorage.setItem('email', validatedEmail);
+            localStorage.setItem('userName', userName);
+            setLoading(false);
+            setUser(userName);
+            navigate('/');
+        } else {
+            console.log('Erro ao validar o token. Tente novamente.');
+        }
     };
 
+    const checkToken = () => {
+        const token = localStorage.getItem('authToken');
+        const email = localStorage.getItem('email');
+        const userName = localStorage.getItem('userName');
+        if (token && email && userName) {
+            localStorage.removeItem('authToken');
+            localStorage.removeItem('email');
+            localStorage.removeItem('userName');
+        }
+    }
+    
+    const isTokenValid = async (token) => {
+        if (!token) {
+            return false;
+        }
+
+        try {
+            const response = await apiClient.get('/validate-token', {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                },
+            });
+            return {
+                isValid: response.data.message,
+                email: response.data.decoded?.email || null,
+            };
+        } catch (error) {
+            console.error('Erro ao validar o token:', error);
+            return false;
+        }
+    }
+
     const logout = () => {
+        setLoading(true);
         setUser(null);
         const logginOutRoute = apiClient.get('/logout', {
             headers: {
@@ -44,6 +96,7 @@ export const AuthProvider = ({ children }) => {
         if (logginOutRoute.status !== 200) {
             console.log('Erro ao fazer logout:', logginOutRoute.message);
         } else {
+            setLoading(false);
             navigate('/login');
         }
     };
