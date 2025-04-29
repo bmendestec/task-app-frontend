@@ -27,6 +27,7 @@ export const AuthProvider = ({ children }) => {
 
 
     const login = async (email, password) => {
+        checkToken();
         setLoading(true);
         setUser(null);
         const loginRoute = await apiClient.post('/login', {
@@ -43,15 +44,22 @@ export const AuthProvider = ({ children }) => {
             localStorage.setItem('userName', userName);
             setLoading(false);
             setUser(userName);
-            navigate('/home');
+            navigate('/');
         } else {
             console.log('Erro ao validar o token. Tente novamente.');
         }
-        
-        if (userName) {
-            localStorage.setItem('userName', userName);
-        }
     };
+
+    const checkToken = () => {
+        const token = localStorage.getItem('authToken');
+        const email = localStorage.getItem('email');
+        const userName = localStorage.getItem('userName');
+        if (token && email && userName) {
+            localStorage.removeItem('authToken');
+            localStorage.removeItem('email');
+            localStorage.removeItem('userName');
+        }
+    }
     
     const isTokenValid = async (token) => {
         if (!token) {

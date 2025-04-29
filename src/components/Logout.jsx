@@ -1,4 +1,4 @@
-import { CloseButton } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
 export function LogoutButton() {
@@ -12,7 +12,12 @@ export function LogoutButton() {
 
     return (
         <>
-            <CloseButton className="position-absolute top-0 end-0 m-3" onClick={handleLogout} aria-label="Close" />            
+            <Button
+                className="position-absolute top-0 end-0 m-3"
+                variant="danger"
+                onClick={handleLogout}>
+                Sair
+            </Button>
         </>
     );
 }

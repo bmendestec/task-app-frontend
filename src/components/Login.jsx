@@ -1,16 +1,9 @@
 import React, { useState } from 'react';
-import { useLogin } from '../hooks/useLogin';
 import { useAuth } from '../context/AuthContext';
 import './styles/Login.css';
 import { Spinner } from 'react-bootstrap';
 
 export function Login() {
-    const { handleNewUserRegister,
-        handleBackToHome,
-        setModalMessage,
-        passwordInputRef,
-        modalMessage} = useLogin();
-
     const { login, loading } = useAuth();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -44,8 +37,7 @@ export function Login() {
                                     className='form-control'
                                     name="password"
                                     value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
-                                    ref={passwordInputRef}
+                                    onChange={(e) => setPassword(e.target.value)}                                    
                                     placeholder='Senha'
                                 />
                             </div>
@@ -86,20 +78,7 @@ export function Login() {
                         alt="Produtividade"
                         className="img-fluid"
                     />
-                </div>                
-                {modalMessage && (
-                    <div className="modal">
-                        <div className="modal-content">
-                            <div>
-                                <h2>Atenção</h2>
-                                <p>{modalMessage}</p>
-                                <button onClick={handleNewUserRegister}>Cadastre-se agora mesmo</button>
-                                <button onClick={handleBackToHome}>Voltar ao início</button>
-                            </div>
-                            <button onClick={() => setModalMessage(null)}>OK</button>
-                        </div>
-                    </div>
-                )}
+                </div>                                
             </div >
         </>
     )

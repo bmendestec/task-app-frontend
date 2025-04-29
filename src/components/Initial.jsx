@@ -1,15 +1,12 @@
 import '../components/styles/Initial.css';
 import { Spinner } from 'react-bootstrap';
-import { useInitial } from '../hooks/useInitial';
 import { useAuth } from '../context/AuthContext';
 import { NavbarComponent } from './Navbar';
 import { LogoutButton } from './Logout';
 
 export function Initial() {
-  const { loading, user } = useInitial();
-  const { logout } = useAuth();
-
-
+  const { logout, user, loading } = useAuth();
+  
   return (
     <div className="d-flex vh-100">
       <NavbarComponent />

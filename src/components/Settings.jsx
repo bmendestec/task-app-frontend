@@ -1,14 +1,10 @@
 import { Spinner, Table } from "react-bootstrap";
-import { useSettings } from "../hooks/useSettings";
 import { useAuth } from "../context/AuthContext";
 import { NavbarComponent } from "./Navbar";
 import { LogoutButton } from "./Logout";
 
 export function Settings() {
-    const { loading,
-        user } = useSettings();
-
-    const { logout } = useAuth();
+    const { logout, loading } = useAuth();
     return (
         <div className="d-flex vh-100">
             <NavbarComponent />
@@ -21,9 +17,7 @@ export function Settings() {
                     </Spinner>
                 ) : (
                     <div>
-                        <h1>Olá, {user}</h1>
                         <h2>Configurações</h2>
-                        <p className="lead">Aqui você pode ajustar suas preferências.</p>
                         <Table striped bordered hover>
                             <thead>
                                 <tr>
