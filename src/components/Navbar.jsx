@@ -28,15 +28,15 @@ export function NavbarComponent() {
                             }}>Início</NavLink>
                     </NavItem>
                     <NavItem>
-                        <NavLink onClick={() => { navigate('/home') }}
-                            className={`btn btn-secondary ${isActive('/home') ? 'active' : ''}`}
+                        <NavLink onClick={() => { navigate('/usuarios') }}
+                            className={`btn btn-secondary ${isActive('/usuarios') ? 'active' : ''}`}
                             style={{
                                 color: 'white',
                                 width: 220,
                                 borderColor: 'blue',
                                 fontWeight: 'bold',
                                 textAlign: 'start',
-                            }}>Home</NavLink>
+                            }}>Usuários</NavLink>
                     </NavItem>                    
                     <NavItem>
                         <NavLink onClick={() => { navigate('/settings') }}

@@ -1,42 +1,30 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import apiClient from "../service/server";
 
-export function useUsers() {
+export function useUsers(setReloadPanel) {
     const [user, setUser] = useState([]);
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        setLoading(true);
-        const userStored = localStorage.getItem('email');
-        const tokenStored = localStorage.getItem('authToken');
-        if (!userStored && !tokenStored) {
-            setUser(null);
-            navigate('/login');
-        } else {
-            setUser(userStored);            
-            navigate('/usuarios');
-        }
-        setLoading(false);
-    }, []);
 
     const fetchUserData = async (user) => {
         try {
             const userStored = localStorage.getItem('email');
             const tokenStored = localStorage.getItem('authToken');
             if (!userStored && !tokenStored) {
+                setLoading(false);
                 navigate('/login');
             } else {
                 const findUserName = await apiClient.get('/usuarios', user, {
                     headers: {
                         Authorization: `Bearer ${tokenStored}`,
                     }
-                });
+                });                
                 if (findUserName.status !== 200) {
                     console.log('Erro ao buscar usuário:', findUserName.message);
                     return;
-                } else {
+                } else {                    
+                    setUser(findUserName.data.user);
                     return findUserName.data.user;
                 }
             }
@@ -54,11 +42,26 @@ export function useUsers() {
         return `${day}/${month}/${year}`;
     };
 
+    const handleDeleteUser = (id, setReloadPanel) => {
+        if (id) {
+            apiClient.delete(`/usuarios/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('authToken')}`,
+                }
+            }).then(() => {
+                setUser(user.filter((user) => user.id !== id));
+                setReloadPanel(true);
+            }).catch((error) => {
+                console.log('Erro ao deletar usuário:', error.message);
+            })
+        }
+    }
+
     return {
         formatDate,
         setUser,
         fetchUserData,   
-        setLoading,     
+        handleDeleteUser,    
         user,
         loading
     };
