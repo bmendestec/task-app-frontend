@@ -1,6 +1,6 @@
 import React from 'react';
 import { Spinner } from 'react-bootstrap';
-import { useAuth } from '../context/AuthContextProvider';
+import { useAuth } from '../context/AuthContext';
 import { NavbarComponent } from './Navbar';
 import { LogoutButton } from './Logout';
 

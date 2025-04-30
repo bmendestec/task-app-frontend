@@ -1,10 +1,16 @@
-import { Spinner, Table } from "react-bootstrap";
+import { Button, Spinner, Table } from "react-bootstrap";
 import { useAuth } from "../context/AuthContext";
 import { NavbarComponent } from "./Navbar";
 import { LogoutButton } from "./Logout";
+import { useNavigate } from "react-router-dom";
 
 export function Settings() {
     const { logout, loading } = useAuth();
+    const navigate = useNavigate();
+
+    const handleGoToUsers = () => {
+        navigate("/usuarios");
+    }
     return (
         <div className="d-flex vh-100">
             <NavbarComponent />
@@ -26,7 +32,9 @@ export function Settings() {
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td><a href="/usuarios">Usuários</a></td>
+                                    <td>
+                                        <Button onClick={handleGoToUsers}>Usuários</ Button>
+                                    </td>
                                 </tr>
                             </tbody>
                         </Table>

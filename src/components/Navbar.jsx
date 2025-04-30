@@ -1,10 +1,12 @@
 import { Navbar, Nav, NavItem, NavLink } from 'react-bootstrap';
 import { useNavigate, useLocation } from 'react-router-dom';
+
 export function NavbarComponent() {
     const navigate = useNavigate();
     const location = useLocation();
 
     const isActive = (path) => location.pathname === path;
+    
     return (
         <Navbar bg="dark" expand="md" className="flex-column p-3 border-end" style={{ width: '250px' }}>
             <Navbar.Brand className="fw-bold" style={{

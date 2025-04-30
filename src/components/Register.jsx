@@ -1,131 +1,74 @@
 import React from 'react';
 import { useRegister } from '../hooks/useRegister';
-import './styles/Register.css';
+import { NavbarComponent } from './Navbar';
+import { useAuth } from '../context/AuthContext';
+import { LogoutButton } from './Logout';
+import { Button, Form } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+import { ChevronLeft } from 'lucide-react';
 
 export function Register() {
-    const { formData, handleInputChange, handleSubmit, handleGoToLogin, emailInputRef, modalMessage } = useRegister();        
+    const { formData, handleInputChange, handleSubmit, emailInputRef } = useRegister();
+    const { logout, loading } = useAuth();
+    const navigate = useNavigate();
 
     return (
-        <div className='register-container'>
-            <div className="back-icon-container">
-                <a href="/home" className="back-icon-link">
-                    <img src="src/assets/back.png" className="back-icon" alt="Voltar" />
-                </a>
-            </div>
-            <h2>Cadastro de Usuário</h2>
-            <form onSubmit={handleSubmit} >
-                <div>
-                    <label>Nome Completo: </label>
-                    <div>
-                        <input
-                            type="text"
-                            name="fullName"
-                            value={formData.fullName}
-                            onChange={handleInputChange}
-                            required
-                        />
+        <>
+            <div className="d-flex vh-100">
+                <NavbarComponent />
+                <div className="flex-grow-1 p-4 d-flex flex-column align-items-centerr">
+                    <div className="d-flex flex-column align-items-end">
+                        <LogoutButton onLogout={logout} />
                     </div>
-                </div>
-                <div>
-                    <div>
-                        <label>Data de Nascimento: </label>
-                    </div>
-                    <input
-                        type="date"
-                        name="birthDate"
-                        value={formData.birthDate}
-                        onChange={handleInputChange}
-                        required
-                    />
-                </div>
-                <div>
-                    <div>
-                        <label>Idade: </label>
-                    </div>
-                    <input
-                        type="number"
-                        name="age"
-                        value={formData.age}
-                        readOnly
-                    />
-                </div>
-                <div>
-                    <label>Sexo: </label>
-                    <div>
-                        <label>
-                            <input
-                                type="radio"
-                                name="gender"
-                                value="Masculino"
-                                checked={formData.gender === 'Masculino'}
-                                onChange={handleInputChange}
-                                required
-                            />
-                            Masculino
-                        </label>
-                        <label>
-                            <input
-                                type="radio"
-                                name="gender"
-                                value="Feminino"
-                                checked={formData.gender === 'Feminino'}
-                                onChange={handleInputChange}
-                                required
-                            />
-                            Feminino
-                        </label>
-                    </div>
-                </div>
-                <div>
-                    <label>E-mail: </label>
-                    <div>
-                        <input
-                            type="email"
-                            name="email"
-                            value={formData.email}
-                            onChange={handleInputChange}
-                            ref={emailInputRef}
-                            required
-                        />
-                    </div>
-                </div>
-                <div>
-                    <label>Senha: </label>
-                    <div>
-                        <input
-                            type="password"
-                            name="password"
-                            value={formData.password}
-                            onChange={handleInputChange}
-                            required
-                        />
-                    </div>
-                </div>
-                <div>
-                    <label>Confirmar Senha: </label>
-                    <div>
-                        <input
-                            type="password"
-                            name="confirmPassword"
-                            value={formData.confirmPassword}
-                            onChange={handleInputChange}
-                            required
-                        />
-                    </div>
-                </div>
-                <button onClick={handleSubmit}>Cadastrar</button>
-            </form>
-            {modalMessage && (
-                <div className="modal">
-                    <div className="modal-content">
+                    {loading ? (
+                        <Spinner animation="border" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                        </Spinner>
+                    ) : <div>
                         <div>
-                            <h2>Atenção</h2>
-                            <p>{modalMessage}</p>
+                            <Button variant='primary' onClick={() => navigate(-1)} className='mb-3'>
+                                <ChevronLeft className='me-3' />
+                                Voltar
+                            </Button>
                         </div>
-                        <button onClick={handleGoToLogin}>OK</button>
-                    </div>
+                        <h1 className="fw-bold">Cadastro de usuários</h1>
+                        <div className='d-flex flex-column align-items-center'>
+                            <Form onSubmit={handleSubmit} className="form-container">
+                                <Form.Group className="mb-3" controlId="formBasicNome">
+                                    <Form.Label>Nome</Form.Label>
+                                    <Form.Control type="text" placeholder="Digite seu nome" name="nome" value={formData.nome} onChange={handleInputChange} required />
+
+                                </Form.Group>
+                                <Form.Group className="mb-3" controlId="formBasicSexo">
+                                    <Form.Label>Sexo</Form.Label>
+                                    <Form.Select name="sexo" value={formData.sexo} onChange={handleInputChange} required>
+                                        <option value="">Selecione seu sexo</option>
+                                        <option value="Masculino">Masculino</option>
+                                        <option value="Feminino">Feminino</option>
+                                        <option value="Outro">Outro</option>
+                                    </Form.Select>
+                                </Form.Group>
+                                <Form.Group className="mb-3" controlId="formBasicDtNascimento">
+                                    <div className='row'>
+                                        <div className='col-md-6'>
+                                            <Form.Label>Data de Nascimento</Form.Label>
+                                            <Form.Control type="date" placeholder="Digite sua data de nascimento" name="dt_nascimento" value={formData.dt_nascimento} onChange={handleInputChange} required />
+                                        </div>
+                                        <div className='col-md-3'>
+                                            <Form.Label>Idade</Form.Label>
+                                            <Form.Control type="number" name="idade" value={formData.idade} onChange={handleInputChange} />
+                                        </div>
+                                    </div>
+                                </Form.Group>
+                                <Form.Group className="mb-3" controlId="formBasicNome">
+                                    <Form.Label>Email</Form.Label>
+                                    <Form.Control type="email" placeholder="Digite seu email" name="email" value={formData.email} onChange={handleInputChange} ref={emailInputRef} required />
+                                </Form.Group>
+                            </ Form>
+                        </div>
+                    </div>}
                 </div>
-            )}
-        </div>
-    );
-};
+            </div>
+        </>
+    )
+}

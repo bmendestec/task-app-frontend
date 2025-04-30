@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useAuth } from '../context/AuthContextProvider';
+import { useAuth } from '../context/AuthContext';
 import './styles/Login.css';
 import { Spinner } from 'react-bootstrap';
 
