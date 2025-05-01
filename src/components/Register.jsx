@@ -5,7 +5,7 @@ import { useAuth } from '../context/AuthContext';
 import { LogoutButton } from './Logout';
 import { Button, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import { ChevronLeft } from 'lucide-react';
+import { ChevronLeft, Save } from 'lucide-react';
 
 export function Register() {
     const { formData, handleInputChange, handleSubmit, emailInputRef } = useRegister();
@@ -67,6 +67,12 @@ export function Register() {
                             </ Form>
                         </div>
                     </div>}
+                    <div>
+                        <Button>
+                            <Save className='me-3'/>
+                            Cadastrar
+                        </Button>
+                    </div>
                 </div>
             </div>
         </>
