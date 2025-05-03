@@ -63,7 +63,7 @@ export function Login() {
                                     </div>
                                 </div>
                             </div>
-                            <div className="d-grid mb-3">
+                            <div className="d-grid">
                                 <Button
                                     type='submit'
                                     className="btn btn-primary"
@@ -71,15 +71,15 @@ export function Login() {
                                     {loading ?
                                         <Spinner animation="border" role="status">
                                             <span className="visually-hidden">Loading...</span>
-                                        </Spinner> : 'Entrar'}
+                                        </Spinner> : 'Sign In'}
                                 </Button>
                             </div>
-                            <div className="text-center my-3 text-muted">ou</div>
+                            <div className="text-center text-muted">or</div>
                             <div className="d-grid">
                                 <Button type="button"
                                     variant="outline-primary"
                                     onClick={() => { navigate('/sign-up') }}>
-                                    Cadastre-se
+                                    Sign Up
                                 </Button>
                             </div>
                         </Form>

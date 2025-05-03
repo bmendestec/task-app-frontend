@@ -16,15 +16,15 @@ export function Signup() {
                     />
                 </div>
                 <div className="col-lg-6 d-none d-lg-flex justify-content-center align-items-center bg-white">
-                    <h1 className='p-3'>Create an account</h1>
+                    <h1>Create an account</h1>
                     <div className='w-100' style={{ maxWidth: "400px" }}>
-                        <Form onSubmit={handleSubmit} className="form-container">
-                            <Form.Group className="mb-3" controlId="formBasicName">
+                        <Form onSubmit={handleSubmit}>
+                            <Form.Group controlId="formBasicName">
                                 <Form.Label>Full Name</Form.Label>
                                 <Form.Control type="text" placeholder="Type your full name" name="fullName" value={formData.fullName} onChange={handleInputChange} required />
                             </Form.Group>
-                            <div className='row mb-3'>
-                                <Form.Group className="mb-3" controlId="formBasicEmail">
+                            <div className='row'>
+                                <Form.Group controlId="formBasicEmail">
                                     <Form.Label>E-mail</Form.Label>
                                     <Form.Control ref={emailInputRef} type="text" placeholder="Type your e-mail" name="email" value={formData.email} onChange={handleInputChange} required />
                                 </Form.Group>
@@ -35,13 +35,13 @@ export function Signup() {
                                     </Form.Group>
                                 </div>
                                 <div className='col-md-6'>
-                                    <Form.Group className="mb-3" controlId="formBasicPassword">
+                                    <Form.Group controlId="formBasicPassword">
                                         <Form.Label>Confirm Password</Form.Label>
                                         <Form.Control type="password" placeholder="Confirm your password" name="confirmPassword" value={formData.confirmPassword} onChange={handleInputChange} required />
                                     </Form.Group>
                                 </div>
                             </div>
-                            <Form.Group className="mb-3" controlId="formBasicGender">
+                            <Form.Group controlId="formBasicGender">
                                 <Form.Label>Gender</Form.Label>
                                 <Form.Select name="gender" value={formData.gender} onChange={handleInputChange} required>
                                     <option value="">Select your gender</option>
@@ -50,8 +50,8 @@ export function Signup() {
                                     <option value="Outro">Other</option>
                                 </Form.Select>
                             </Form.Group>
-                            <Form.Group className='mb-3' controlId='formBasicDtNascimento'>
-                                <div className='row d-flex align-items-center gap-5'>
+                            <Form.Group controlId='formBasicDtNascimento'>
+                                <div className='row' style={{ display: "flex", justifyContent: "space-between" }}>
                                     <div className='col-md-6'>
                                         <Form.Label>Birth Date</Form.Label>
                                         <Form.Control type="date" placeholder="Type your birth date" name="birthDate" value={formData.birthDate} onChange={handleInputChange} required />

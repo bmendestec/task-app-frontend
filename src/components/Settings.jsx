@@ -1,7 +1,7 @@
 import { Button, Spinner, Table } from "react-bootstrap";
 import { useAuth } from "../context/AuthContext";
 import { NavbarComponent } from "./Navbar";
-import { LogoutButton } from "./Logout";
+import { LogoutButton } from "./buttons/Logout";
 import { useNavigate } from "react-router-dom";
 
 export function Settings() {

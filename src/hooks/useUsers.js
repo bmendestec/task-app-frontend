@@ -57,11 +57,19 @@ export function useUsers() {
         }
     }
 
+    const handleDirectToEdit = (id) => {
+        if (id) {
+            navigate('/edit-user', { state: { userId: id } });
+        }
+    }
+
+
     return {
         formatDate,
         setUser,
         fetchUserData,   
-        handleDeleteUser,    
+        handleDeleteUser,
+        handleDirectToEdit,
         user,
         loading
     };

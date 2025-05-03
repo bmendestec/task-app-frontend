@@ -2,7 +2,7 @@ import React from 'react';
 import { useRegister } from '../hooks/useRegister';
 import { NavbarComponent } from './Navbar';
 import { useAuth } from '../context/AuthContext';
-import { LogoutButton } from './Logout';
+import { LogoutButton } from './buttons/Logout';
 import { Button, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { ChevronLeft, Save } from 'lucide-react';

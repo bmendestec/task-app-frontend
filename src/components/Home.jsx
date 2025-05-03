@@ -2,7 +2,7 @@ import React from 'react';
 import { Spinner } from 'react-bootstrap';
 import { useAuth } from '../context/AuthContext';
 import { NavbarComponent } from './Navbar';
-import { LogoutButton } from './Logout';
+import { LogoutButton } from './buttons/Logout';
 
 export function Home() {
   const { logout, loading } = useAuth();

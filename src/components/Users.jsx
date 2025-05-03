@@ -4,13 +4,14 @@ import { Spinner, Button, Table } from 'react-bootstrap';
 import { useAuth } from '../context/AuthContext';
 import { useEffect, useState } from 'react';
 import { NavbarComponent } from './Navbar';
-import { LogoutButton } from './Logout';
+import { LogoutButton } from './buttons/Logout';
 import { useNavigate } from 'react-router-dom';
 import { Trash2, UserPen, UserPlus } from 'lucide-react';
+import { Edituser } from './Edituser';
 
 export function Usuarios() {
     const [reloadPanel, setReloadPanel] = useState(null);
-    const { fetchUserData, handleDeleteUser } = useUsers();
+    const { fetchUserData, handleDeleteUser, handleDirectToEdit } = useUsers();
     const { logout, loading } = useAuth();
     const [users, setUsers] = useState([]);
     const navigate = useNavigate();
@@ -72,7 +73,8 @@ export function Usuarios() {
                                                 <td>
                                                     <Button
                                                         variant="warning"
-                                                        className="btn btn-warning me-2">
+                                                        className="btn btn-warning me-2"
+                                                        onClick={() => { handleDirectToEdit(user.id) }}>                                                        
                                                         <UserPen />
                                                     </Button>
                                                     <Button variant="danger"
@@ -83,7 +85,7 @@ export function Usuarios() {
                                                 </td>
                                             </tr>
                                         ))}
-                                    </tbody>
+                                    </tbody>                                    
                                 </ Table>
                                 <Button variant='primary' onClick={() => navigate('/register')} className='mb-3'>
                                     <UserPlus className='me-3' />
