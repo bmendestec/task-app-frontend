@@ -7,7 +7,7 @@ export function useUsers() {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
 
-    const fetchUserData = async (user) => {
+    const fetchUserData = async () => {
         try {
             const userStored = localStorage.getItem('email');
             const tokenStored = localStorage.getItem('authToken');
@@ -15,7 +15,7 @@ export function useUsers() {
                 setLoading(false);
                 navigate('/login');
             } else {
-                const findUserName = await apiClient.get('/usuarios', user, {
+                const findUserName = await apiClient.get('/usuarios', {
                     headers: {
                         Authorization: `Bearer ${tokenStored}`,
                     }
@@ -24,8 +24,8 @@ export function useUsers() {
                     console.log('Erro ao buscar usuário:', findUserName.message);
                     return;
                 } else {                    
-                    setUser(findUserName.data.user);
-                    return findUserName.data.user;
+                    setUser(findUserName.data);
+                    return findUserName.data;
                 }
             }
         } catch (error) {

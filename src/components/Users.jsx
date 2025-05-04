@@ -6,8 +6,7 @@ import { useEffect, useState } from 'react';
 import { NavbarComponent } from './Navbar';
 import { LogoutButton } from './buttons/Logout';
 import { useNavigate } from 'react-router-dom';
-import { Trash2, UserPen, UserPlus } from 'lucide-react';
-import { Edituser } from './Edituser';
+import { ChevronLeft, Trash2, UserPen, UserPlus } from 'lucide-react';
 
 export function Usuarios() {
     const [reloadPanel, setReloadPanel] = useState(null);
@@ -33,10 +32,14 @@ export function Usuarios() {
 
     return (
         <>
-            <div className="d-flex vh-100">
+            <div>
                 <NavbarComponent />
                 <div className="flex-grow-1 p-4 d-flex flex-column align-items-centerr">
-                    <div className="d-flex flex-column align-items-end">
+                    <div style={{ display: "flex", justifyContent: "space-between", width: "100%" }}>
+                        <Button variant='outline-dark' onClick={() => navigate(-1)} className='mb-3'>
+                            <ChevronLeft className='me-3' />
+                            Voltar
+                        </Button>
                         <LogoutButton onLogout={logout} />
                     </div>
                     <div>
@@ -74,7 +77,7 @@ export function Usuarios() {
                                                     <Button
                                                         variant="warning"
                                                         className="btn btn-warning me-2"
-                                                        onClick={() => { handleDirectToEdit(user.id) }}>                                                        
+                                                        onClick={() => { handleDirectToEdit(user.id) }}>
                                                         <UserPen />
                                                     </Button>
                                                     <Button variant="danger"
@@ -85,7 +88,7 @@ export function Usuarios() {
                                                 </td>
                                             </tr>
                                         ))}
-                                    </tbody>                                    
+                                    </tbody>
                                 </ Table>
                                 <Button variant='primary' onClick={() => navigate('/register')} className='mb-3'>
                                     <UserPlus className='me-3' />

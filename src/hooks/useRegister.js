@@ -37,7 +37,7 @@ export function useRegister() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!/\S+@\S+\.\S+/.test(formData.email)) {
-            setModalMessage('Por favor, insira um e-mail válido.');
+            alert('Por favor, insira um e-mail válido.');
             emailInputRef.current.focus();
             return;
         } else if (formData.password !== formData.confirmPassword) {
@@ -87,5 +87,13 @@ export function useRegister() {
         navigate('/login');
     }
 
-    return { formData, handleInputChange, handleSubmit, handleGoToLogin, emailInputRef, modalMessage, setModalMessage };
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    };
+
+    return { formData, handleInputChange, handleSubmit, handleGoToLogin, emailInputRef, modalMessage, setModalMessage, formatDate };
 }

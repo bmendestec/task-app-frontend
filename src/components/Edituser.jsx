@@ -3,22 +3,27 @@ import { useEdit } from "../hooks/useEdit";
 import { NavbarComponent } from "./Navbar";
 import { LogoutButton } from "./buttons/Logout";
 import { Button, Form } from "react-bootstrap";
-import { useLocation } from "react-router-dom";
-import { Save } from "lucide-react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { ChevronLeft, Save } from "lucide-react";
 
 export function Edituser() {
     const location = useLocation();
     const userId = location.state?.userId || null;
     const { logout } = useAuth();
     const { handleSubmit, handleChange, formatDate, user } = useEdit({ userId });
+    const navigate = useNavigate();
 
     return (
-        <div className="d-flex vh-100">
+        <div>
             <NavbarComponent />
-            <div className="d-flex flex-column align-items-end">
-                <LogoutButton onLogout={logout} />
-            </div>
             <div className="flex-grow-1 p-4 d-flex flex-column align-items-center">
+                <div style={{ display: "flex", justifyContent: "space-between", width: "100%" }}>
+                    <Button variant='outline-dark' onClick={() => navigate(-1)} className='mb-3'>
+                        <ChevronLeft className='me-3' />
+                        Voltar
+                    </Button>
+                    <LogoutButton onLogout={logout} />
+                </div>
                 <h1 className="fw-bold">Editar Usuário #{userId}</h1>
                 {user && (
                     <Form className="w-50 mt-4" method="post" onSubmit={handleSubmit}>
@@ -57,7 +62,7 @@ export function Edituser() {
                                         type="number"
                                         name="idade"
                                         value={user.idade || ''}
-                                        onChange={handleChange}                                        
+                                        onChange={handleChange}
                                         readOnly
                                     />
                                 </div>
@@ -75,7 +80,7 @@ export function Edituser() {
                         <Button
                             type="submit"
                             variant="primary">
-                            <Save size={40} />
+                            <Save size={20} /> Salvar
                         </Button>
                     </Form>
                 )}
