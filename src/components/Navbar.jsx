@@ -1,54 +1,63 @@
-import { Navbar, Nav, NavItem, NavLink } from 'react-bootstrap';
+import './styles/Navbar.css'
+import { Navbar, Nav, NavItem, NavLink, Container } from 'react-bootstrap';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+import { LogoutButton } from './buttons/Logout';
+
 export function NavbarComponent() {
     const navigate = useNavigate();
     const location = useLocation();
+    const { logout } = useAuth();
 
     const isActive = (path) => location.pathname === path;
+
     return (
-        <Navbar bg="dark" expand="md" className="flex-column p-3 border-end" style={{ width: '250px' }}>
-            <Navbar.Brand className="fw-bold" style={{
-                color: 'white',
-                width: 220, borderColor: 'blue'
-            }}>Meu Organizador</Navbar.Brand>
-            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-            <Navbar.Collapse id="responsive-navbar-nav">
-                <Nav className="flex-column gap-2">
-                    <NavItem>
-                        <NavLink onClick={() => { navigate('/') }}
-                            className={`btn btn-secondary ${isActive('/') ? 'active' : ''}`}
-                            style={{
-                                color: 'white',
-                                width: 220,
-                                borderColor: 'blue',
-                                fontWeight: 'bold',
-                                textAlign: 'start',
-                            }}>Início</NavLink>
-                    </NavItem>
-                    <NavItem>
-                        <NavLink onClick={() => { navigate('/home') }}
-                            className={`btn btn-secondary ${isActive('/home') ? 'active' : ''}`}
-                            style={{
-                                color: 'white',
-                                width: 220,
-                                borderColor: 'blue',
-                                fontWeight: 'bold',
-                                textAlign: 'start',
-                            }}>Home</NavLink>
-                    </NavItem>                    
-                    <NavItem>
-                        <NavLink onClick={() => { navigate('/settings') }}
-                            className={`btn btn-secondary ${isActive('/settings') ? 'active' : ''}`}
-                            style={{
-                                color: 'white',
-                                width: 220,
-                                borderColor: 'blue',
-                                fontWeight: 'bold',
-                                textAlign: 'start'
-                            }}>Configurações</NavLink>
-                    </NavItem>
-                </Nav>
-            </Navbar.Collapse>
-        </Navbar >
+        <div id="container-navbar">
+            <Navbar bg="primary" expand="md" id='navbar'>
+                <div id="container">
+                    <Navbar.Brand className="fw-bold"
+                        id="brand">
+                            My Organizer</Navbar.Brand>
+                    <Navbar.Toggle />
+                    <Nav className="gap-2">
+                        <NavItem>
+                            <NavLink
+                                onClick={() => { navigate('/') }}
+                                className={`btn btn-primary ${isActive('/') ? 'active' : ''}`}
+                                style={{
+                                    color: 'white',
+                                    borderColor: 'blue',
+                                    fontWeight: 'bold',
+                                    textAlign: 'start',
+                                }}
+                            >Início</NavLink>
+                        </NavItem>
+                        <NavItem>
+                            <NavLink
+                                onClick={() => { navigate('/usuarios') }}
+                                className={`btn btn-primary ${isActive('/usuarios') ? 'active' : ''}`}
+                                style={{
+                                    color: 'white',
+                                    borderColor: 'blue',
+                                    fontWeight: 'bold',
+                                    textAlign: 'start',
+                                }}>Usuários</NavLink>
+                        </NavItem>
+                        <NavItem>
+                            <NavLink
+                                onClick={() => { navigate('/settings') }}
+                                className={`btn btn-primary ${isActive('/settings') ? 'active' : ''}`}
+                                style={{
+                                    color: 'white',
+                                    borderColor: 'blue',
+                                    fontWeight: 'bold',
+                                    textAlign: 'start'
+                                }}>Configurações</NavLink>
+                        </NavItem>
+                    </Nav>
+                    <LogoutButton onLogout={logout} />
+                </div>
+            </Navbar >
+        </div>
     )
 }

@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
-import { useAuth } from '../context/AuthContextProvider';
+import { useAuth } from '../context/AuthContext';
 import './styles/Login.css';
-import { Spinner } from 'react-bootstrap';
+import { Button, Form, Spinner } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 
 export function Login() {
     const { login, loading } = useAuth();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
-        e.preventDefault();        
+        e.preventDefault();
         login(email, password);
     }
 
@@ -17,68 +19,72 @@ export function Login() {
         <>
             <div className="container-fluid vh-100 d-flex p-0">
                 <div className="col-lg-6 d-flex flex-column justify-content-center align-items-center p-5 bg-white">
+                    <img
+                        src='src\assets\login_bckg.png'
+                        alt="Produtividade"
+                        className="img-fluid"
+                    />
+                </div>
+                <div className="col-lg-6 d-none d-lg-flex justify-content-center align-items-center bg-white">
                     <div className="w-100" style={{ maxWidth: "400px" }}>
-                        <h2 className="mb-4 text-primary fw-bold">Login</h2>
-                        <h1 className="h3 mb-2 fw-semibold">Bem-vindo de volta!</h1>
-                        <p className="text-muted mb-4">Organize seu dia de forma inteligente.</p>
-                        <form onSubmit={handleSubmit}>
-                            <div className="mb-3">
-                                <input
+                        <h2 className="mb-4 text-primary text-center fw-bold">Login</h2>
+                        <p className="text-muted text-center mb-4">Organize your day in a smart way!</p>
+                        <Form onSubmit={handleSubmit}>
+                            <Form.Group className="mb-3" controlId="formBasicEmail">
+                                <Form.Control
                                     type="text"
                                     className='form-control'
                                     name="email"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
                                     placeholder="E-mail" />
-                            </div>
-                            <div className="mb-3">
-                                <input
+                            </Form.Group>
+                            <Form.Group className="mb-3" controlId="formBasicPassword">
+                                <Form.Control
                                     type="password"
                                     className='form-control'
                                     name="password"
                                     value={password}
-                                    onChange={(e) => setPassword(e.target.value)}                                    
-                                    placeholder='Senha'
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    placeholder='Password'
                                 />
-                            </div>
-
-                            <div className="d-flex justify-content-between align-items-center mb-3">
-                                <div className="form-check">
-                                    <input type="checkbox" className="form-check-input" id="rememberMe" />
-                                    <label className="form-check-label" htmlFor="rememberMe">
-                                        Lembrar de mim
-                                    </label>
+                            </Form.Group>
+                            <div className='form-check'>
+                                <div className='row mb-3'>
+                                    <div className='col-md-6'>
+                                        <Form.Group className="mb-0" controlId="formBasicCheckbox">
+                                            <Form.Check type="checkbox" label="Remember me" />
+                                        </Form.Group>
+                                    </div>
+                                    <div className='col-md-6'>
+                                        <Form.Group className='mb-0' controlId='formBasicForgotPassword'>
+                                            <a href="#" className="text-decoration-none text-align-end">Forgot Password</a>
+                                        </Form.Group>
+                                    </div>
                                 </div>
-                                <a href="#" className="text-decoration-none">Esqueci minha senha</a>
                             </div>
-                            <div className="d-grid mb-3">
-                                <button
+                            <div className="d-grid">
+                                <Button
                                     type='submit'
                                     className="btn btn-primary"
                                     disabled={loading}>
                                     {loading ?
                                         <Spinner animation="border" role="status">
                                             <span className="visually-hidden">Loading...</span>
-                                        </Spinner> : 'Entrar'}
-                                </button>
+                                        </Spinner> : 'Sign In'}
+                                </Button>
                             </div>
-                            <div className="text-center my-3 text-muted">ou</div>
+                            <div className="text-center text-muted">or</div>
                             <div className="d-grid">
-                                <button type="button" className="btn btn-outline-secondary">
-                                    <i className="bi bi-google me-2"></i> Entrar com Google
-                                </button>
+                                <Button type="button"
+                                    variant="outline-primary"
+                                    onClick={() => { navigate('/sign-up') }}>
+                                    Sign Up
+                                </Button>
                             </div>
-                        </form>
+                        </Form>
                     </div>
                 </div>
-
-                <div className="col-lg-6 d-none d-lg-flex justify-content-center align-items-center bg-light">
-                    <img
-                        src='src\assets\login_bckg.png'
-                        alt="Produtividade"
-                        className="img-fluid"
-                    />
-                </div>                                
             </div >
         </>
     )

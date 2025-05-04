@@ -1,5 +1,6 @@
-import { Button } from "react-bootstrap";
+import { LogOut } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { Button } from "react-bootstrap";
 
 export function LogoutButton() {
     const navigate = useNavigate();
@@ -12,10 +13,11 @@ export function LogoutButton() {
 
     return (
         <>
-            <Button
-                className="position-absolute top-0 end-0 m-3"
-                variant="danger"
-                onClick={handleLogout}>
+            <Button variant='outline-light' onClick={handleLogout}>
+                <LogOut
+                    variant="danger"    
+                    className='me-3'
+                />
                 Sair
             </Button>
         </>

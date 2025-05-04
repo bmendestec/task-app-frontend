@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import apiClient from "../service/server";
 
-export function useRegister() {
+export function useSignup() {
     const [formData, setFormData] = useState({
         fullName: '',
         birthDate: '',
@@ -13,7 +13,7 @@ export function useRegister() {
         confirmPassword: '',
     });
 
-    const [modalMessage, setModalMessage] = useState(null);
+    const [modalMessage, alert] = useState(null);
     const navigate = useNavigate();
     const emailInputRef = useRef(null);
 
@@ -41,10 +41,10 @@ export function useRegister() {
             emailInputRef.current.focus();
             return;
         } else if (formData.password !== formData.confirmPassword) {
-            setModalMessage('As senhas não coincidem.');
+            alert('As senhas não coincidem.');
             return;
         } else if (!formData.fullName) {
-            setModalMessage('Por favor, preencha o nome completo.');
+            alert('Por favor, preencha o nome completo.');
             return;
         } else {
             await addUser(
@@ -55,13 +55,17 @@ export function useRegister() {
                 formData.email,
                 formData.password
             ).then(() => {
-                setModalMessage('Usuário cadastrado com sucesso!');            
+                alert('Usuário cadastrado com sucesso!');            
             });
         }
     };
 
-    async function addUser(
-        nome_cadastro, data_nascimento, idade, sexo, email, senha
+    async function addUser(nome_cadastro, 
+        data_nascimento, 
+        idade, 
+        sexo, 
+        email, 
+        senha
     ) {
         try {
             const userData = {
@@ -73,11 +77,17 @@ export function useRegister() {
                 senha: senha,
             };
             await apiClient.post("/usuarios", userData).then((response) => {
-                return response.data;
+                if (response.status !== 201) {
+                    alert('Erro ao cadastrar usuário. Tente novamente mais tarde.');
+                    return;
+                } else {
+                    navigate('/login');
+                    return response.data;
+                }
             });
         } catch (error) {
             if (error.code === 'auth/email-already-in-use') {
-                setModalMessage('Este e-mail já está em uso. Tente outro.');
+                alert('Este e-mail já está em uso. Tente outro.');
                 emailInputRef.current.focus();
             }
         }
@@ -87,13 +97,5 @@ export function useRegister() {
         navigate('/login');
     }
 
-    const formatDate = (dateString) => {
-        const date = new Date(dateString);
-        const year = date.getFullYear();
-        const month = String(date.getMonth() + 1).padStart(2, '0');
-        const day = String(date.getDate()).padStart(2, '0');
-        return `${year}-${month}-${day}`;
-    };
-
-    return { formData, handleInputChange, handleSubmit, handleGoToLogin, emailInputRef, modalMessage, setModalMessage, formatDate };
+    return { formData, handleInputChange, handleSubmit, handleGoToLogin, emailInputRef, modalMessage, alert };
 }
