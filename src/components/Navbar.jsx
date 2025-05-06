@@ -17,7 +17,7 @@ export function NavbarComponent() {
                 <div id="container">
                     <Navbar.Brand className="fw-bold"
                         id="brand">
-                            My Organizer</Navbar.Brand>
+                        My Organizer</Navbar.Brand>
                     <Navbar.Toggle />
                     <Nav className="gap-2">
                         <NavItem>
@@ -30,7 +30,9 @@ export function NavbarComponent() {
                                     fontWeight: 'bold',
                                     textAlign: 'start',
                                 }}
-                            >Início</NavLink>
+                            >
+                                Home
+                            </NavLink>
                         </NavItem>
                         <NavItem>
                             <NavLink
@@ -41,7 +43,10 @@ export function NavbarComponent() {
                                     borderColor: 'blue',
                                     fontWeight: 'bold',
                                     textAlign: 'start',
-                                }}>Usuários</NavLink>
+                                }}
+                            >
+                                Users
+                            </NavLink>
                         </NavItem>
                         <NavItem>
                             <NavLink
@@ -52,7 +57,10 @@ export function NavbarComponent() {
                                     borderColor: 'blue',
                                     fontWeight: 'bold',
                                     textAlign: 'start'
-                                }}>Configurações</NavLink>
+                                }}
+                            >
+                                Settings
+                            </NavLink>
                         </NavItem>
                     </Nav>
                     <LogoutButton onLogout={logout} />

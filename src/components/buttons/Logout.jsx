@@ -18,7 +18,7 @@ export function LogoutButton() {
                     variant="danger"    
                     className='me-3'
                 />
-                Sair
+                Logout
             </Button>
         </>
     );

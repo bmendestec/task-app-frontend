@@ -55,23 +55,92 @@ export function Usuarios() {
                                 <Table className="table table-striped">
                                     <thead>
                                         <tr>
-                                            <th>Nome</th>
-                                            <th>Idade</th>
-                                            <th>Dt. Nascimento</th>
-                                            <th>Sexo</th>
-                                            <th>Email</th>
+                                            <th
+                                                style={{
+                                                    width: '20%',
+                                                    textAlign: 'center',
+                                                }}
+                                            >
+                                                Name
+                                            </th>
+                                            <th
+                                                style={{
+                                                    width: '10%',
+                                                    textAlign: 'center',
+                                                }}
+                                            >
+                                                Age
+                                            </th>
+                                            <th
+                                                style={{
+                                                    width: '10%',
+                                                    textAlign: 'center',
+                                                }}
+                                            >
+                                                Birth date
+                                            </th>
+                                            <th
+                                                style={{
+                                                    width: '10%',
+                                                    textAlign: 'center',
+                                                }}
+                                            >
+                                                Gender
+                                            </th>
+                                            <th
+                                                style={{
+                                                    width: '10%',
+                                                    textAlign: 'center',
+                                                }}
+                                            >
+                                                Email
+                                            </th>
                                             <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {users.map((user) => (
                                             <tr key={user.id}>
-                                                <td>{user.nome}</td>
-                                                <td>{user.idade}</td>
-                                                <td>{new Date(user.data_nascimento).toLocaleDateString('pt-BR')}</td>
-                                                <td>{user.sexo}</td>
-                                                <td>{user.email}</td>
-                                                <td>
+                                                <td
+                                                    style={{
+                                                        width: '20%',
+                                                        textAlign: 'center',
+                                                    }}>
+                                                    {user.nome}
+                                                </td>
+                                                <td
+                                                    style={{
+                                                        width: '10%',
+                                                        textAlign: 'center',
+                                                    }}>
+                                                    {user.idade}
+                                                </td>
+                                                <td
+                                                    style={{
+                                                        width: '10%',
+                                                        textAlign: 'center',
+                                                    }}>
+                                                    {new Date(user.data_nascimento).toLocaleDateString('pt-BR')}
+                                                </td>
+                                                <td
+                                                    style={{
+                                                        width: '10%',
+                                                        textAlign: 'center',
+                                                    }}>
+                                                    {user.sexo}
+                                                </td>
+                                                <td
+                                                    style={{
+                                                        width: '10%',
+                                                        textAlign: 'center',
+                                                    }}>
+                                                    {user.email}
+                                                </td>
+                                                <td
+                                                    style={{
+                                                        width: '10%',
+                                                        textAlign: 'center',
+                                                    }}>
                                                     <Button
                                                         variant="warning"
                                                         className="btn btn-warning me-2"

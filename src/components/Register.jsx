@@ -33,12 +33,15 @@ export function Register() {
                                         value={formData.email || ''}
                                         onChange={handleInputChange}
                                         ref={emailInputRef}
-                                        required 
+                                        required
                                         isInvalid={!/\S+@\S+\.\S+/.test(formData.email)}
                                         isValid={/\S+@\S+\.\S+/.test(formData.email) && formData.email.length > 0}
                                     />
                                     <Form.Control.Feedback type='invalid'>
                                         Please, insert a valid email.
+                                    </Form.Control.Feedback>
+                                    <Form.Control.Feedback type="valid">
+                                        All done.
                                     </Form.Control.Feedback>
                                 </InputGroup>
                             </Form.Group>
@@ -52,7 +55,7 @@ export function Register() {
                                             name="password"
                                             value={formData.password}
                                             onChange={handleInputChange}
-                                            required 
+                                            required
                                             isInvalid={formData.password.length < 3 && formData.password.length > 0}
                                             isValid={formData.password.length >= 3 && formData.password.length < 20}
                                         />
@@ -72,7 +75,7 @@ export function Register() {
                                             name="confirmPassword"
                                             value={formData.confirmPassword}
                                             onChange={handleInputChange}
-                                            required 
+                                            required
                                             isValid={formData.password === formData.confirmPassword}
                                             isInvalid={formData.password !== formData.confirmPassword && formData.confirmPassword.length > 0}
                                         />

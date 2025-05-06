@@ -32,7 +32,7 @@ export function Initial() {
                   variant='primary'
                   onClick={() => { navigate('/usuarios') }}>
                   <User size={60} />
-                  Usuários
+                  Users
                 </Button>
               </div>
               <div className='col-md-4' style={{ height: '110px', width: '120px' }}>
