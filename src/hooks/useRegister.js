@@ -12,40 +12,35 @@ export function useRegister() {
         password: '',
         confirmPassword: '',
     });
-
-    const [modalMessage, setModalMessage] = useState(null);
+    
     const navigate = useNavigate();
     const emailInputRef = useRef(null);
 
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
+    // useEffect(() => {},[])
+    const handleInputChange = (e) => {        
+        setFormData({ ...formData, [e.target.name]: e.target.value });
 
-        if (name === 'birthDate') {
-            const birthDate = new Date(value);
+        if (e.target.name === 'birthDate') {
+            const birthDate = new Date(e.target.value);
             const today = new Date();
             const age = today.getFullYear() - birthDate.getFullYear();
             const monthDiff = today.getMonth() - birthDate.getMonth();
             if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
-                setFormData({ ...formData, birthDate: value, age: age - 1 });
+                setFormData({ ...formData, birthDate: e.target.value, age: age - 1 });
             } else {
-                setFormData({ ...formData, birthDate: value, age });
+                setFormData({ ...formData, birthDate: e.target.value, age });
             }
         }
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (!/\S+@\S+\.\S+/.test(formData.email)) {
-            alert('Por favor, insira um e-mail válido.');
-            emailInputRef.current.focus();
-            return;
-        } else if (formData.password !== formData.confirmPassword) {
-            setModalMessage('As senhas não coincidem.');
-            return;
+
+        if (formData.password !== formData.confirmPassword) {
+            alert('As senhas não coincidem.');
+            console.log('As senhas não coincidem.');
         } else if (!formData.fullName) {
-            setModalMessage('Por favor, preencha o nome completo.');
-            return;
+            alert('Por favor, preencha o nome completo.');
         } else {
             await addUser(
                 formData.fullName,
@@ -54,9 +49,7 @@ export function useRegister() {
                 formData.gender,
                 formData.email,
                 formData.password
-            ).then(() => {
-                setModalMessage('Usuário cadastrado com sucesso!');            
-            });
+            );
         }
     };
 
@@ -71,15 +64,28 @@ export function useRegister() {
                 sexo: sexo,
                 email: email,
                 senha: senha,
+                active: 'S',
+                created_at: new Date().toISOString(),
+                updated_at: new Date().toISOString(),
+                created_by: 'user',
+                updated_by: 'user'
             };
             await apiClient.post("/usuarios", userData).then((response) => {
+                if (response.status === 201) {
+                    navigate('/usuarios');
+                }
                 return response.data;
+            }).catch((error) => {
+                if (error.response.data.message === "Email already exists") {
+                    console.error('Error:', error.response.data.message);
+                    alert('E-mail já cadastrado. Tente novamente com outro e-mail.');
+                    emailInputRef.current.focus();
+                } else {
+                    alert('Erro ao cadastrar usuário. Tente novamente.');
+                }
             });
         } catch (error) {
-            if (error.code === 'auth/email-already-in-use') {
-                setModalMessage('Este e-mail já está em uso. Tente outro.');
-                emailInputRef.current.focus();
-            }
+            throw new Error('Erro ao cadastrar usuário:', error.message);
         }
     }
 
@@ -95,5 +101,5 @@ export function useRegister() {
         return `${year}-${month}-${day}`;
     };
 
-    return { formData, handleInputChange, handleSubmit, handleGoToLogin, emailInputRef, modalMessage, setModalMessage, formatDate };
+    return { formData, setFormData, handleInputChange, handleSubmit, handleGoToLogin, emailInputRef, formatDate };
 }

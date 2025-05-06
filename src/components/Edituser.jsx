@@ -1,7 +1,5 @@
-import { useAuth } from "../context/AuthContext";
 import { useEdit } from "../hooks/useEdit";
 import { NavbarComponent } from "./Navbar";
-import { LogoutButton } from "./buttons/Logout";
 import { Button, Form } from "react-bootstrap";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ChevronLeft, Save } from "lucide-react";
@@ -9,7 +7,6 @@ import { ChevronLeft, Save } from "lucide-react";
 export function Edituser() {
     const location = useLocation();
     const userId = location.state?.userId || null;
-    const { logout } = useAuth();
     const { handleSubmit, handleChange, formatDate, user } = useEdit({ userId });
     const navigate = useNavigate();
 
@@ -22,9 +19,8 @@ export function Edituser() {
                         <ChevronLeft className='me-3' />
                         Voltar
                     </Button>
-                    <LogoutButton onLogout={logout} />
                 </div>
-                <h1 className="fw-bold">Editar Usuário #{userId}</h1>
+                <h2 className="fw-bold">Editar Usuário</h2>
                 {user && (
                     <Form className="w-50 mt-4" method="post" onSubmit={handleSubmit}>
                         <Form.Group controlId="formBasicEmail">

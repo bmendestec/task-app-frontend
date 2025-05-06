@@ -55,7 +55,6 @@ export function Usuarios() {
                                 <Table className="table table-striped">
                                     <thead>
                                         <tr>
-                                            <th></th>
                                             <th>Nome</th>
                                             <th>Idade</th>
                                             <th>Dt. Nascimento</th>
@@ -65,9 +64,8 @@ export function Usuarios() {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {users.map((user, index) => (
+                                        {users.map((user) => (
                                             <tr key={user.id}>
-                                                <td>{index + 1}</td>
                                                 <td>{user.nome}</td>
                                                 <td>{user.idade}</td>
                                                 <td>{new Date(user.data_nascimento).toLocaleDateString('pt-BR')}</td>

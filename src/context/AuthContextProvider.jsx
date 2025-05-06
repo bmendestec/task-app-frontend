@@ -22,7 +22,7 @@ export const AuthProvider = ({ children }) => {
             return;
         }
         setUser(userName);
-        setLoading(false);        
+        setLoading(false);
     }, []);
 
 
@@ -30,24 +30,35 @@ export const AuthProvider = ({ children }) => {
         checkToken();
         setLoading(true);
         setUser(null);
-        const loginRoute = await apiClient.post('/login', {
+        await apiClient.post('/login', {
             email: email,
             senha: password,
-        });
-        const token = loginRoute.data.token;
-        const userName = loginRoute.data.user.nome;
-
-        const { isValid, email: validatedEmail } = await isTokenValid(token);
-        if (isValid) {
-            localStorage.setItem('authToken', token);
-            localStorage.setItem('email', validatedEmail);
-            localStorage.setItem('userName', userName);
+        }).then(async (response) => {
+            if (response.status === 200) {
+                const token = response.data.token;
+                const userName = response.data.user.nome;
+                const { isValid, email: validatedEmail } = await isTokenValid(token);
+                if (isValid) {
+                    localStorage.setItem('authToken', token);
+                    localStorage.setItem('email', validatedEmail);
+                    localStorage.setItem('userName', userName);
+                    setLoading(false);
+                    setUser(userName);
+                    navigate('/');
+                } else {
+                    console.log('Erro ao validar o token. Tente novamente.');
+                }
+            }
+        }).catch((error) => {
+            if (error.response.data.message === "Invalid credentials") {
+                alert('E-mail ou senha inválidos. Tente novamente.');
+            } else {
+                alert('Erro ao fazer login. Verifique seu e-mail e senha. ');
+            }
+        }).finally(() => {
             setLoading(false);
-            setUser(userName);
-            navigate('/');
-        } else {
-            console.log('Erro ao validar o token. Tente novamente.');
-        }
+        });
+
     };
 
     const checkToken = () => {
@@ -60,7 +71,7 @@ export const AuthProvider = ({ children }) => {
             localStorage.removeItem('userName');
         }
     }
-    
+
     const isTokenValid = async (token) => {
         if (!token) {
             return false;

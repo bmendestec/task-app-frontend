@@ -25,7 +25,7 @@ export function Initial() {
             <span className="visually-hidden">Loading...</span>
           </Spinner>
         ) : (
-          <div className='d-flex flex-column align-items-center' style={{ margin: '15%' }}>
+          <div className='d-flex flex-column align-items-center' style={{ margin: '100px' }}>
             <div className="row justify-content-center">
               <div className='col-md-4' style={{ height: '110px', width: '120px' }}>
                 <Button

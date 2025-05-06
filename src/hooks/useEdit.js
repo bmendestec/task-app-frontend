@@ -41,8 +41,7 @@ export function useEdit({ userId } = {}) {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('authToken')}`,
             }
-        }).then((response) => {
-            alert('Usuário editado com sucesso!');
+        }).then((response) => {            
             console.log('Usuário editado:', response.data);
             navigate('/usuarios');
         }).catch((error) => {
