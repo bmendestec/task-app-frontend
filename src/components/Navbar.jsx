@@ -3,6 +3,7 @@ import { Navbar, Nav, NavItem, NavLink, Container } from 'react-bootstrap';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { LogoutButton } from './buttons/Logout';
+import { UserIcon } from './modal/UserIcon';
 
 export function NavbarComponent() {
     const navigate = useNavigate();
@@ -50,6 +51,20 @@ export function NavbarComponent() {
                         </NavItem>
                         <NavItem>
                             <NavLink
+                                onClick={() => { navigate('/tasks') }}
+                                className={`btn btn-primary ${isActive('/tasks') ? 'active' : ''}`}
+                                style={{
+                                    color: 'white',
+                                    borderColor: 'blue',
+                                    fontWeight: 'bold',
+                                    textAlign: 'start',
+                                }}
+                            >
+                                Tasks
+                            </NavLink>
+                        </NavItem>
+                        <NavItem>
+                            <NavLink
                                 onClick={() => { navigate('/settings') }}
                                 className={`btn btn-primary ${isActive('/settings') ? 'active' : ''}`}
                                 style={{
@@ -63,7 +78,8 @@ export function NavbarComponent() {
                             </NavLink>
                         </NavItem>
                     </Nav>
-                    <LogoutButton onLogout={logout} />
+                    <UserIcon onClick={ logout }/>
+                    {/* <LogoutButton onLogout={logout} /> */}
                 </div>
             </Navbar >
         </div>

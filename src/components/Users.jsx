@@ -4,14 +4,13 @@ import { Spinner, Button, Table } from 'react-bootstrap';
 import { useAuth } from '../context/AuthContext';
 import { useEffect, useState } from 'react';
 import { NavbarComponent } from './Navbar';
-import { LogoutButton } from './buttons/Logout';
 import { useNavigate } from 'react-router-dom';
-import { ChevronLeft, Trash2, UserPen, UserPlus } from 'lucide-react';
+import { Trash2, UserPen, UserPlus } from 'lucide-react';
 
 export function Usuarios() {
     const [reloadPanel, setReloadPanel] = useState(null);
     const { fetchUserData, handleDeleteUser, handleDirectToEdit } = useUsers();
-    const { logout, loading } = useAuth();
+    const { loading } = useAuth();
     const [users, setUsers] = useState([]);
     const navigate = useNavigate();
 
@@ -35,13 +34,6 @@ export function Usuarios() {
             <div>
                 <NavbarComponent />
                 <div className="flex-grow-1 p-4 d-flex flex-column align-items-centerr">
-                    <div style={{ display: "flex", justifyContent: "space-between", width: "100%" }}>
-                        <Button variant='outline-dark' onClick={() => navigate(-1)} className='mb-3'>
-                            <ChevronLeft className='me-3' />
-                            Voltar
-                        </Button>
-                        <LogoutButton onLogout={logout} />
-                    </div>
                     <div>
                         <h1 className="fw-bold">Usuários</h1>
                     </div>
@@ -101,46 +93,12 @@ export function Usuarios() {
                                     <tbody>
                                         {users.map((user) => (
                                             <tr key={user.id}>
-                                                <td
-                                                    style={{
-                                                        width: '20%',
-                                                        textAlign: 'center',
-                                                    }}>
-                                                    {user.nome}
-                                                </td>
-                                                <td
-                                                    style={{
-                                                        width: '10%',
-                                                        textAlign: 'center',
-                                                    }}>
-                                                    {user.idade}
-                                                </td>
-                                                <td
-                                                    style={{
-                                                        width: '10%',
-                                                        textAlign: 'center',
-                                                    }}>
-                                                    {new Date(user.data_nascimento).toLocaleDateString('pt-BR')}
-                                                </td>
-                                                <td
-                                                    style={{
-                                                        width: '10%',
-                                                        textAlign: 'center',
-                                                    }}>
-                                                    {user.sexo}
-                                                </td>
-                                                <td
-                                                    style={{
-                                                        width: '10%',
-                                                        textAlign: 'center',
-                                                    }}>
-                                                    {user.email}
-                                                </td>
-                                                <td
-                                                    style={{
-                                                        width: '10%',
-                                                        textAlign: 'center',
-                                                    }}>
+                                                <td style={{ width: '20%', textAlign: 'center', }}>{user.nome}</td>
+                                                <td style={{ width: '10%', textAlign: 'center', }}>{user.idade}</td>
+                                                <td style={{ width: '10%', textAlign: 'center', }}>{new Date(user.data_nascimento).toLocaleDateString('pt-BR')}</td>
+                                                <td style={{ width: '10%', textAlign: 'center', }}>{user.sexo}</td>
+                                                <td style={{ width: '10%', textAlign: 'center',  }}>{user.email}</td>
+                                                <td style={{ width: '10%', textAlign: 'center', }}>
                                                     <Button
                                                         variant="warning"
                                                         className="btn btn-warning me-2"

@@ -53,7 +53,12 @@ export function useSignup() {
                 formData.age,
                 formData.gender,
                 formData.email,
-                formData.password
+                formData.password,
+                true,
+                new Date(),
+                new Date(),
+                'Bruno',
+                'Bruno'
             ).then(() => {
                 alert('Usuário cadastrado com sucesso!');            
             });
@@ -65,7 +70,12 @@ export function useSignup() {
         idade, 
         sexo, 
         email, 
-        senha
+        senha,
+        active,
+        created_at,
+        updated_at,
+        created_by,
+        updated_by
     ) {
         try {
             const userData = {
@@ -75,6 +85,11 @@ export function useSignup() {
                 sexo: sexo,
                 email: email,
                 senha: senha,
+                active: active,
+                created_at: created_at,
+                updated_at: updated_at,
+                created_by: created_by,
+                updated_by: updated_by
             };
             await apiClient.post("/usuarios", userData).then((response) => {
                 if (response.status !== 201) {

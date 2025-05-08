@@ -3,7 +3,7 @@ import { useRegister } from '../hooks/useRegister';
 import { NavbarComponent } from './Navbar';
 import { Button, Form, InputGroup } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import { ChevronLeft, Save } from 'lucide-react';
+import { ChevronLeft, CircleX, Save } from 'lucide-react';
 import './styles/Register.css';
 
 export function Register() {
@@ -141,11 +141,29 @@ export function Register() {
                                 </Form.Select>
                             </Form.Group>
                         </div>
-                        <Button
-                            type="submit"
-                            variant="primary">
-                            <Save size={20} /> Salvar
-                        </Button>
+                        <div
+                            style={{
+                                display: "flex",
+                                justifyContent: "flex-end",
+                                width: "100%",
+                                marginTop: "15px",
+                            }}
+                        >
+                            <Button
+                                type="submit"
+                                variant="danger"
+                                style={{ width: "100px" }}
+                            >
+                                <CircleX size={20} /> Cancel
+                            </Button>
+                            <Button
+                                type="submit"
+                                variant="primary"
+                                style={{ width: "100px", marginLeft: "10px" }}
+                            >
+                                <Save size={20} /> Save
+                            </Button>
+                        </div>
                     </Form>
                 </div>
             </div>

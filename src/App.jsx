@@ -4,7 +4,7 @@ import { Initial } from './components/Initial'
 import { Login } from './components/Login'
 import { Register } from './components/Register'
 import ProtectedRoute from './ProtectedRoute'
-import { Home } from './components/Home'
+import { Tasks } from './components/Tasks'
 import { Usuarios } from './components/Users'
 import { Settings } from './components/Settings'
 import { Signup } from './components/Signup'
@@ -20,9 +20,9 @@ function App() {
         <Route path="/sign-up" element={<Signup />} />
         <Route path="/register" element={<ProtectedRoute><Register /></ProtectedRoute>} />
         <Route path="/edit-user" element={<ProtectedRoute><Edituser /></ProtectedRoute>} />
-        <Route path="/home" element={<ProtectedRoute><Home /></ProtectedRoute>} />
         <Route path="/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
         <Route path="/usuarios" element={<ProtectedRoute><Usuarios /></ProtectedRoute>} />
+        <Route path="/tasks" element={<ProtectedRoute><Tasks /></ProtectedRoute>} />
       </Routes>
     </>
   )

@@ -93,20 +93,20 @@ export const AuthProvider = ({ children }) => {
         }
     }
 
-    const logout = () => {
+    const logout = async () => {
         setLoading(true);
         setUser(null);
-        const logginOutRoute = apiClient.get('/logout', {
+        const logginOutRoute = await apiClient.get('/logout', {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('authToken')}`,
             }
         });
-        localStorage.removeItem('email');
-        localStorage.removeItem('authToken');
-        localStorage.removeItem('userName');
         if (logginOutRoute.status !== 200) {
             console.log('Erro ao fazer logout:', logginOutRoute.message);
         } else {
+            localStorage.removeItem('email');
+            localStorage.removeItem('authToken');
+            localStorage.removeItem('userName');
             setLoading(false);
             navigate('/login');
         }
