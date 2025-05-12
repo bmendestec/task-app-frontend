@@ -2,8 +2,7 @@ import './styles/Navbar.css'
 import { Navbar, Nav, NavItem, NavLink, Container } from 'react-bootstrap';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { LogoutButton } from './buttons/Logout';
-import { UserIcon } from './modal/UserIcon';
+import { UserIcon } from './commons/modal/UserIcon';
 
 export function NavbarComponent() {
     const navigate = useNavigate();
@@ -79,7 +78,6 @@ export function NavbarComponent() {
                         </NavItem>
                     </Nav>
                     <UserIcon onClick={ logout }/>
-                    {/* <LogoutButton onLogout={logout} /> */}
                 </div>
             </Navbar >
         </div>

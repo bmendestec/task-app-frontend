@@ -1,11 +1,11 @@
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import apiClient from "../service/server";
+import apiClient from "../../../service/server";
 
-export function useRegister() {
+export function useCreateUser() {
     const [formData, setFormData] = useState({
         fullName: '',
-        birthDate: '',
+        birth_date: '',
         age: '',
         gender: '',
         email: '',
@@ -20,15 +20,15 @@ export function useRegister() {
     const handleInputChange = (e) => {        
         setFormData({ ...formData, [e.target.name]: e.target.value });
 
-        if (e.target.name === 'birthDate') {
-            const birthDate = new Date(e.target.value);
+        if (e.target.name === 'birth_date') {
+            const birth_date = new Date(e.target.value);
             const today = new Date();
-            const age = today.getFullYear() - birthDate.getFullYear();
-            const monthDiff = today.getMonth() - birthDate.getMonth();
-            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
-                setFormData({ ...formData, birthDate: e.target.value, age: age - 1 });
+            const age = today.getFullYear() - birth_date.getFullYear();
+            const monthDiff = today.getMonth() - birth_date.getMonth();
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth_date.getDate())) {
+                setFormData({ ...formData, birth_date: e.target.value, age: age - 1 });
             } else {
-                setFormData({ ...formData, birthDate: e.target.value, age });
+                setFormData({ ...formData, birth_date: e.target.value, age });
             }
         }
     };
@@ -44,7 +44,7 @@ export function useRegister() {
         } else {
             await addUser(
                 formData.fullName,
-                formData.birthDate,
+                formData.birth_date,
                 formData.age,
                 formData.gender,
                 formData.email,
@@ -54,16 +54,16 @@ export function useRegister() {
     };
 
     async function addUser(
-        nome_cadastro, data_nascimento, idade, sexo, email, senha
+        fullName, birth_date, age, gender, email, password
     ) {
         try {
             const userData = {
-                nome: nome_cadastro,
-                data_nascimento: data_nascimento,
-                idade: idade,
-                sexo: sexo,
+                name: fullName,
+                birth_date: birth_date,
+                age: age,
+                gender: gender,
                 email: email,
-                senha: senha,
+                password: password,
                 active: 'S',
                 created_at: new Date().toISOString(),
                 updated_at: new Date().toISOString(),
@@ -98,8 +98,8 @@ export function useRegister() {
         const year = date.getFullYear();
         const month = String(date.getMonth() + 1).padStart(2, '0');
         const day = String(date.getDate()).padStart(2, '0');
-        return `${year}-${month}-${day}`;
+        return `${day}-${month}-${year}`;
     };
 
-    return { formData, setFormData, handleInputChange, handleSubmit, handleGoToLogin, emailInputRef, formatDate };
+    return { formData, emailInputRef, setFormData, handleInputChange, handleSubmit, handleGoToLogin, formatDate };
 }

@@ -5,7 +5,7 @@ import apiClient from "../service/server";
 export function useSignup() {
     const [formData, setFormData] = useState({
         fullName: '',
-        birthDate: '',
+        birth_date: '',
         age: '',
         gender: '',
         email: '',
@@ -21,15 +21,15 @@ export function useSignup() {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
 
-        if (name === 'birthDate') {
-            const birthDate = new Date(value);
+        if (name === 'birth_date') {
+            const birth_date = new Date(value);
             const today = new Date();
-            const age = today.getFullYear() - birthDate.getFullYear();
-            const monthDiff = today.getMonth() - birthDate.getMonth();
-            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
-                setFormData({ ...formData, birthDate: value, age: age - 1 });
+            const age = today.getFullYear() - birth_date.getFullYear();
+            const monthDiff = today.getMonth() - birth_date.getMonth();
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth_date.getDate())) {
+                setFormData({ ...formData, birth_date: value, age: age - 1 });
             } else {
-                setFormData({ ...formData, birthDate: value, age });
+                setFormData({ ...formData, birth_date: value, age });
             }
         }
     };
@@ -49,47 +49,31 @@ export function useSignup() {
         } else {
             await addUser(
                 formData.fullName,
-                formData.birthDate,
+                formData.birth_date,
                 formData.age,
                 formData.gender,
                 formData.email,
-                formData.password,
-                true,
-                new Date(),
-                new Date(),
-                'Bruno',
-                'Bruno'
+                formData.password
             ).then(() => {
-                alert('Usuário cadastrado com sucesso!');            
+                alert('Usuário cadastrado com sucesso!');
             });
         }
     };
 
-    async function addUser(nome_cadastro, 
-        data_nascimento, 
-        idade, 
-        sexo, 
-        email, 
-        senha,
-        active,
-        created_at,
-        updated_at,
-        created_by,
-        updated_by
-    ) {
+    async function addUser(fullName, birth_date, age, gender, email, password) {
         try {
             const userData = {
-                nome: nome_cadastro,
-                data_nascimento: data_nascimento,
-                idade: idade,
-                sexo: sexo,
+                name: fullName,
+                birth_date: birth_date,
+                age: age,
+                gender: gender,
                 email: email,
-                senha: senha,
-                active: active,
-                created_at: created_at,
-                updated_at: updated_at,
-                created_by: created_by,
-                updated_by: updated_by
+                password: password,
+                active: 'S',
+                created_at: new Date().toISOString(),
+                updated_at: new Date().toISOString(),
+                created_by: 'user',
+                updated_by: 'user'
             };
             await apiClient.post("/usuarios", userData).then((response) => {
                 if (response.status !== 201) {

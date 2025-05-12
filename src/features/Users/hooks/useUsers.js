@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import apiClient from "../service/server";
+import apiClient from "../../../service/server";
 
 export function useUsers() {
     const [user, setUser] = useState([]);

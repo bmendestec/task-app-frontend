@@ -1,8 +1,7 @@
-import '../components/styles/Initial.css';
 import { Button, Spinner } from 'react-bootstrap';
 import { useAuth } from '../context/AuthContext';
 import { NavbarComponent } from './Navbar';
-import { HelpCircle, ListTodo, Newspaper, Settings, User } from 'lucide-react';
+import { ListTodo, Settings, User } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 export function Initial() {

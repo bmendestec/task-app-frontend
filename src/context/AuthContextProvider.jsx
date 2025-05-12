@@ -32,11 +32,11 @@ export const AuthProvider = ({ children }) => {
         setUser(null);
         await apiClient.post('/login', {
             email: email,
-            senha: password,
+            password: password,
         }).then(async (response) => {
             if (response.status === 200) {
                 const token = response.data.token;
-                const userName = response.data.user.nome;
+                const userName = response.data.user.name;
                 const { isValid, email: validatedEmail } = await isTokenValid(token);
                 if (isValid) {
                     localStorage.setItem('authToken', token);

@@ -1,13 +1,13 @@
 import React from 'react';
-import { useRegister } from '../hooks/useRegister';
-import { NavbarComponent } from './Navbar';
+import { useCreateUser } from '../hooks/useCreateUser';
+import { NavbarComponent } from '../../../components/Navbar';
 import { Button, Form, InputGroup } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { ChevronLeft, CircleX, Save } from 'lucide-react';
-import './styles/Register.css';
+import './../components/styles/Register.css';
 
-export function Register() {
-    const { formData, handleInputChange, handleSubmit, formatDate, emailInputRef } = useRegister();
+export function CreateUser() {
+    const { formData, handleInputChange, handleSubmit, emailInputRef } = useCreateUser();
     const navigate = useNavigate();
 
     return (
@@ -97,35 +97,29 @@ export function Register() {
                                 />
                             </Form.Group>
                         </div>
-                        <div style={{ width: "100%" }}>
-                            <Form.Group>
-                                <div className="row" style={{ display: "flex", justifyContent: "space-between" }}>
-                                    <div className="col-md-6">
-                                        <Form.Label>Birth Date</Form.Label>
-                                        <Form.Control
-                                            type="date"
-                                            name="birthDate"
-                                            value={formatDate(formData.birthDate || '')}
-                                            onChange={handleInputChange}
-                                            style={{ width: "300px" }}
-                                        />
-                                    </div>
-                                    <div className="col-md-6">
-                                        <Form.Label
-                                            style={{ marginLeft: "110px" }}
-                                        >Idade</Form.Label>
-                                        <Form.Control
-                                            type="number"
-                                            name="idade"
-                                            value={formData.age || ''}
-                                            onChange={handleInputChange}
-                                            style={{ width: "80px", marginLeft: "110px" }}
-                                            readOnly
-                                        />
-                                    </div>
+                        <Form.Group  controlId='formBasicDtNascimento'>
+                            <div className="row" style={{ display: "flex", justifyContent: "space-between" }}>
+                                <div className="col-md-6">
+                                    <Form.Label>Birth Date</Form.Label>
+                                    <Form.Control
+                                        type="date"
+                                        name="birth_date"
+                                        value={formData.birth_date || ''}
+                                        onChange={handleInputChange}
+                                    />
                                 </div>
-                            </Form.Group>
-                        </div>
+                                <div className="col-md-6">
+                                    <Form.Label>Idade</Form.Label>
+                                    <Form.Control
+                                        type="number"
+                                        name="age"
+                                        value={formData.age || ''}
+                                        onChange={handleInputChange}
+                                        readOnly
+                                    />
+                                </div>
+                            </div>
+                        </Form.Group>                        
                         <div style={{ width: "100%" }}>
                             <Form.Group controlId="formBasicSexo2">
                                 <Form.Label>Gender</Form.Label>
@@ -165,8 +159,8 @@ export function Register() {
                             </Button>
                         </div>
                     </Form>
-                </div>
-            </div>
+                </div >
+            </div >
         </>
     )
 }

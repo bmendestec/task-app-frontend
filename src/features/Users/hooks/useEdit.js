@@ -1,15 +1,19 @@
 import { useEffect, useState } from "react";
-import apiClient from "../service/server";
+import apiClient from "../../../service/server";
 import { useNavigate } from "react-router-dom";
 
-export function useEdit({ userId } = {}) {    
+export function useEdit({ userId } = {}) {
     const [user, setUser] = useState({
         id: null,
-        nome: '',
-        idade: '',
+        name: '',
+        age: '',
         email: '',
-        data_nascimento: '',
-        sexo: ''
+        birth_date: '',
+        gender: '',
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
+        created_by: 'user',
+        updated_by: 'user'
     });
     const navigate = useNavigate();
 
@@ -32,6 +36,18 @@ export function useEdit({ userId } = {}) {
             ...user,
             [e.target.name]: e.target.value
         });
+
+        if (e.target.name === 'birth_date') {
+            const birth_date = new Date(e.target.value);
+            const today = new Date();
+            const age = today.getFullYear() - birth_date.getFullYear();
+            const monthDiff = today.getMonth() - birth_date.getMonth();
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth_date.getDate())) {
+                setUser({ ...user, birth_date: e.target.value, age: age - 1 });
+            } else {
+                setUser({ ...user, birth_date: e.target.value, age: age });
+            }
+        }
     }
 
     const handleSubmit = (e) => {
@@ -41,7 +57,7 @@ export function useEdit({ userId } = {}) {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('authToken')}`,
             }
-        }).then((response) => {            
+        }).then((response) => {
             console.log('Usuário editado:', response.data);
             navigate('/usuarios');
         }).catch((error) => {

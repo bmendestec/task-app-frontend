@@ -1,13 +1,13 @@
-import '../components/styles/Users.css';
+import '../../Users/components/styles/Users.css';
 import { useUsers } from '../hooks/useUsers';
 import { Spinner, Button, Table } from 'react-bootstrap';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../../../context/AuthContext';
 import { useEffect, useState } from 'react';
-import { NavbarComponent } from './Navbar';
+import { NavbarComponent } from '../../../components/Navbar';
 import { useNavigate } from 'react-router-dom';
 import { Trash2, UserPen, UserPlus } from 'lucide-react';
 
-export function Usuarios() {
+export function ListUsers() {
     const [reloadPanel, setReloadPanel] = useState(null);
     const { fetchUserData, handleDeleteUser, handleDirectToEdit } = useUsers();
     const { loading } = useAuth();
@@ -93,10 +93,10 @@ export function Usuarios() {
                                     <tbody>
                                         {users.map((user) => (
                                             <tr key={user.id}>
-                                                <td style={{ width: '20%', textAlign: 'center', }}>{user.nome}</td>
-                                                <td style={{ width: '10%', textAlign: 'center', }}>{user.idade}</td>
-                                                <td style={{ width: '10%', textAlign: 'center', }}>{new Date(user.data_nascimento).toLocaleDateString('pt-BR')}</td>
-                                                <td style={{ width: '10%', textAlign: 'center', }}>{user.sexo}</td>
+                                                <td style={{ width: '20%', textAlign: 'center', }}>{user.name}</td>
+                                                <td style={{ width: '10%', textAlign: 'center', }}>{user.age}</td>
+                                                <td style={{ width: '10%', textAlign: 'center', }}>{new Date(user.birth_date).toLocaleDateString('pt-BR')}</td>
+                                                <td style={{ width: '10%', textAlign: 'center', }}>{user.gender}</td>
                                                 <td style={{ width: '10%', textAlign: 'center',  }}>{user.email}</td>
                                                 <td style={{ width: '10%', textAlign: 'center', }}>
                                                     <Button

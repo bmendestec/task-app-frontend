@@ -1,6 +1,6 @@
 import { UserCircle } from "lucide-react";
 import { Dropdown } from "react-bootstrap";
-import { useAuth } from "../../context/AuthContext";
+import { useAuth } from "../../../context/AuthContext";
 
 export function UserIcon() {
     const { logout, user } = useAuth();
