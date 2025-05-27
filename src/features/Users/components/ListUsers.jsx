@@ -42,7 +42,7 @@ export function ListUsers() {
                             <span className="visually-hidden">Loading...</span>
                         </Spinner>
                     ) :
-                        <div>
+                        <div style={{ maxHeight: "700px", overflowY: "auto" }}>
                             <div>
                                 <Table className="table table-striped">
                                     <thead>
@@ -97,7 +97,7 @@ export function ListUsers() {
                                                 <td style={{ width: '10%', textAlign: 'center', }}>{user.age}</td>
                                                 <td style={{ width: '10%', textAlign: 'center', }}>{new Date(user.birth_date).toLocaleDateString('pt-BR')}</td>
                                                 <td style={{ width: '10%', textAlign: 'center', }}>{user.gender}</td>
-                                                <td style={{ width: '10%', textAlign: 'center',  }}>{user.email}</td>
+                                                <td style={{ width: '10%', textAlign: 'center', }}>{user.email}</td>
                                                 <td style={{ width: '10%', textAlign: 'center', }}>
                                                     <Button
                                                         variant="warning"

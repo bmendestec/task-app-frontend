@@ -85,12 +85,17 @@ export function useTasks() {
         return `${day}/${month}/${year}`;
     };
 
+    const handleSaveButton = (setReloadPanel) => {
+        setReloadPanel(true);
+    }
+
     return {
         taskForm,
         setTaskForm,
         handleSubmit,
         handleChange,
         fetchTasksData,
-        formatDate
+        formatDate,
+        handleSaveButton
     }
 }
