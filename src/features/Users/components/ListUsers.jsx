@@ -47,46 +47,11 @@ export function ListUsers() {
                                 <Table className="table table-striped">
                                     <thead>
                                         <tr>
-                                            <th
-                                                style={{
-                                                    width: '20%',
-                                                    textAlign: 'center',
-                                                }}
-                                            >
-                                                Name
-                                            </th>
-                                            <th
-                                                style={{
-                                                    width: '10%',
-                                                    textAlign: 'center',
-                                                }}
-                                            >
-                                                Age
-                                            </th>
-                                            <th
-                                                style={{
-                                                    width: '10%',
-                                                    textAlign: 'center',
-                                                }}
-                                            >
-                                                Birth date
-                                            </th>
-                                            <th
-                                                style={{
-                                                    width: '10%',
-                                                    textAlign: 'center',
-                                                }}
-                                            >
-                                                Gender
-                                            </th>
-                                            <th
-                                                style={{
-                                                    width: '10%',
-                                                    textAlign: 'center',
-                                                }}
-                                            >
-                                                Email
-                                            </th>
+                                            <th style={{ width: '20%', textAlign: 'center' }}> Name </th>
+                                            <th style={{ width: '10%', textAlign: 'center' }}> Age </th>
+                                            <th style={{ width: '10%', textAlign: 'center' }}> Birth date </th>
+                                            <th style={{ width: '10%', textAlign: 'center' }}> Gender </th>
+                                            <th style={{ width: '10%', textAlign: 'center' }}> Email </th>
                                             <th></th>
                                         </tr>
                                     </thead>

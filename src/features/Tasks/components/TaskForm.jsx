@@ -1,24 +1,24 @@
 import { CircleX, Save } from "lucide-react"
-import { Button, Form } from "react-bootstrap"
+import { Button, Form, Spinner } from "react-bootstrap"
 import { useTasks } from "../hooks/useTasks";
-import { useEffect, useState } from "react";
 
-export function TaskForm() {
-    const { taskForm, handleChange, handleSubmit, handleSaveButton } = useTasks();
-    const [reloadPanel, setReloadPanel] = useState(null);
-    useEffect(() => {
-        if (!reloadPanel) return;
-        setReloadPanel(false);
-    }, []);
+export function TaskForm({ onFormSubmit }) {
+    const { taskForm, loading, handleChange, handleSubmit } = useTasks();
+
+    const handleSave = async (e) => {
+        e.preventDefault();
+        await handleSubmit();
+        onFormSubmit();
+    }
 
     return (
-        <div style={{ width: "40%" }}>
+        <div style={{ width: "30%" }}>
             <div style={{ display: "flex", justifyContent: "center" }}>
                 <h1>Create a Tasks</h1>
             </div>
             <div>
 
-                <Form onSubmit={handleSubmit}
+                <Form onSubmit={handleSave}
                     style={{
                         maxWidth: "800px"
                     }}>
@@ -30,14 +30,16 @@ export function TaskForm() {
                             name='title'
                             style={{
                                 width: "100%"
-                            }} />
+                            }}
+                            required />
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>Description</Form.Label>
                         <Form.Control type='text'
                             value={taskForm.description || ''}
                             onChange={handleChange}
-                            name='description' />
+                            name='description'
+                            required />
                     </Form.Group>
                     <div className='row'>
                         <div className='col-6'>
@@ -47,6 +49,7 @@ export function TaskForm() {
                                     name="status"
                                     value={taskForm.status || ''}
                                     onChange={handleChange}
+                                    required
                                 >
                                     <option value=" ">     ---</option>
                                     <option value="Pending">Pending</option>
@@ -78,7 +81,8 @@ export function TaskForm() {
                                 <Form.Control type='date'
                                     value={taskForm.due_date || ''}
                                     onChange={handleChange}
-                                    name='due_date' />
+                                    name='due_date'
+                                    required />
                             </Form.Group>
                         </div>
                         <div className='col-6'>
@@ -87,7 +91,8 @@ export function TaskForm() {
                                 <Form.Control type='date'
                                     value={taskForm.completed_at || ''}
                                     onChange={handleChange}
-                                    name='completed_at' />
+                                    name='completed_at'
+                                    required />
                             </Form.Group>
                         </div>
                     </div>
@@ -110,9 +115,11 @@ export function TaskForm() {
                             type="submit"
                             variant="primary"
                             style={{ width: "100px", marginLeft: "10px" }}
-                            onClick={() => { handleSaveButton(setReloadPanel) }}
                         >
-                            <Save size={20} /> Save
+                            <Save size={20} /> {loading ?
+                                <Spinner animation="border" role="status" style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                                    <span className="visually-hidden">Loading...</span>
+                                </Spinner> : "Save"}
                         </Button>
                     </div>
                 </Form>

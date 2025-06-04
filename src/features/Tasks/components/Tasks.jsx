@@ -2,14 +2,14 @@ import { NavbarComponent } from '../../../components/Navbar';
 import { BackButton } from '../../../components/commons/buttons/Back';
 import { TaskGrid } from './TaskGrid';
 import { TaskForm } from './TaskForm';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 export function Tasks() {
     const [reloadPanel, setReloadPanel] = useState(null);
-    useEffect(() => {
-        if (!reloadPanel) return;
-        setReloadPanel(false);
-    }, [reloadPanel]);
+
+    const handleReloadTasks = () => {
+        setReloadPanel(true);
+    }
 
     return (
         <div>
@@ -17,8 +17,8 @@ export function Tasks() {
             <div className="flex-grow-1 p-4 d-flex flex-column">
                 <BackButton />
                 <div style={{ display: "flex", justifyContent: "space-around" }}>
-                    <TaskForm />
-                    <TaskGrid />
+                    <TaskForm onFormSubmit={handleReloadTasks} />
+                    <TaskGrid reloadPanel={reloadPanel} setReloadPanel={setReloadPanel} />
                 </div>
             </div>
         </div>

@@ -61,10 +61,10 @@ export const AuthProvider = ({ children }) => {
 
     const checkToken = () => {
         const token = localStorage.getItem('authToken');
-        const userId = localStorage.getItem('userId');
+        const userId = localStorage.getItem('idUser');
         if (token && userId) {
             localStorage.removeItem('authToken');
-            localStorage.removeItem('userId');
+            localStorage.removeItem('idUser');
         }
     }
 

@@ -2,6 +2,9 @@ import { useState } from "react";
 import apiClient from "../../../service/server";
 
 export function useTasks() {
+    
+    const [loading, setLoading] = useState(null);
+
     const [taskForm, setTaskForm] = useState({
         title: '',
         project_id: '',
@@ -33,11 +36,13 @@ export function useTasks() {
                 created_at: new Date().toISOString(),
                 updated_at: new Date().toISOString(),
             };
+            setLoading(true);
             const response = await apiClient.post('/tasks', taskData);
             if (response.status !== 201) {
                 alert('Error to create the task.')
                 return;
             } else {
+                setLoading(false);
                 return response.data;
             }            
         } catch (error) {
@@ -45,8 +50,7 @@ export function useTasks() {
         }
     }
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+    const handleSubmit = async () => {
         if (!taskForm.title) {
             alert('Please fill in the title.');
             return;
@@ -64,11 +68,13 @@ export function useTasks() {
 
     const fetchTasksData = async () => {
         try {
+            setLoading(true);
             const response = await apiClient.get('/tasks');
             if (response.status !== 200) {
                 console.log('Error to fetch task:', response.message);
                 return;
             } else {
+                setLoading(false);
                 setTaskForm(response.data);
                 return response.data;
             }
@@ -85,17 +91,28 @@ export function useTasks() {
         return `${day}/${month}/${year}`;
     };
 
-    const handleSaveButton = (setReloadPanel) => {
-        setReloadPanel(true);
+    const handleDeleteTask = (id, setReloadPanel) => {
+        if (id) {
+            apiClient.delete(`/tasks/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('authToken')}`,
+                }
+            }).then(() => {
+                setReloadPanel(true);
+            }).catch((error) => {
+                console.log('Error to delete the task:', error.message);
+            })
+        }
     }
 
     return {
         taskForm,
+        loading,
         setTaskForm,
         handleSubmit,
         handleChange,
         fetchTasksData,
         formatDate,
-        handleSaveButton
+        handleDeleteTask
     }
 }
