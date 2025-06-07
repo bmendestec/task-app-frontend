@@ -12,17 +12,16 @@ export const AuthProvider = ({ children }) => {
 
     useEffect(() => {
         setLoading(true);
-        const userStored = localStorage.getItem('email');
+        const userStored = localStorage.getItem('idUser');
         const tokenStored = localStorage.getItem('authToken');
-        const userName = localStorage.getItem('userName');
 
-        if (!tokenStored && !userStored && !userName) {
+        if (!tokenStored && !userStored) {
             setUser(null);
             setLoading(false);
             return;
         }
-        setUser(userName);
-        setLoading(false);        
+        setUser(userStored);
+        setLoading(false);
     }, []);
 
 
@@ -30,37 +29,49 @@ export const AuthProvider = ({ children }) => {
         checkToken();
         setLoading(true);
         setUser(null);
-        const loginRoute = await apiClient.post('/login', {
+        await apiClient.post('/login', {
             email: email,
-            senha: password,
-        });
-        const token = loginRoute.data.token;
-        const userName = loginRoute.data.user.nome;
-
-        const { isValid, email: validatedEmail } = await isTokenValid(token);
-        if (isValid) {
-            localStorage.setItem('authToken', token);
-            localStorage.setItem('email', validatedEmail);
-            localStorage.setItem('userName', userName);
+            password: password,
+        }).then(async (response) => {
+            if (response.status === 200) {
+                const token = response.data.token;
+                const idUser = response.data.id;
+                if (response.data.message !== 'Invalid credentials') {
+                    const { isValid } = await isTokenValid(token);
+                    if (isValid) {
+                        localStorage.setItem('authToken', token);
+                        localStorage.setItem('idUser', idUser);
+                        setLoading(false);
+                        setUser(idUser);
+                        navigate('/');
+                    } else {
+                        console.log('Erro ao validar o token. Tente novamente.');
+                    }
+                } else {
+                    alert(response.data.message);
+                }
+            }
+        }).catch((error) => {
+            if (error.response.data.message === "Invalid credentials") {
+                alert('E-mail ou senha inválidos. Tente novamente.');
+            } else {
+                alert('Erro ao fazer login. Verifique seu e-mail e senha. ');
+            }
+        }).finally(() => {
             setLoading(false);
-            setUser(userName);
-            navigate('/');
-        } else {
-            console.log('Erro ao validar o token. Tente novamente.');
-        }
+        });
+
     };
 
     const checkToken = () => {
         const token = localStorage.getItem('authToken');
-        const email = localStorage.getItem('email');
-        const userName = localStorage.getItem('userName');
-        if (token && email && userName) {
+        const userId = localStorage.getItem('idUser');
+        if (token && userId) {
             localStorage.removeItem('authToken');
-            localStorage.removeItem('email');
-            localStorage.removeItem('userName');
+            localStorage.removeItem('idUser');
         }
     }
-    
+
     const isTokenValid = async (token) => {
         if (!token) {
             return false;
@@ -73,8 +84,7 @@ export const AuthProvider = ({ children }) => {
                 },
             });
             return {
-                isValid: response.data.message,
-                email: response.data.decoded?.email || null,
+                isValid: response.data.message
             };
         } catch (error) {
             console.error('Erro ao validar o token:', error);
@@ -82,20 +92,19 @@ export const AuthProvider = ({ children }) => {
         }
     }
 
-    const logout = () => {
+    const logout = async () => {
         setLoading(true);
         setUser(null);
-        const logginOutRoute = apiClient.get('/logout', {
+        const logginOutRoute = await apiClient.get('/logout', {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('authToken')}`,
             }
         });
-        localStorage.removeItem('email');
-        localStorage.removeItem('authToken');
-        localStorage.removeItem('userName');
         if (logginOutRoute.status !== 200) {
             console.log('Erro ao fazer logout:', logginOutRoute.message);
         } else {
+            localStorage.removeItem('authToken');
+            localStorage.removeItem('userId');
             setLoading(false);
             navigate('/login');
         }

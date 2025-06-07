@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import apiClient from "../service/server";
+import apiClient from "../../../service/server";
 
 export function useUsers() {
     const [user, setUser] = useState([]);
@@ -23,7 +23,8 @@ export function useUsers() {
                 if (findUserName.status !== 200) {
                     console.log('Erro ao buscar usuário:', findUserName.message);
                     return;
-                } else {                    
+                } else {  
+                    setLoading(false);                  
                     setUser(findUserName.data);
                     return findUserName.data;
                 }

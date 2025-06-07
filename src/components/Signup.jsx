@@ -3,7 +3,7 @@ import { useSignup } from '../hooks/useSignup';
 import { Button, Form } from 'react-bootstrap';
 
 export function Signup() {
-    const { formData, handleInputChange, handleSubmit, emailInputRef } = useSignup();    
+    const { formData, handleInputChange, handleSubmit, emailInputRef } = useSignup();
 
     return (
         <>
@@ -54,7 +54,12 @@ export function Signup() {
                                 <div className='row' style={{ display: "flex", justifyContent: "space-between" }}>
                                     <div className='col-md-6'>
                                         <Form.Label>Birth Date</Form.Label>
-                                        <Form.Control type="date" placeholder="Type your birth date" name="birthDate" value={formData.birthDate} onChange={handleInputChange} required />
+                                        <Form.Control type="date"
+                                            name="birth_date"
+                                            value={formData.birth_date}
+                                            onChange={handleInputChange}
+                                            required
+                                        />
                                     </div>
                                     <div className='col-md-3'>
                                         <Form.Label>Idade</Form.Label>

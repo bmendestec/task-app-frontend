@@ -44,4 +44,18 @@
         color: whitesmoke
     }
 
+    #container-nav-n {
+        display: flex;
+        flex-direction: column;
+        position: fixed; /* Fixa a barra na lateral */
+        top: 0;
+        left: 0;
+        height: 100vh; /* Ocupa toda a altura da viewport */
+        width: 250px; /* Largura fixa para telas maiores */
+        background-color: #f8f9fa; /* Cor de fundo */
+        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Sombra para destacar */
+        padding: 20px; /* Espaçamento interno */
+        z-index: 1000; /* Garante que fique acima de outros elementos */
+    }
+
 }
