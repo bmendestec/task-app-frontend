@@ -1,6 +1,6 @@
 import React from 'react';
 import { useCreateUser } from '../hooks/useCreateUser';
-import { NavbarComponent } from '../../../components/Navbar';
+import { NavbarComponent } from '../../../components/commons/Navbar';
 import { Button, Form, InputGroup } from 'react-bootstrap';
 // import { useNavigate } from 'react-router-dom';
 import { ChevronLeft, CircleX, Save } from 'lucide-react';

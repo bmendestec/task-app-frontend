@@ -1,5 +1,4 @@
 import { Anchor } from "antd";
-import { NavbarComponent } from "./Navbar";
 import { BackButton } from "./commons/buttons/Back";
 
 export function TestNavBar() {

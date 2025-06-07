@@ -2,10 +2,13 @@ import { useEffect, useState } from "react";
 import { useTasks } from "../hooks/useTasks";
 import { Button, Spinner, Table } from "react-bootstrap";
 import { PenIcon, Trash2 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { TaskCalendar } from "./TaskCalendar";
 
 export function TaskGrid({ reloadPanel, setReloadPanel }) {
     const { fetchTasksData, formatDate, handleDeleteTask, loading } = useTasks();
     const [tasks, setTasks] = useState([]);
+    const navigate = useNavigate();
 
     const fetchTasks = async () => {
         const data = await fetchTasksData();
@@ -17,14 +20,15 @@ export function TaskGrid({ reloadPanel, setReloadPanel }) {
         setReloadPanel(false);
     }, [reloadPanel]);
 
+    const handleEdit = (taskId) => {
+        console.log(taskId);
+        navigate('task-calendar');
+    } 
 
     return (
 
         <div style={{ width: "60%", maxHeight: "700px", overflowY: "auto" }}>
             <div>
-                <div style={{ display: "flex", justifyContent: "center" }}>
-                    <h1 className='fw-bold'>Tasks</h1>
-                </div>
                 <div style={{
                     display: "flex",
                     justifyContent: "center",
@@ -36,7 +40,7 @@ export function TaskGrid({ reloadPanel, setReloadPanel }) {
                         <Spinner animation="border" role="status" >
                             <span className="visually-hidden">Loading...</span>
                         </Spinner> :
-                        <Table className="table table-striped">
+                        <Table hover className="table">
                             <thead>
                                 <tr>
                                     <th style={{ width: '20%', textAlign: 'center' }}>Title</th>
@@ -45,12 +49,13 @@ export function TaskGrid({ reloadPanel, setReloadPanel }) {
                                     <th style={{ width: '10%', textAlign: 'center' }}>Priority</th>
                                     <th style={{ width: '10%', textAlign: 'center' }}>Due date</th>
                                     <th style={{ width: '15%', textAlign: 'center' }}>Completed at</th>
+                                    <th style={{ width: '15%', textAlign: 'center' }}></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {tasks.map((task) => (
-                                    <tr key={task.id}>
-                                        <td style={{ textAlign: 'center' }}>{task.title}</td>
+                                    <tr key={task.id} onDoubleClick={() => handleEdit(task.id)}>
+                                        <td style={{ textAlign: 'center' }} >{task.title}</td>
                                         <td style={{ textAlign: 'center' }}>{task.description}</td>
                                         <td style={{ textAlign: 'center' }}>{task.status || '---'}</td>
                                         <td style={{ textAlign: 'center' }}>{task.priority || '---'}</td>

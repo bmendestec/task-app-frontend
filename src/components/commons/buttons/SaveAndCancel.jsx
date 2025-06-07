@@ -30,6 +30,22 @@ export function SaveAndCancel({ onLoading }) {
             justifyContent: "center"
         }}>
             <button style={{
+                ...buttonStyles,
+                border: "2px solid rgb(219, 68, 55)",
+                backgroundColor: hoverCancel ? "rgb(206, 98, 88)" : "rgb(219, 68, 55)",
+            }}
+                onMouseEnter={() => setHoverCancel(true)}
+                onMouseLeave={() => setHoverCancel(false)}
+            >
+                <div style={{ display: "flex", justifyContent: "center" }}>
+                    {onLoadingCancel ?
+                        <Spinner animation="border" role="status" style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                            <span className="visually-hidden">Loading...</span>
+                        </Spinner> : <CircleX size={25} />}
+                    Cancel
+                </div>
+            </button>
+            <button style={{
                 border: "2px solid rgb(66, 133, 244)",
                 backgroundColor: hoverSave ? "rgb(104, 155, 238)" : "rgb(66, 133, 244)",
                 ...buttonStyles
@@ -46,22 +62,6 @@ export function SaveAndCancel({ onLoading }) {
                             <span className="visually-hidden">Loading...</span>
                         </Spinner> : <Save size={20} />}
                     Save
-                </div>
-            </button>
-            <button style={{
-                ...buttonStyles,
-                border: "2px solid rgb(219, 68, 55)",
-                backgroundColor: hoverCancel ? "rgb(206, 98, 88)" : "rgb(219, 68, 55)",
-            }}
-                onMouseEnter={() => setHoverCancel(true)}
-                onMouseLeave={() => setHoverCancel(false)}
-            >
-                <div style={{ display: "flex", justifyContent: "center" }}>
-                    {onLoadingCancel ?
-                        <Spinner animation="border" role="status" style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                            <span className="visually-hidden">Loading...</span>
-                        </Spinner> : <CircleX size={25} />}
-                    Cancel
                 </div>
             </button>
         </div>

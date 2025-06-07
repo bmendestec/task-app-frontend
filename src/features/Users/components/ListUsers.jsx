@@ -3,10 +3,12 @@ import { useUsers } from '../hooks/useUsers';
 import { Spinner, Button, Table } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 import { Trash2, UserPen, UserPlus } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
-export function ListUsers({ reloadPanel, setReloadPanel }) {
-    const { fetchUserData, handleDeleteUser, handleDirectToEdit, loading } = useUsers();
+export function ListUsers({ reloadPanel, setReloadPanel, editUserPanel, setEditUserPanel }) {
+    const { fetchUserData, handleDeleteUser, loading } = useUsers();
     const [users, setUsers] = useState([]);
+    const navigate = useNavigate();
 
     const fetchUsers = async () => {
         const data = await fetchUserData();
@@ -23,6 +25,18 @@ export function ListUsers({ reloadPanel, setReloadPanel }) {
         fetchUsers();
     }, [reloadPanel]);
 
+    useEffect(() => {
+        if (!editUserPanel) return;
+        setEditUserPanel(false);
+    },[editUserPanel])
+
+    const handleDirectToEdit = (id) => {
+        if (id) {
+            setEditUserPanel(true);
+            navigate('/edit-user', { state: { userId: id } });
+        }
+    }
+
     return (
         <>
             <div style={{ width: "60%", maxHeight: "700px", overflowY: "auto" }}>
@@ -33,7 +47,7 @@ export function ListUsers({ reloadPanel, setReloadPanel }) {
                 ) :
                     <div style={{ maxHeight: "700px", overflowY: "auto" }}>
                         <div>
-                            <Table className="table table-striped">
+                            <Table hover>
                                 <thead>
                                     <tr>
                                         <th style={{ width: '20%', textAlign: 'center' }}> Name </th>
@@ -46,19 +60,14 @@ export function ListUsers({ reloadPanel, setReloadPanel }) {
                                 </thead>
                                 <tbody>
                                     {users.map((user) => (
-                                        <tr key={user.id}>
+                                        <tr key={user.id} onDoubleClick={() => handleDirectToEdit(user.id)}>
                                             <td style={{ width: '20%', textAlign: 'center', }}>{user.name}</td>
                                             <td style={{ width: '10%', textAlign: 'center', }}>{user.age}</td>
                                             <td style={{ width: '10%', textAlign: 'center', }}>{new Date(user.birth_date).toLocaleDateString('pt-BR')}</td>
                                             <td style={{ width: '10%', textAlign: 'center', }}>{user.gender}</td>
                                             <td style={{ width: '10%', textAlign: 'center', }}>{user.email}</td>
                                             <td style={{ width: '10%', textAlign: 'center', }}>
-                                                <Button
-                                                    variant="warning"
-                                                    className="btn btn-warning me-2"
-                                                    onClick={() => { handleDirectToEdit(user.id) }}>
-                                                    <UserPen />
-                                                </Button>
+                                                
                                                 <Button variant="danger"
                                                     className="btn btn-danger"
                                                     onClick={() => { handleDeleteUser(user.id, setReloadPanel) }}>

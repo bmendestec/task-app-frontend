@@ -14,7 +14,7 @@ export function BackButton() {
                     borderRadius: "10px",
                     padding: '10px',
                     margin: '10px',
-                    backgroundColor: hover ? "#f0f0f0" : "white",
+                    backgroundColor: hover ? "white" : "#f0f0f0",
                     maxWidth: "100px",
                     cursor: "pointer"
 

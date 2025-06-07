@@ -1,6 +1,6 @@
 import { Button, Spinner, Table } from "react-bootstrap";
 import { useAuth } from "../context/AuthContext";
-import { NavbarComponent } from "./Navbar";
+import { NavbarComponent } from "./commons/Navbar";
 import { useNavigate } from "react-router-dom";
 
 export function Settings() {

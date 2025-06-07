@@ -1,6 +1,6 @@
 import { Button, Spinner } from 'react-bootstrap';
 import { useAuth } from '../context/AuthContext';
-import { NavbarComponent } from './Navbar';
+import { NavbarComponent } from './commons/Navbar';
 import { ListTodo, Settings, User } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 

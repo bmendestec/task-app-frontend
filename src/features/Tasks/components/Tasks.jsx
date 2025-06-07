@@ -1,4 +1,4 @@
-import { NavbarComponent } from '../../../components/Navbar';
+import { NavbarComponent } from '../../../components/commons/Navbar';
 import { BackButton } from '../../../components/commons/buttons/Back';
 import { TaskGrid } from './TaskGrid';
 import { TaskForm } from './TaskForm';
