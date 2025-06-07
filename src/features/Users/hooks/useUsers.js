@@ -23,7 +23,8 @@ export function useUsers() {
                 if (findUserName.status !== 200) {
                     console.log('Erro ao buscar usuário:', findUserName.message);
                     return;
-                } else {                    
+                } else {  
+                    setLoading(false);                  
                     setUser(findUserName.data);
                     return findUserName.data;
                 }

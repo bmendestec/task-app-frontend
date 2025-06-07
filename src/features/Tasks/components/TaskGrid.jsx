@@ -40,6 +40,7 @@ export function TaskGrid({ reloadPanel, setReloadPanel }) {
                             <thead>
                                 <tr>
                                     <th style={{ width: '20%', textAlign: 'center' }}>Title</th>
+                                    <th style={{ width: '20%', textAlign: 'center' }}>Description</th>
                                     <th style={{ width: '10%', textAlign: 'center' }}>Status</th>
                                     <th style={{ width: '10%', textAlign: 'center' }}>Priority</th>
                                     <th style={{ width: '10%', textAlign: 'center' }}>Due date</th>
@@ -50,6 +51,7 @@ export function TaskGrid({ reloadPanel, setReloadPanel }) {
                                 {tasks.map((task) => (
                                     <tr key={task.id}>
                                         <td style={{ textAlign: 'center' }}>{task.title}</td>
+                                        <td style={{ textAlign: 'center' }}>{task.description}</td>
                                         <td style={{ textAlign: 'center' }}>{task.status || '---'}</td>
                                         <td style={{ textAlign: 'center' }}>{task.priority || '---'}</td>
                                         <td style={{ textAlign: 'center' }}>{formatDate(task.due_date)}</td>

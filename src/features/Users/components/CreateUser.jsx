@@ -2,28 +2,45 @@ import React from 'react';
 import { useCreateUser } from '../hooks/useCreateUser';
 import { NavbarComponent } from '../../../components/Navbar';
 import { Button, Form, InputGroup } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import { ChevronLeft, CircleX, Save } from 'lucide-react';
-import './../components/styles/Register.css';
+import { SaveAndCancel } from '../../../components/commons/buttons/SaveAndCancel';
+// import './../components/styles/Register.css';
 
-export function CreateUser() {
+export function CreateUser({ onFormSubmit }) {
     const { formData, handleInputChange, handleSubmit, emailInputRef } = useCreateUser();
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
+
+    const handleSave = async (e) => {
+        e.preventDefault();
+        await handleSubmit();
+        onFormSubmit();
+    }
+
+    const isValidConfirmPass = () => {
+        return (formData.password === formData.confirmPassword && formData.password !== '')
+    }
+
+    const isValidEmail = () => {
+        return (!/\S+@\S+\.\S+/.test(formData.email) && formData.email !== '')
+    }
 
     return (
         <>
-            <div>
-                <NavbarComponent />
-                <div className="flex-grow-1 p-4 d-flex flex-column align-items-center">
-                    <div style={{ display: "flex", justifyContent: "space-between", width: "100%" }}>
-                        <Button variant='outline-dark' onClick={() => navigate(-1)} className='mb-3'>
-                            <ChevronLeft className='me-3' />
-                            Voltar
-                        </Button>
-                    </div>
-                    <h1 className="fw-bold">Cadastro de usuários</h1>
-                    <Form className='d-flex flex-column align-items-center' method="post" onSubmit={handleSubmit}>
-                        <div className='row'>
+            <div style={{ width: "30%" }}>
+                <div style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    marginBottom: "20px",
+                    marginTop: "20px",
+                    border: "1px solid #D1D5DB",
+                    borderRadius: "20px"
+                }}>
+                    <h2>Create a new user</h2>
+                </div>
+                <div style={{ display: "flex", justifyContent: "left" }}>
+                    <Form method="post" onSubmit={handleSave} style={{ maxWidth: '570px' }}>
+                        <div className='row' style={{ display: "flex", justifyContent: "space-between" }}>
                             <Form.Group controlId="formBasicEmail">
                                 <Form.Label>E-mail</Form.Label>
                                 <InputGroup hasValidation>
@@ -34,7 +51,7 @@ export function CreateUser() {
                                         onChange={handleInputChange}
                                         ref={emailInputRef}
                                         required
-                                        isInvalid={!/\S+@\S+\.\S+/.test(formData.email)}
+                                        isInvalid={isValidEmail()}
                                         isValid={/\S+@\S+\.\S+/.test(formData.email) && formData.email.length > 0}
                                     />
                                     <Form.Control.Feedback type='invalid'>
@@ -45,9 +62,11 @@ export function CreateUser() {
                                     </Form.Control.Feedback>
                                 </InputGroup>
                             </Form.Group>
-                            <div className='col-md-6'>
-                                <InputGroup hasValidation>
-                                    <Form.Group controlId="formBasicPassword">
+                            <div className='col' style={{
+                                maxWidth: "250px"
+                            }}>
+                                <InputGroup hasValidation >
+                                    <Form.Group controlId="formBasicPassword" >
                                         <Form.Label>Password</Form.Label>
                                         <Form.Control
                                             type="password"
@@ -58,6 +77,7 @@ export function CreateUser() {
                                             required
                                             isInvalid={formData.password.length < 3 && formData.password.length > 0}
                                             isValid={formData.password.length >= 3 && formData.password.length < 20}
+
                                         />
                                     </Form.Group>
                                     <Form.Control.Feedback type='invalid'>
@@ -65,7 +85,9 @@ export function CreateUser() {
                                     </Form.Control.Feedback>
                                 </InputGroup>
                             </div>
-                            <div className='col-md-6'>
+                            <div className='col' style={{
+                                maxWidth: "250px"
+                            }}>
                                 <InputGroup hasValidation>
                                     <Form.Group controlId="formBasicPassword">
                                         <Form.Label>Confirm Password</Form.Label>
@@ -76,7 +98,7 @@ export function CreateUser() {
                                             value={formData.confirmPassword}
                                             onChange={handleInputChange}
                                             required
-                                            isValid={formData.password === formData.confirmPassword}
+                                            isValid={isValidConfirmPass()}
                                             isInvalid={formData.password !== formData.confirmPassword && formData.confirmPassword.length > 0}
                                         />
                                     </Form.Group>
@@ -97,7 +119,7 @@ export function CreateUser() {
                                 />
                             </Form.Group>
                         </div>
-                        <Form.Group  controlId='formBasicDtNascimento'>
+                        <Form.Group controlId='formBasicDtNascimento'>
                             <div className="row" style={{ display: "flex", justifyContent: "space-between" }}>
                                 <div className="col-md-6">
                                     <Form.Label>Birth Date</Form.Label>
@@ -119,7 +141,7 @@ export function CreateUser() {
                                     />
                                 </div>
                             </div>
-                        </Form.Group>                        
+                        </Form.Group>
                         <div style={{ width: "100%" }}>
                             <Form.Group controlId="formBasicSexo2">
                                 <Form.Label>Gender</Form.Label>
@@ -135,31 +157,9 @@ export function CreateUser() {
                                 </Form.Select>
                             </Form.Group>
                         </div>
-                        <div
-                            style={{
-                                display: "flex",
-                                justifyContent: "flex-end",
-                                width: "100%",
-                                marginTop: "15px",
-                            }}
-                        >
-                            <Button
-                                type="submit"
-                                variant="danger"
-                                style={{ width: "100px" }}
-                            >
-                                <CircleX size={20} /> Cancel
-                            </Button>
-                            <Button
-                                type="submit"
-                                variant="primary"
-                                style={{ width: "100px", marginLeft: "10px" }}
-                            >
-                                <Save size={20} /> Save
-                            </Button>
-                        </div>
+                        <SaveAndCancel />
                     </Form>
-                </div >
+                </div>
             </div >
         </>
     )

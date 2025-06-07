@@ -37,7 +37,7 @@ export function Initial() {
               <div className='col-md-4' style={{ height: '110px', width: '120px' }}>
                 <Button
                   variant='primary'
-                  onClick={() => { navigate('/settings') }}>
+                  onClick={() => { navigate('/test-navbar') }}>
                   <Settings size={60} />
                   Settings
                 </Button>

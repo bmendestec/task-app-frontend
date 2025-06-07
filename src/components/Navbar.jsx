@@ -1,5 +1,5 @@
 import './styles/Navbar.css'
-import { Navbar, NavItem, NavLink, Container, Button } from 'react-bootstrap';
+import { Navbar, NavItem, NavLink, Container, Button, NavbarBrand, NavbarCollapse } from 'react-bootstrap';
 import Nav from 'react-bootstrap/Nav';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
@@ -15,7 +15,12 @@ export function NavbarComponent() {
     return (
         <>
             <div id="container-navbar">
-                <Navbar bg="primary" expand="md" id='navbar'>
+                <Navbar bg="primary" expand="md" id='navbar' style={{
+                    border: '3px solid white',
+                    borderRadius: '10px',
+                    // height: '100vh', // Ocupa toda a altura da tela
+                    // width: '250px',
+                }}>
                     <div id="container">
                         <Navbar.Brand className="fw-bold"
                             id="brand">
@@ -66,8 +71,8 @@ export function NavbarComponent() {
                             </NavItem>
                             <NavItem>
                                 <NavLink
-                                    onClick={() => { navigate('/settings') }}
-                                    className={`btn btn-primary ${isActive('/settings') ? 'active' : ''}`}
+                                    onClick={() => { navigate('/test-navbar') }}
+                                    className={`btn btn-primary ${isActive('/test-navbar') ? 'active' : ''}`}
                                     style={{
                                         color: 'white',
                                         borderColor: 'blue',
@@ -83,16 +88,6 @@ export function NavbarComponent() {
                     </div>
                 </Navbar >
             </div>
-            {/* <div style={{
-                display: 'flex',
-                flexDirection: 'column',
-                width: '15%'
-            }}>
-                <Button variant="primary">Users</Button>
-                <Button variant="primary">Tasks</Button>
-                <Button variant="primary">Settings</Button>
-
-            </div> */}
         </>
     )
 }

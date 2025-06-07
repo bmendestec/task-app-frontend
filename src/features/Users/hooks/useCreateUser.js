@@ -33,8 +33,7 @@ export function useCreateUser() {
         }
     };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+    const handleSubmit = async () => {
 
         if (formData.password !== formData.confirmPassword) {
             alert('As senhas não coincidem.');

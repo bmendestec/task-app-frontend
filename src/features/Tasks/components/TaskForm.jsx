@@ -1,6 +1,6 @@
-import { CircleX, Save } from "lucide-react"
-import { Button, Form, Spinner } from "react-bootstrap"
+import { Form } from "react-bootstrap"
 import { useTasks } from "../hooks/useTasks";
+import { SaveAndCancel } from "../../../components/commons/buttons/SaveAndCancel";
 
 export function TaskForm({ onFormSubmit }) {
     const { taskForm, loading, handleChange, handleSubmit } = useTasks();
@@ -13,14 +13,21 @@ export function TaskForm({ onFormSubmit }) {
 
     return (
         <div style={{ width: "30%" }}>
-            <div style={{ display: "flex", justifyContent: "center" }}>
-                <h1>Create a Tasks</h1>
+            <div style={{
+                display: "flex",
+                justifyContent: "center",
+                marginBottom: "20px",
+                marginTop: "20px",
+                border: "1px solid #D1D5DB",
+                borderRadius: "20px"
+            }}>
+                <h2>Insert a new task</h2>
             </div>
             <div>
 
                 <Form onSubmit={handleSave}
                     style={{
-                        maxWidth: "800px"
+                        maxWidth: "570px"
                     }}>
                     <Form.Group>
                         <Form.Label>Title</Form.Label>
@@ -95,33 +102,8 @@ export function TaskForm({ onFormSubmit }) {
                                     required />
                             </Form.Group>
                         </div>
-                    </div>
-                    <div
-                        style={{
-                            display: "flex",
-                            justifyContent: "flex-end",
-                            width: "100%",
-                            marginTop: "15px",
-                        }}
-                    >
-                        <Button
-                            type="submit"
-                            variant="danger"
-                            style={{ width: "100px" }}
-                        >
-                            <CircleX size={20} /> Cancel
-                        </Button>
-                        <Button
-                            type="submit"
-                            variant="primary"
-                            style={{ width: "100px", marginLeft: "10px" }}
-                        >
-                            <Save size={20} /> {loading ?
-                                <Spinner animation="border" role="status" style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                                    <span className="visually-hidden">Loading...</span>
-                                </Spinner> : "Save"}
-                        </Button>
-                    </div>
+                    </div>                    
+                    <SaveAndCancel onLoading={loading}/>
                 </Form>
             </div>
         </div>

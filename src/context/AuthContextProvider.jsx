@@ -15,7 +15,7 @@ export const AuthProvider = ({ children }) => {
         const userStored = localStorage.getItem('idUser');
         const tokenStored = localStorage.getItem('authToken');
 
-        if (!tokenStored && !userStored ) {
+        if (!tokenStored && !userStored) {
             setUser(null);
             setLoading(false);
             return;
@@ -36,15 +36,19 @@ export const AuthProvider = ({ children }) => {
             if (response.status === 200) {
                 const token = response.data.token;
                 const idUser = response.data.id;
-                const { isValid } = await isTokenValid(token);
-                if (isValid) {
-                    localStorage.setItem('authToken', token);
-                    localStorage.setItem('idUser', idUser);
-                    setLoading(false);
-                    setUser(idUser);
-                    navigate('/');
+                if (response.data.message !== 'Invalid credentials') {
+                    const { isValid } = await isTokenValid(token);
+                    if (isValid) {
+                        localStorage.setItem('authToken', token);
+                        localStorage.setItem('idUser', idUser);
+                        setLoading(false);
+                        setUser(idUser);
+                        navigate('/');
+                    } else {
+                        console.log('Erro ao validar o token. Tente novamente.');
+                    }
                 } else {
-                    console.log('Erro ao validar o token. Tente novamente.');
+                    alert(response.data.message);
                 }
             }
         }).catch((error) => {
