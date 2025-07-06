@@ -6,6 +6,7 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
+    const [userName, setUserName] = useState(null);
     const [loading, setLoading] = useState(null);
 
     const navigate = useNavigate();
@@ -17,10 +18,12 @@ export const AuthProvider = ({ children }) => {
 
         if (!tokenStored && !userStored) {
             setUser(null);
+            setUserName(null);
             setLoading(false);
             return;
         }
         setUser(userStored);
+        setUserName(userName);
         setLoading(false);
     }, []);
 
@@ -29,6 +32,7 @@ export const AuthProvider = ({ children }) => {
         checkToken();
         setLoading(true);
         setUser(null);
+        setUserName(null);
         await apiClient.post('/login', {
             email: email,
             password: password,
@@ -42,6 +46,7 @@ export const AuthProvider = ({ children }) => {
                         localStorage.setItem('authToken', token);
                         localStorage.setItem('idUser', idUser);
                         setLoading(false);
+                        getUserName();
                         setUser(idUser);
                         navigate('/');
                     } else {
@@ -95,6 +100,7 @@ export const AuthProvider = ({ children }) => {
     const logout = async () => {
         setLoading(true);
         setUser(null);
+        setUserName(null);
         const logginOutRoute = await apiClient.get('/logout', {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('authToken')}`,
@@ -110,8 +116,19 @@ export const AuthProvider = ({ children }) => {
         }
     };
 
+    const getUserName = () => {
+        if(!user) return;
+        apiClient.get(`/usuarios/${user}`, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('authToken')}`,
+            }
+        }).then((response) => {
+            setUserName(response.data.user.name);
+        })
+    }
+
     return (
-        <AuthContext.Provider value={{ user, login, logout, loading }}>
+        <AuthContext.Provider value={{ user, login, logout, loading, userName }}>
             {children}
         </AuthContext.Provider>
     );

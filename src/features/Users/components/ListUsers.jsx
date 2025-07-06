@@ -1,4 +1,3 @@
-import '../../Users/components/styles/Users.css';
 import { useUsers } from '../hooks/useUsers';
 import { Spinner, Button, Table } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
@@ -9,6 +8,7 @@ export function ListUsers({ reloadPanel, setReloadPanel, editUserPanel, setEditU
     const { fetchUserData, handleDeleteUser, loading } = useUsers();
     const [users, setUsers] = useState([]);
     const navigate = useNavigate();
+    const [isActive, setIsActive] = useState(null);
 
     const fetchUsers = async () => {
         const data = await fetchUserData();
@@ -28,7 +28,8 @@ export function ListUsers({ reloadPanel, setReloadPanel, editUserPanel, setEditU
     useEffect(() => {
         if (!editUserPanel) return;
         setEditUserPanel(false);
-    },[editUserPanel])
+        setIsActive(34);
+    }, [editUserPanel, isActive])
 
     const handleDirectToEdit = (id) => {
         if (id) {
@@ -40,6 +41,16 @@ export function ListUsers({ reloadPanel, setReloadPanel, editUserPanel, setEditU
     return (
         <>
             <div style={{ width: "60%", maxHeight: "700px", overflowY: "auto" }}>
+                <div style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    marginBottom: "20px",
+                    marginTop: "20px",
+                    border: "1px solid #D1D5DB",
+                    borderRadius: "20px"
+                }}>
+                    <h2>Users list</h2>
+                </div>
                 {loading ? (
                     <Spinner animation="border" role="status">
                         <span className="visually-hidden">Loading...</span>
@@ -60,14 +71,23 @@ export function ListUsers({ reloadPanel, setReloadPanel, editUserPanel, setEditU
                                 </thead>
                                 <tbody>
                                     {users.map((user) => (
-                                        <tr key={user.id} onDoubleClick={() => handleDirectToEdit(user.id)}>
+                                        <tr key={user.id}
+                                            onDoubleClick={() => handleDirectToEdit(user.id)}
+                                            style={{
+                                                backgroundColor: "#d1e7dd",
+                                                cursor: "pointer"
+                                            }}
+                                        // {
+                                        //     isActive === user.id ? 'active-row' : ''
+                                        // }
+                                        >
                                             <td style={{ width: '20%', textAlign: 'center', }}>{user.name}</td>
                                             <td style={{ width: '10%', textAlign: 'center', }}>{user.age}</td>
                                             <td style={{ width: '10%', textAlign: 'center', }}>{new Date(user.birth_date).toLocaleDateString('pt-BR')}</td>
                                             <td style={{ width: '10%', textAlign: 'center', }}>{user.gender}</td>
                                             <td style={{ width: '10%', textAlign: 'center', }}>{user.email}</td>
                                             <td style={{ width: '10%', textAlign: 'center', }}>
-                                                
+
                                                 <Button variant="danger"
                                                     className="btn btn-danger"
                                                     onClick={() => { handleDeleteUser(user.id, setReloadPanel) }}>

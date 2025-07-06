@@ -5,7 +5,7 @@ import { ListTodo, Settings, User } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 export function Initial() {
-  const { user, loading } = useAuth();
+  const { userName, loading } = useAuth();
   const navigate = useNavigate();
 
   return (
@@ -13,7 +13,7 @@ export function Initial() {
       <NavbarComponent />
 
       <div className="flex-grow-1 p-4 d-flex flex-column align-items-center">        
-        <h1 className="fw-bold">Hi, {user}. Welcome to your Task App Organize!</h1>
+        <h1 className="fw-bold">Hi, {userName}. Welcome to your Task App Organize!</h1>
         <p className="lead text-secondary">Start organizing your day and reach your goals!</p>
         {loading ? (
           <Spinner animation="border" role="status">

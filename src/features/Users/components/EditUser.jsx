@@ -7,6 +7,8 @@ import { BackButton } from "../../../components/commons/buttons/Back";
 import { ListUsers } from "./ListUsers";
 import { useState } from "react";
 import { SaveAndCancel } from "../../../components/commons/buttons/SaveAndCancel";
+import { Calendar } from 'primereact/calendar';
+import { FloatLabel } from 'primereact/floatlabel';
 
 export function EditUser() {
     const location = useLocation();
@@ -35,6 +37,17 @@ export function EditUser() {
                                 }}>
                                     <h2>Edit user</h2>
                                 </div>
+                                <FloatLabel>
+
+                                        <Calendar
+                                            inputId="birth_date"
+                                            value={birthDate}
+                                            onChange={handleChange}
+                                            dateFormat="dd/mm/yy"
+                                            showIcon
+                                        />
+                                        <label htmlFor="birth_date">Birth Date</label>
+                                    </FloatLabel>
                                 <Form method="post" onSubmit={handleSubmit}>
                                     <InputGroup hasValidation>
                                         <div style={{ width: "100%" }}>
@@ -65,20 +78,20 @@ export function EditUser() {
                                             value={user.name || ''}
                                             onChange={handleChange}
                                         />
-                                    </Form.Group>
-                                    <Form.Group>
+                                    </Form.Group>                                    
+                                    <Form.Group controlId='formBasicDtNascimento'>
                                         <div className="row" style={{ display: "flex", justifyContent: "space-between" }}>
                                             <div className="col-md-6">
                                                 <Form.Label>Birth Date</Form.Label>
                                                 <Form.Control
                                                     type="date"
                                                     name="birth_date"
-                                                    value={birthDate}
+                                                    value={birthDate || ''}
                                                     onChange={handleChange}
                                                 />
                                             </div>
                                             <div className="col-md-6">
-                                                <Form.Label>Age</Form.Label>
+                                                <Form.Label>Idade</Form.Label>
                                                 <Form.Control
                                                     type="number"
                                                     name="age"
@@ -109,7 +122,7 @@ export function EditUser() {
                     </div>
                     <ListUsers reloadPanel={reloadPanel} setReloadPanel={setReloadPanel} editUserPanel={editUserPanel} setEditUserPanel={setEditUserPanel} />
                 </div>
-            </div>
+            </div >
         </>
 
     );

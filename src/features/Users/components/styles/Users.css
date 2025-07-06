@@ -86,3 +86,8 @@
     background-color: #1e7e34;
     transform: scale(1.05);
 }
+
+.active-row {
+    background-color: #d1e7dd;
+    cursor: pointer;
+}

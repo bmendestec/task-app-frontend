@@ -17,10 +17,10 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<ProtectedRoute><Initial /></ProtectedRoute>} />
-        <Route path="/test-navbar" element={<ProtectedRoute><TestNavBar /></ProtectedRoute>} />
         <Route path="/login" element={<Login />} />
         <Route path="/sign-up" element={<Signup />} />
+        <Route path="/" element={<ProtectedRoute><Initial /></ProtectedRoute>} />
+        <Route path="/test-navbar" element={<ProtectedRoute><TestNavBar /></ProtectedRoute>} />
         <Route path="/usuarios" element={<ProtectedRoute><Users /></ProtectedRoute>} />
         <Route path="/register" element={<ProtectedRoute><CreateUser /></ProtectedRoute>} />
         <Route path="/edit-user" element={<ProtectedRoute><EditUser /></ProtectedRoute>} />
