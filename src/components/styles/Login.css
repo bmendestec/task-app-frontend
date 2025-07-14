@@ -1,163 +1,86 @@
-Reset básico
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+.login-container {
+    margin-top: 150px;
 }
 
-body {
-    font-family: 'Poppins', sans-serif;
-    background-color: #F9FAFB;
-    height: 100vh;
-    overflow: hidden;
-}
-
-.container-fluid {
-    display: flex;
-    height: 100vh;
+.login-form {
     width: 100%;
-}
-
-.col-lg-6 {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    padding: 5rem;
-    background-color: white;
 }
 
-.col-lg-6 h2 {
-    font-size: 2rem;
-    color: #3B82F6;
-    font-weight: bold;
-    margin-bottom: 1rem;
+.login-header {
+    display: flex;
+    justify-content: space-between;
+    background: linear-gradient(to bottom, #0f52b64d, #f0f0f0);
+    height: 10vh;
 }
 
-.col-lg-6 h1 {
-    font-size: 1.5rem;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
+.login-header-button {
+    width: 150px;
+    height: 50px;
+    margin: 15px;
 }
 
-.col-lg-6 p {
-    color: #6B7280;
-    margin-bottom: 2rem;
+.logo-header {
+    padding: 5px 1px 1px 10px;
+    width: 85px;
+}
+
+.login-button {
+    width: 730px;
+}
+
+.signup-button {
+    background-color: #f0f0f0;    
+    width: 730px;
+    color: black;
+}
+
+.signup-button:hover {
+    background: linear-gradient(to bottom, #0f52b64d, #5a5c5f);    
+    width: 730px;
+}
+
+.login-input,
+.password-input {
+    width: 700px;
+    height: 20px;
+    font-size: medium;    
 }
 
 form {
-    width: 100%;
-    max-width: 400px;
+    background-color: #f0f0f0;
+    padding: 20px;
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
-}
-
-form .form-control {
-    padding: 0.75rem 1rem;
-    border: 1px solid #D1D5DB;
-    border-radius: 0.5rem;
-    font-size: 1rem;
-}
-
-form .form-control:focus {
-    border-color: #3B82F6;
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
-}
-
-.form-check {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.form-check-label {
-    font-size: 0.875rem;
-    color: #6B7280;
-}
-
-a.text-decoration-none {
-    font-size: 0.875rem;
-    color: #3B82F6;
-    text-decoration: none;
-}
-
-a.text-decoration-none:hover {
-    text-decoration: underline;
-}
-
-button.btn-primary {
-    background-color: #3B82F6;
-    color: white;
-    padding: 0.75rem;
-    border: none;
-    border-radius: 0.5rem;
-    font-size: 1rem;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-button.btn-primary:disabled {
-    background-color: #93C5FD;
-    cursor: not-allowed;
-}
-
-button.btn-outline-secondary {
-    border: 1px solid #D1D5DB;
-    color: #6B7280;
-    padding: 0.75rem;
-    border-radius: 0.5rem;
-    font-size: 1rem;
-    cursor: pointer;
-}
-
-button.btn-outline-secondary:hover {
-    background-color: #F3F4F6;
-}
-
-.modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
     align-items: center;
 }
 
-.modal-content {
-    background-color: white;
-    padding: 2rem;
-    border-radius: 0.5rem;
-    text-align: center;
-    width: 90%;
-    max-width: 400px;
+.login-footer {
+    margin: 15px 0px 0px 0px;
+    height: 280px;
+    background-color: rgba(12, 29, 180, 0.3);
+    background: linear-gradient(to top, rgba(15, 82, 182, 0.3), #f0f0f0);
 }
 
-.modal-content h2 {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
+.row {
+    display: flex;
+    justify-content: space-between;
+    width: 720px;
 }
 
-.modal-content p {
-    margin-bottom: 1.5rem;
-    color: #6B7280;
+.title {
+    width: 720px;
 }
 
-.modal-content button {
-    background-color: #3B82F6;
-    color: white;
-    padding: 0.5rem 1rem;
-    border: none;
-    border-radius: 0.5rem;
-    font-size: 1rem;
-    cursor: pointer;
-    margin: 0.5rem;
-}
-
-.modal-content button:hover {
-    background-color: #2563EB;
+@media screen and (max-width: 765px) {
+    .login-input,
+    .password-input,
+    .login-button,
+    .signup-button,
+    .row,
+    .title {
+        width: 350px;
+      }
 }

@@ -1,6 +1,68 @@
 #root {
-  /* max-width: 1920px; */
-  margin: 0 auto;
-  padding: 0.5rem;
   background-color: #f0f0f0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 14px;
+}
+
+body {
+  margin: 0px;
+}
+
+button {
+  padding: 12px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+  font-weight: bold;
+  width: 450px;
+  color: #f0f0f0;
+}
+
+input {
+  background-color: #ffffff;
+  border-color: #383838bb;
+  border-width: 1px;
+  border-style: solid;
+  padding: 12px 12px;
+  margin: 10px 10px;
+  border-radius: 10px;
+}
+
+input:hover {
+  background-color: rgb(241, 241, 241);
+}
+
+input:active {
+  border: 1px solid rgb(253, 253, 255);
+}
+
+.add-button {
+  background: linear-gradient(to top, #18b62d, #0e6b1a);
+  border-left-width: 0px;
+  border-top-width: 0px;
+  border-right-width: 0px;
+  border-bottom-width: 0px;
+}
+
+.add-button:active {
+  background-color: #1c912b;
+}
+
+.add-button:hover {
+  background: linear-gradient(to bottom, #1c912b, #0e6b1a);
+}
+
+.dropdown-container {
+  margin: 20px;
+  font-family: sans-serif;
+}
+
+.custom-dropdown {
+  padding: 10px;
+  border-color: #383838bb;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 8px;
+  width: 700px;
 }

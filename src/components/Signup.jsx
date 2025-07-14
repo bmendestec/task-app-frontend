@@ -1,82 +1,169 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSignup } from '../hooks/useSignup';
-import { Button, Form } from 'react-bootstrap';
+import './styles/SignUp.css'
 
 export function Signup() {
     const { formData, handleInputChange, handleSubmit, emailInputRef } = useSignup();
+    const [selectedOption, setSelectedOption] = useState('');
+
+    const handleChange = (e) => {
+        setSelectedOption(e.target.value);
+    };
 
     return (
         <>
-            <div className="container-fluid vh-100 d-flex p-0">
-                <div className="col-lg-6 d-flex flex-column justify-content-center align-items-center p-5 bg-white">
-                    <img
-                        src='src\assets\login_bckg.png'
-                        alt="Produtividade"
-                        className="img-fluid"
-                    />
+            <section>
+                <div className="signup-header">
+                    <img className="logo-header" src="src/assets/sciencebot_logo.png" alt="" />
                 </div>
-                <div className="col-lg-6 d-none d-lg-flex justify-content-center align-items-center bg-white">
-                    <h1>Create an account</h1>
-                    <div className='w-100' style={{ maxWidth: "400px" }}>
-                        <Form onSubmit={handleSubmit}>
-                            <Form.Group controlId="formBasicName">
-                                <Form.Label>Full Name</Form.Label>
-                                <Form.Control type="text" placeholder="Type your full name" name="fullName" value={formData.fullName} onChange={handleInputChange} required />
-                            </Form.Group>
+                <div className="signup-container">
+                    <div className="signup-form">
+                        <form onSubmit={handleSubmit}>
+                            <h2 className='title'>Create an account</h2>
                             <div className='row'>
-                                <Form.Group controlId="formBasicEmail">
-                                    <Form.Label>E-mail</Form.Label>
-                                    <Form.Control ref={emailInputRef} type="text" placeholder="Type your e-mail" name="email" value={formData.email} onChange={handleInputChange} required />
-                                </Form.Group>
-                                <div className='col-md-6'>
-                                    <Form.Group className="mb-3" controlId="formBasicPassword">
-                                        <Form.Label>Password</Form.Label>
-                                        <Form.Control type="password" placeholder="Type your password" name="password" value={formData.password} onChange={handleInputChange} required />
-                                    </Form.Group>
-                                </div>
-                                <div className='col-md-6'>
-                                    <Form.Group controlId="formBasicPassword">
-                                        <Form.Label>Confirm Password</Form.Label>
-                                        <Form.Control type="password" placeholder="Confirm your password" name="confirmPassword" value={formData.confirmPassword} onChange={handleInputChange} required />
-                                    </Form.Group>
-                                </div>
+                                <input
+                                    className="signup-input"
+                                    type="text"
+                                    name='fullName'
+                                    value={formData.fullName}
+                                    onChange={handleInputChange} required
+                                    placeholder="Full name" />
                             </div>
-                            <Form.Group controlId="formBasicGender">
-                                <Form.Label>Gender</Form.Label>
+                            <div className='row'>
+                                <input
+                                    className='signup-input'
+                                    ref={emailInputRef}
+                                    type="text"
+                                    name='email'
+                                    placeholder="Type your e-mail"
+                                    value={formData.email}
+                                    onChange={handleInputChange}
+                                    required
+                                />
+                            </div>
+                            <div className='row'>
+                                <input
+                                    className='signup-password'
+                                    type="password"
+                                    placeholder="Type your password"
+                                    value={formData.password}
+                                    onChange={handleInputChange}
+                                    name="password"
+                                    required
+                                />
+                                <input
+                                    className='signup-confirmPass'
+                                    type="password"
+                                    placeholder="Confirm your password"
+                                    value={formData.confirmPassword}
+                                    onChange={handleInputChange}
+                                    name="confirmPassword"
+                                    required
+                                />
+                            </div>
+                            <div className='dropdown-container'>
+                                <select
+                                    id="gender"
+                                    value={selectedOption}
+                                    onChange={handleChange}
+                                    className='custom-dropdown'
+                                    required
+                                >
+                                    <option value="">---</option>
+                                    <option value="Masculino">Male</option>
+                                    <option value="Feminino">Female</option>
+                                </select>
+                            </div>
+                            <div className='row'>
+                                <input
+                                    className='signup-date-input'
+                                    type="date"
+                                    name="birth_date"
+                                    value={formData.birth_date}
+                                    onChange={handleInputChange}
+                                    required
+                                />
+                                <input
+                                    className='signup-age-input'
+                                    type="number"
+                                    value={formData.age}
+                                    onChange={handleInputChange}
+                                    readOnly
+                                />
+                            </div>
+                            <button
+                                type='submit'
+                                className='add-button signup-button-2'
+                            >
+                                Create Account
+                            </button>
+                        </form>
+                    </div>
+                </div >
+                <footer className='signup-footer-2'>
+                    <p>Already have an account? <a href="/login" >Login</a></p>
+                </footer>
+            </section>
+            {/* <section>
+                <form onSubmit={handleSubmit}>
+                    <h1>Create an account</h1>
+                    <div controlId="formBasicName">
+                        <label>Full Name</label>
+                        <input type="text" placeholder="Type your full name" name="fullName" value={formData.fullName} onChange={handleInputChange} required />
+                    </div>
+                    <div className='row'>
+                        <div controlId="formBasicEmail">
+                            <label>E-mail</label>
+                            <input ref={emailInputRef} type="text" placeholder="Type your e-mail" name="email" value={formData.email} onChange={handleInputChange} required />
+                        </div>
+                        <div className='col-md-6'>
+                            <div className="mb-3" controlId="formBasicPassword">
+                                <label>Password</label>
+                                <input type="password" placeholder="Type your password" name="password" value={formData.password} onChange={handleInputChange} required />
+                            </div>
+                        </div>
+                        <div className='col-md-6'>
+                            <div controlId="formBasicPassword">
+                                <label>Confirm Password</label>
+                                <input type="password" placeholder="Confirm your password" name="confirmPassword" value={formData.confirmPassword} onChange={handleInputChange} required />
+                            </div>
+                        </div>
+                    </div>
+                    <div controlId="formBasicGender">
+                                <label>Gender</label>
                                 <Form.Select name="gender" value={formData.gender} onChange={handleInputChange} required>
                                     <option value="">Select your gender</option>
                                     <option value="Masculino">Male</option>
                                     <option value="Feminino">Female</option>
                                     <option value="Outro">Other</option>
                                 </Form.Select>
-                            </Form.Group>
-                            <Form.Group controlId='formBasicDtNascimento'>
-                                <div className='row' style={{ display: "flex", justifyContent: "space-between" }}>
-                                    <div className='col-md-6'>
-                                        <Form.Label>Birth Date</Form.Label>
-                                        <Form.Control type="date"
-                                            name="birth_date"
-                                            value={formData.birth_date}
-                                            onChange={handleInputChange}
-                                            required
-                                        />
-                                    </div>
-                                    <div className='col-md-3'>
-                                        <Form.Label>Idade</Form.Label>
-                                        <Form.Control type="number" name="age" value={formData.age} onChange={handleInputChange} readOnly />
-                                    </div>
-                                </div>
-                            </Form.Group>
-                            <Button type='submit' className='w-100 mt-3' variant="primary" size="lg">
-                                Create Account
-                            </Button>
-                        </Form>
+                            </div>
+                    <div controlId='formBasicDtNascimento'>
+                        <div className='row' style={{ display: "flex", justifyContent: "space-between" }}>
+                            <div className='col-md-6'>
+                                <label>Birth Date</label>
+                                <input type="date"
+                                    name="birth_date"
+                                    value={formData.birth_date}
+                                    onChange={handleInputChange}
+                                    required
+                                />
+                            </div>
+                            <div className='col-md-3'>
+                                <label>Idade</label>
+                                <input type="number" name="age" value={formData.age} onChange={handleInputChange} readOnly />
+                            </div>
+                        </div>
                     </div>
-                    <footer className="mt-4 text-center">
-                        <p className="text-muted">Already have an account? <a href="/login" className="text-decoration-none">Login</a></p>
-                    </footer>
-                </div>
-            </div >
+                    <button type='submit' variant="primary" size="lg">
+                        Create Account
+                    </button>
+                </form>
+
+                <footer>
+                    <p>Already have an account? <a href="/login" >Login</a></p>
+                </footer>
+            </section> */}
         </>
     )
 }
