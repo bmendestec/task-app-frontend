@@ -1,3 +1,13 @@
+.signup-section {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.signup-form {
+    width: 100%;
+}
+
 .signup-input {
     width: 720px;
 }
@@ -8,7 +18,9 @@
 }
 
 .signup-container {
-    margin-top: 150px;
+    height: 80%;
+    display: flex;
+    align-items: center;
 }
 
 .signup-password,
@@ -20,7 +32,7 @@
 
 .signup-footer-2 {
     margin: 15px 0px 0px 0px;
-    height: 185px;
+    height: 10%;
     background-color: rgba(12, 29, 180, 0.3);
     background: linear-gradient(to top, rgba(15, 82, 182, 0.3), #f0f0f0);
     display: flex;

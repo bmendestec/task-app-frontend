@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import './styles/Login.css';
 import { useNavigate } from 'react-router-dom';
-import { HeaderLogin } from './commons/HeaderLogin';
+import { HeaderInitial } from './commons/HeaderInitial';
+import { FooterInitial } from './commons/FooterInitial';
 
 export function Login() {
     const { login, loading } = useAuth();
@@ -17,8 +18,8 @@ export function Login() {
 
     return (
         <>
-            <section>
-                <HeaderLogin />
+            <section className='login-section'>
+                <HeaderInitial />
                 <div className="login-container">
                     <div className="login-form">
                         <form onSubmit={handleSubmit}>
@@ -69,7 +70,7 @@ export function Login() {
                         </form>
                     </div>
                 </div >
-                <footer className='login-footer'></footer>
+                <FooterInitial />
             </section>
         </>
     )

@@ -1,19 +1,18 @@
 .login-container {
-    margin-top: 150px;
+    height: 80%;
+    display: flex;
+    align-items: center;
 }
 
 .login-form {
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 }
 
 .login-header {
     display: flex;
     justify-content: space-between;
     background: linear-gradient(to bottom, #0f52b64d, #f0f0f0);
-    height: 10vh;
+    height: 10%;
 }
 
 .login-header-button {
@@ -32,13 +31,13 @@
 }
 
 .signup-button {
-    background-color: #f0f0f0;    
+    background-color: #f0f0f0;
     width: 730px;
     color: black;
 }
 
 .signup-button:hover {
-    background: linear-gradient(to bottom, #0f52b64d, #5a5c5f);    
+    background: linear-gradient(to bottom, #0f52b64d, #5a5c5f);
     width: 730px;
 }
 
@@ -46,7 +45,7 @@
 .password-input {
     width: 700px;
     height: 20px;
-    font-size: medium;    
+    font-size: medium;
 }
 
 form {
@@ -57,10 +56,8 @@ form {
     align-items: center;
 }
 
-.login-footer {
-    margin: 15px 0px 0px 0px;
-    height: 280px;
-    background-color: rgba(12, 29, 180, 0.3);
+.login-footer {    
+    height: 10%;
     background: linear-gradient(to top, rgba(15, 82, 182, 0.3), #f0f0f0);
 }
 
@@ -74,7 +71,14 @@ form {
     width: 720px;
 }
 
+.login-section {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
 @media screen and (max-width: 765px) {
+
     .login-input,
     .password-input,
     .login-button,
@@ -82,5 +86,5 @@ form {
     .row,
     .title {
         width: 350px;
-      }
+    }
 }

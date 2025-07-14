@@ -2,10 +2,26 @@
   background-color: #f0f0f0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: 14px;
+  height: 100vh;
 }
 
 body {
   margin: 0px;
+}
+
+.header-initial {
+  display: flex;
+  justify-content: space-between;
+  background: linear-gradient(to bottom, #0f52b64d, #f0f0f0);
+  height: 10%;
+}
+
+.footer-initial {
+  height: 10%;
+  background: linear-gradient(to top, rgba(15, 82, 182, 0.3), #f0f0f0);
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
 }
 
 button {

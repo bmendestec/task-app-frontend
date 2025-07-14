@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useSignup } from '../hooks/useSignup';
 import './styles/SignUp.css'
+import { HeaderInitial } from './commons/HeaderInitial';
+import { FooterInitial } from './commons/FooterInitial';
 
 export function Signup() {
     const { formData, handleInputChange, handleSubmit, emailInputRef } = useSignup();
@@ -12,10 +14,8 @@ export function Signup() {
 
     return (
         <>
-            <section>
-                <div className="signup-header">
-                    <img className="logo-header" src="src/assets/sciencebot_logo.png" alt="" />
-                </div>
+            <section className='signup-section'>
+                <HeaderInitial />
                 <div className="signup-container">
                     <div className="signup-form">
                         <form onSubmit={handleSubmit}>
@@ -100,70 +100,8 @@ export function Signup() {
                         </form>
                     </div>
                 </div >
-                <footer className='signup-footer-2'>
-                    <p>Already have an account? <a href="/login" >Login</a></p>
-                </footer>
+                <FooterInitial />
             </section>
-            {/* <section>
-                <form onSubmit={handleSubmit}>
-                    <h1>Create an account</h1>
-                    <div controlId="formBasicName">
-                        <label>Full Name</label>
-                        <input type="text" placeholder="Type your full name" name="fullName" value={formData.fullName} onChange={handleInputChange} required />
-                    </div>
-                    <div className='row'>
-                        <div controlId="formBasicEmail">
-                            <label>E-mail</label>
-                            <input ref={emailInputRef} type="text" placeholder="Type your e-mail" name="email" value={formData.email} onChange={handleInputChange} required />
-                        </div>
-                        <div className='col-md-6'>
-                            <div className="mb-3" controlId="formBasicPassword">
-                                <label>Password</label>
-                                <input type="password" placeholder="Type your password" name="password" value={formData.password} onChange={handleInputChange} required />
-                            </div>
-                        </div>
-                        <div className='col-md-6'>
-                            <div controlId="formBasicPassword">
-                                <label>Confirm Password</label>
-                                <input type="password" placeholder="Confirm your password" name="confirmPassword" value={formData.confirmPassword} onChange={handleInputChange} required />
-                            </div>
-                        </div>
-                    </div>
-                    <div controlId="formBasicGender">
-                                <label>Gender</label>
-                                <Form.Select name="gender" value={formData.gender} onChange={handleInputChange} required>
-                                    <option value="">Select your gender</option>
-                                    <option value="Masculino">Male</option>
-                                    <option value="Feminino">Female</option>
-                                    <option value="Outro">Other</option>
-                                </Form.Select>
-                            </div>
-                    <div controlId='formBasicDtNascimento'>
-                        <div className='row' style={{ display: "flex", justifyContent: "space-between" }}>
-                            <div className='col-md-6'>
-                                <label>Birth Date</label>
-                                <input type="date"
-                                    name="birth_date"
-                                    value={formData.birth_date}
-                                    onChange={handleInputChange}
-                                    required
-                                />
-                            </div>
-                            <div className='col-md-3'>
-                                <label>Idade</label>
-                                <input type="number" name="age" value={formData.age} onChange={handleInputChange} readOnly />
-                            </div>
-                        </div>
-                    </div>
-                    <button type='submit' variant="primary" size="lg">
-                        Create Account
-                    </button>
-                </form>
-
-                <footer>
-                    <p>Already have an account? <a href="/login" >Login</a></p>
-                </footer>
-            </section> */}
         </>
     )
 }
