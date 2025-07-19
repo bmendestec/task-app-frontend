@@ -45,28 +45,7 @@
     color: #f0f0f0;
 }
 
-.drop-down-toggle-2 {
-    width: 700px;
-    height: 20px;
-    border: 1px solid black;
-    border-radius: 8px;
-    background-color: #f0f0f0;
-    cursor: pointer;
-}
-
-.toggle-opened-2 {
-    background-color: #fff;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    width: 700px;
-    height: 130px;
-    position: absolute;
-    margin-top: 25px;
-}
-
-.toggle-option {
-    padding: 10px;
-    cursor: pointer;
-    border-bottom: 1px solid #ddd;
-    color: #007bff;
+option {    
+    border-radius: 10px;
+    background-color: #0f0f0f;
 }

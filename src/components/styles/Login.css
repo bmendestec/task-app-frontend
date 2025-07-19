@@ -8,13 +8,6 @@
     width: 100%;
 }
 
-.login-header {
-    display: flex;
-    justify-content: space-between;
-    background: linear-gradient(to bottom, #0f52b64d, #f0f0f0);
-    height: 10%;
-}
-
 .login-header-button {
     width: 150px;
     height: 50px;
@@ -49,7 +42,6 @@
 }
 
 form {
-    background-color: #f0f0f0;
     padding: 20px;
     display: flex;
     flex-direction: column;

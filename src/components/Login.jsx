@@ -44,7 +44,7 @@ export function Login() {
                                         <label htmlFor="remember-me"><u>Remember-me</u></label>
                                     </div>
                                     <div className='col'>
-                                        <a href="#" style={{ color: 'black' }}>Forgot password</a>
+                                        <a href="#">Forgot password</a>
                                     </div>
                                 </div>
                             </div>

@@ -100,7 +100,9 @@ export function Signup() {
                         </form>
                     </div>
                 </div >
-                <FooterInitial />
+                <div className="footer-initial">
+                    <p>Already have an account? <a href="/login">Login</a></p>
+                </div>
             </section>
         </>
     )
