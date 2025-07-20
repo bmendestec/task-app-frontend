@@ -3,6 +3,8 @@ import { BackButton } from '../../../components/commons/buttons/Back';
 import { TaskGrid } from './TaskGrid';
 import { TaskForm } from './TaskForm';
 import { useState } from 'react';
+import { TaskManager } from './TaskManager';
+import { TaskCalendar } from './TaskCalendar';
 
 export function Tasks() {
     const [reloadPanel, setReloadPanel] = useState(null);
@@ -17,7 +19,9 @@ export function Tasks() {
             <div className="flex-grow-1 d-flex flex-column">
                 <BackButton />
                 <div style={{ display: "flex", justifyContent: "space-around" }}>
-                    <TaskForm onFormSubmit={handleReloadTasks} />
+                    {/* <TaskManager /> */}
+                    {/* <TaskCalendar /> */}
+                    {/* <TaskForm onFormSubmit={handleReloadTasks} /> */}
                     <TaskGrid reloadPanel={reloadPanel} setReloadPanel={setReloadPanel} />
                 </div>
             </div>

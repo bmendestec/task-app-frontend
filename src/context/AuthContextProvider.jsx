@@ -46,7 +46,7 @@ export const AuthProvider = ({ children }) => {
                         localStorage.setItem('authToken', token);
                         localStorage.setItem('idUser', idUser);
                         setLoading(false);
-                        getUserName();
+                        getUserName(idUser);
                         setUser(idUser);
                         navigate('/');
                     } else {
@@ -116,9 +116,9 @@ export const AuthProvider = ({ children }) => {
         }
     };
 
-    const getUserName = () => {
-        if(!user) return;
-        apiClient.get(`/usuarios/${user}`, {
+    const getUserName = (idUser) => {
+        if(!idUser) return;
+        apiClient.get(`/usuarios/${idUser}`, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('authToken')}`,
             }

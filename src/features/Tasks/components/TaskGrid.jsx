@@ -22,7 +22,7 @@ export function TaskGrid({ reloadPanel, setReloadPanel }) {
 
     const handleEdit = (taskId) => {
         console.log(taskId);
-        navigate('task-calendar');
+        navigate('manage-tasks');
     } 
 
     return (
@@ -65,7 +65,7 @@ export function TaskGrid({ reloadPanel, setReloadPanel }) {
                                             <Button
                                                 variant="warning"
                                                 className="btn btn-warning me-2"
-                                                onClick={() => { console.log(task.id) }}>
+                                                onClick={() => { navigate('tasks-calendar') }}>
                                                 <PenIcon />
                                             </Button>
                                             <Button variant="danger"

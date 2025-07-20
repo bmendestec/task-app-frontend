@@ -11,6 +11,7 @@ import { EditUser } from './features/Users/components/EditUser';
 import { TestNavBar } from './components/TestNavbar';
 import { Users } from './features/Users/components/Users';
 import { TaskCalendar } from './features/Tasks/components/TaskCalendar';
+import { TaskManager } from './features/Tasks/components/TaskManager';
 
 function App() {
 
@@ -26,7 +27,8 @@ function App() {
         <Route path="/edit-user" element={<ProtectedRoute><EditUser /></ProtectedRoute>} />
         <Route path="/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
         <Route path="/tasks" element={<ProtectedRoute><Tasks /></ProtectedRoute>} />
-        <Route path="/tasks-calendar" element={<ProtectedRoute><TaskCalendar /></ProtectedRoute>} />
+        <Route path="/tasks/tasks-calendar" element={<ProtectedRoute><TaskCalendar /></ProtectedRoute>} />
+        <Route path="/tasks/manage-tasks" element={<ProtectedRoute><TaskManager /></ProtectedRoute>} />
       </Routes>
     </>
   )

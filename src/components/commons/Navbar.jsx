@@ -17,15 +17,13 @@ export function NavbarComponent() {
         textAlign: 'start'
     };
 
+    const activeTaskTabs = isActive('/tasks') || isActive('/tasks/tasks-calendar') || isActive('/tasks/manage-tasks');
+    const activeUserTabs = isActive('/usuarios') || isActive('/edit-user');
+
     return (
         <>
             <div id="container-navbar">
-                <Navbar bg="primary" expand="md" id='navbar' style={{
-                    border: '3px solid white',
-                    borderRadius: '10px',
-                    // height: '100vh', // Ocupa toda a altura da tela
-                    // width: '250px',
-                }}>
+                <Navbar bg="primary" expand="md" id='navbar'>
                     <div id="container">
                         <Navbar.Brand className="fw-bold"
                             id="brand">
@@ -46,7 +44,7 @@ export function NavbarComponent() {
                             <NavItem>
                                 <NavLink
                                     onClick={() => { navigate('/usuarios') }}
-                                    className={`btn btn-primary ${isActive('/usuarios') ? 'active' : ''}`}
+                                    className={`btn btn-primary ${activeUserTabs ? 'active' : ''}`}
                                     style={{
                                         ...buttonStyles
                                     }}
@@ -57,7 +55,7 @@ export function NavbarComponent() {
                             <NavItem>
                                 <NavLink
                                     onClick={() => { navigate('/tasks') }}
-                                    className={`btn btn-primary ${isActive('/tasks') ? 'active' : ''}`}
+                                    className={`btn btn-primary ${activeTaskTabs ? 'active' : ''}`}
                                     style={{
                                         ...buttonStyles
                                     }}
