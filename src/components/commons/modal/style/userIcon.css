@@ -1,17 +1,15 @@
 .drop-down {
     position: relative;
-    width: fit-content
+    width: 100%;
 }
 
 .drop-down-toggle {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    background-color: #007bff;
-    border-radius: 10%;
     padding: 5px;
-    width: 250px;
+    width: 100%;
+}
+
+.drop-down-toggle:hover {
+    background-color: gray;
 }
 
 span {

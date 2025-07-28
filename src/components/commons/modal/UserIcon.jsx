@@ -1,29 +1,26 @@
-import { UserCircle } from "lucide-react";
+import { LogOut, UserCircle } from "lucide-react";
 import { useAuth } from "../../../context/AuthContext";
-import { useState } from "react";
+// import { useState } from "react";
 import './style/userIcon.css';
 
 export function UserIcon() {
-    const { logout, userName } = useAuth();
-    const [isOpen, setIsOpen] = useState(false);
+    const { logout } = useAuth();
+    // const [isOpen, setIsOpen] = useState(false);
 
-    const toggleDropdown = () => {
-        setIsOpen(!isOpen);
-    };
+    // const toggleDropdown = () => {
+    //     setIsOpen(!isOpen);
+    // };
 
     return (
         <div className="drop-down">
-            <div
-                onClick={toggleDropdown}
-                className="drop-down-toggle"                
+            <button
+                onClick={logout}
+                className="drop-down-toggle"
             >
-                <UserCircle size={40} style={{ color: "white" }} />
-                <span>
-                    {userName}
-                </span>
-            </div>
+                <LogOut size={40} style={{ color: "black" }} />
+            </button>
 
-            {isOpen && (
+            {/* {isOpen && (
                 <div
                     className="toggle-opened"
                 >
@@ -46,7 +43,7 @@ export function UserIcon() {
                         Logout
                     </div>
                 </div>
-            )}
+            )} */}
         </div>
     )
 }

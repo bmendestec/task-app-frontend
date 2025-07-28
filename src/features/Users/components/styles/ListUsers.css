@@ -1,0 +1,25 @@
+tr {
+    background-color: #0f0f0f;
+}
+
+td {
+    background-color: #0f0f0f;
+    width: 20%;
+    text-align: center;
+}
+
+.table-name {
+    width: 30%;
+}
+
+td:hover {
+    background-color: #525151;
+}
+
+.list-body-editing {
+    width: 60%;
+}
+
+.list-body { 
+    width: 90%;
+}

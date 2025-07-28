@@ -8,6 +8,10 @@
     width: 100%;
 }
 
+form {
+    gap: 5px;
+}
+
 .login-header-button {
     width: 150px;
     height: 50px;
@@ -61,12 +65,19 @@ form {
 
 .title {
     width: 720px;
+    font-size: 1.5rem;
 }
 
 .login-section {
     height: 100%;
     display: flex;
     flex-direction: column;
+}
+
+.remember-label,
+.remember-me,
+.remember-field {
+    cursor: pointer;
 }
 
 @media screen and (max-width: 765px) {

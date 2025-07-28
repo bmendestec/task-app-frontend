@@ -1,0 +1,65 @@
+.edit-users-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
+.edit-container {
+    padding: 15px;
+    width: 100%;
+}
+
+.edit-title {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    border: 1px solid #D1D5DB;
+    border-radius: 20px;
+}
+
+#email,
+#name,
+#gender,
+#birth_date {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#birth_date {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.label-email,
+.label-name,
+.label-gender,
+.label-birth-date,
+.label-age {
+    width: 100%;
+}
+
+.input-email,
+.input-name,
+.input-gender,
+.input-birth-date,
+.input-age {
+    width: 100%;
+}
+
+.label-email,
+.label-name,
+.label-gender,
+.label-birth-date,
+.label-age {
+    color: gray;
+    opacity: 80%;
+}
+
+.edit-form {
+    width: 100%;
+}

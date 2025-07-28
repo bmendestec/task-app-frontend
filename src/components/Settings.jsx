@@ -11,8 +11,7 @@ export function Settings() {
         navigate("/usuarios");
     }
     return (
-        <div>
-            <NavbarComponent />
+        <div>            
             <div className="flex-grow-1 p-4 d-flex flex-column align-items-centerr">                
                 {loading ? (
                     <Spinner animation="border" role="status">

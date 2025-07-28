@@ -4,28 +4,44 @@ import { BackButton } from "../../../components/commons/buttons/Back";
 import { ListUsers } from "./ListUsers";
 import { CreateUser } from "./CreateUser";
 import { EditUser } from "./EditUser";
+import './styles/Users.css';
 
 export function Users() {
     const [reloadPanel, setReloadPanel] = useState(null);
-    const [editUserPanel, setEditUserPanel] = useState(null);
+    const [currentView, setCurrentView] = useState('list');
+    const [selectedUserId, setSelectedUserId] = useState(null);
 
-    // const handleReloadTasks = () => {
-    //     setReloadPanel(true);
-    // }
+    const handleEditUser = (userId) => {
+        setSelectedUserId(userId);
+        setCurrentView('edit');
+    };
+
+    const handleBackToList = () => {
+        setCurrentView('list');
+        setSelectedUserId(null);
+        setReloadPanel(true); // Recarrega a lista quando volta
+    };
+
+    const handleCreateUser = () => {
+        setCurrentView('create');
+    };
 
     return (
         <>
-            <NavbarComponent />
-            <BackButton />
-            <div className="flex-grow-1 d-flex flex-column">
-                <div style={{ display: "flex", justifyContent: "space-around" }}>
-                    {/* {editUserPanel ? <EditUser /> : <CreateUser onFormSubmit={handleReloadTasks} />} */}
-                    <ListUsers reloadPanel={reloadPanel}
+            <div className="users-container">
+                <ListUsers
+                    reloadPanel={reloadPanel}
+                    setReloadPanel={setReloadPanel}
+                    onEditUser={handleEditUser}
+                    onCreateUser={handleCreateUser}
+                />
+                {currentView === 'edit' && (
+                    <EditUser
+                        userId={selectedUserId}
+                        onBack={handleBackToList}
                         setReloadPanel={setReloadPanel}
-                        editUserPanel={editUserPanel}
-                        setEditUserPanel={setEditUserPanel}
                     />
-                </div>
+                )}
             </div>
         </>
     );

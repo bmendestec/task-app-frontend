@@ -32,8 +32,8 @@ button {
   font-size: 16px;
   transition: background-color 0.3s ease;
   font-weight: bold;
-  width: 450px;
-  color: #f0f0f0;
+  /* width: 450px; */
+  /* color: #f0f0f0; */
 }
 
 input, 
@@ -78,7 +78,7 @@ input:focus {
 }
 
 .add-button {
-  background: linear-gradient(to top, #b65f18, #6b430e);
+  background: linear-gradient(to top, #ff9900, #6b430e);
   border-left-width: 0px;
   border-top-width: 0px;
   border-right-width: 0px;
@@ -90,7 +90,7 @@ input:focus {
 }
 
 .add-button:hover {
-  background: linear-gradient(to bottom, #b65f18, #6b430e);
+  background: linear-gradient(to top, #6b430e, #ff9900);
 }
 
 .dropdown-container {

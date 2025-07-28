@@ -1,6 +1,7 @@
 import { Navigate } from "react-router-dom";
 import { useAuth } from "./context/AuthContext";
 import { Spinner } from "react-bootstrap";
+import { NavbarComponent } from "./components/commons/Navbar";
 
 const ProtectedRoute = ({ children }) => {
 
@@ -8,14 +9,21 @@ const ProtectedRoute = ({ children }) => {
 
     if (loading) {
         return <Spinner animation="border" role="status">
-                <span className="visually-hidden">Loading...</span>
-               </Spinner>
+            <span className="visually-hidden">Loading...</span>
+        </Spinner>
     }
     if (!user) {
         return <Navigate to="/login" />;
     }
 
-    return children;
+    return (
+        <div style={{
+            display: 'flex',
+            height: '100%'
+        }}>
+            <NavbarComponent> {children} </NavbarComponent>
+        </div>
+    )
 }
 
 export default ProtectedRoute;

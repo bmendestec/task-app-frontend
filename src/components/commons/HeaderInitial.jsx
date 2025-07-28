@@ -4,8 +4,9 @@ export function HeaderInitial() {
     const navigate = useNavigate();
     return (
         <div className="header-initial">
-            <img className="logo-header" src="src/assets/sciencebot_logo.png" alt="" />            
-            <button className="add-button login-header-button" onClick={() => navigate('/login')}>Free trial</button>
+            <img className="logo-header" src="src/assets/sciencebot_logo.png" alt="" />
+            <button className="add-button login-header-button" onClick={() => { navigate('/sign-up') }}>
+                Free trial</button>
         </div>
     )
 }

@@ -8,8 +8,13 @@ import { FooterInitial } from './commons/FooterInitial';
 export function Login() {
     const { login, loading } = useAuth();
     const [email, setEmail] = useState('');
+    const [rememberMe, setRememberMe] = useState()
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
+
+    const checkRememberMe = (rememberMe) => {
+        !rememberMe ? setRememberMe(true) : setRememberMe(false);
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -39,9 +44,18 @@ export function Login() {
                             />
                             <div className='form-check'>
                                 <div className='row'>
-                                    <div className='col'>
-                                        <input id="remember-me" type="checkbox" label="Remember me" />
-                                        <label htmlFor="remember-me"><u>Remember-me</u></label>
+                                    <div className='col remember-field'
+                                        onClick={() => { checkRememberMe(rememberMe) }}>
+                                        <label className='remember-label'
+                                            onClick={() => { checkRememberMe(rememberMe) }}>
+                                            <u>Remember-me</u>
+                                        </label>
+                                        <input className="remember-me"
+                                            id="remember-me"
+                                            type="checkbox"
+                                            label="Remember me"
+                                            onClick={(e) => { setRememberMe(e.target.checked) }}
+                                            checked={rememberMe} />
                                     </div>
                                     <div className='col'>
                                         <a href="#">Forgot password</a>
@@ -56,15 +70,6 @@ export function Login() {
                                     {loading ?
                                         <span className="visually-hidden">Loading...</span>
                                         : 'Sign In'}
-                                </button>
-                            </div>
-                            <div className="text-center text-muted">or</div>
-                            <div className="d-grid">
-                                <button type="button"
-                                    variant="outline-primary"
-                                    className="signup-button"
-                                    onClick={() => { navigate('/sign-up') }}>
-                                    <u>Don't you have an account? Just sign up now!</u>
                                 </button>
                             </div>
                         </form>

@@ -12,23 +12,14 @@ export function TaskForm({ onFormSubmit }) {
     }
 
     return (
-        <div style={{ width: "30%" }}>
-            <div style={{
-                display: "flex",
-                justifyContent: "center",
-                marginBottom: "20px",
-                marginTop: "20px",
-                border: "1px solid #D1D5DB",
-                borderRadius: "20px"
-            }}>
+        <div className="task-form">
+            <div className="task-title-form ">
                 <h2>Insert a new task</h2>
             </div>
             <div>
 
                 <Form onSubmit={handleSave}
-                    style={{
-                        maxWidth: "570px"
-                    }}>
+                >
                     <Form.Group>
                         <Form.Label>Title</Form.Label>
                         <Form.Control type='text'
@@ -102,8 +93,8 @@ export function TaskForm({ onFormSubmit }) {
                                     required />
                             </Form.Group>
                         </div>
-                    </div>                    
-                    <SaveAndCancel onLoading={loading}/>
+                    </div>
+                    <SaveAndCancel onLoading={loading} />
                 </Form>
             </div>
         </div>

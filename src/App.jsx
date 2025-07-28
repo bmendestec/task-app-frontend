@@ -8,9 +8,9 @@ import { Tasks } from './features/Tasks/components/Tasks';
 import { Settings } from './components/Settings';
 import { Signup } from './components/Signup';
 import { EditUser } from './features/Users/components/EditUser';
-import { TestNavBar } from './components/TestNavbar';
 import { Users } from './features/Users/components/Users';
 import { TaskCalendar } from './features/Tasks/components/TaskCalendar';
+import { NavbarComponent } from './components/commons/Navbar';
 
 function App() {
 
@@ -20,7 +20,6 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/sign-up" element={<Signup />} />
         <Route path="/" element={<ProtectedRoute><Initial /></ProtectedRoute>} />
-        <Route path="/test-navbar" element={<ProtectedRoute><TestNavBar /></ProtectedRoute>} />
         <Route path="/usuarios" element={<ProtectedRoute><Users /></ProtectedRoute>} />
         <Route path="/register" element={<ProtectedRoute><CreateUser /></ProtectedRoute>} />
         <Route path="/edit-user" element={<ProtectedRoute><EditUser /></ProtectedRoute>} />

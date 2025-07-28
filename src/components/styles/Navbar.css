@@ -1,24 +1,43 @@
 #navbar {
+    height: 100%;
+    width: 10%;
+    background: linear-gradient(to left, rgba(0, 0, 0, 0.3), #2c2c2c);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#container-nav {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#brand {
+    color: whitesmoke;
+    font-weight: bold;
+    margin: 10px;
+}
+
+.contents-nav-buttons {
+    display: flex;
     flex-direction: column;
     width: 100%;
 }
 
-#container-navbar {
-    display: flex;
-    align-items: center;
-    width: 100%;
+.nav-button {
+    /* width: 20%; */
 }
 
-#container {
-    display: flex;
-    flex-wrap: inherit;
-    align-items: center;
-    justify-content: space-between;
-    width: 95%;
+.nav-button:hover {
+    background-color: gray;
 }
 
-#brand {
-    color: whitesmoke
+.nav-button.active {
+    background-color: gray;
 }
 
 @media screen and (min-width: 768px) and (max-width: 1024px) {
@@ -31,7 +50,7 @@
         align-items: center;
         width: 100%;
     }
-    
+
     #container {
         display: flex;
         flex-wrap: inherit;
@@ -39,7 +58,7 @@
         justify-content: space-between;
         width: 95%;
     }
-    
+
     #brand {
         color: whitesmoke
     }
@@ -47,15 +66,15 @@
     #container-nav-n {
         display: flex;
         flex-direction: column;
-        position: fixed; /* Fixa a barra na lateral */
+        position: fixed;
         top: 0;
         left: 0;
-        height: 100vh; /* Ocupa toda a altura da viewport */
-        width: 250px; /* Largura fixa para telas maiores */
-        background-color: #f8f9fa; /* Cor de fundo */
-        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Sombra para destacar */
-        padding: 20px; /* Espaçamento interno */
-        z-index: 1000; /* Garante que fique acima de outros elementos */
+        height: 100vh;
+        width: 250px;
+        background-color: #f8f9fa;
+        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        z-index: 1000;
     }
 
 }

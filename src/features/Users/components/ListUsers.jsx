@@ -1,10 +1,10 @@
 import { useUsers } from '../hooks/useUsers';
-import { Spinner, Button, Table } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
-import { Trash2, UserPen, UserPlus } from 'lucide-react';
+import { Trash2 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import './styles/ListUsers.css';
 
-export function ListUsers({ reloadPanel, setReloadPanel, editUserPanel, setEditUserPanel }) {
+export function ListUsers({ reloadPanel, setReloadPanel, onEditUser, onCreateUser }) {
     const { fetchUserData, handleDeleteUser, loading } = useUsers();
     const [users, setUsers] = useState([]);
     const navigate = useNavigate();
@@ -25,40 +25,23 @@ export function ListUsers({ reloadPanel, setReloadPanel, editUserPanel, setEditU
         fetchUsers();
     }, [reloadPanel]);
 
-    useEffect(() => {
-        if (!editUserPanel) return;
-        setEditUserPanel(false);
-        setIsActive(34);
-    }, [editUserPanel, isActive])
-
     const handleDirectToEdit = (id) => {
-        if (id) {
-            setEditUserPanel(true);
-            navigate('/edit-user', { state: { userId: id } });
-        }
+        setIsActive(id);
+        onEditUser(id);
     }
 
     return (
         <>
-            <div style={{ width: "60%", maxHeight: "700px", overflowY: "auto" }}>
-                <div style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    marginBottom: "20px",
-                    marginTop: "20px",
-                    border: "1px solid #D1D5DB",
-                    borderRadius: "20px"
-                }}>
+            <div className='list-body'>
+                <div>
                     <h2>Users list</h2>
                 </div>
                 {loading ? (
-                    <Spinner animation="border" role="status">
-                        <span className="visually-hidden">Loading...</span>
-                    </Spinner>
+                    <span className="visually-hidden">Loading...</span>
                 ) :
-                    <div style={{ maxHeight: "700px", overflowY: "auto" }}>
+                    <div style={{ overflowY: "auto" }}>
                         <div>
-                            <Table hover>
+                            <table hover>
                                 <thead>
                                     <tr>
                                         <th style={{ width: '20%', textAlign: 'center' }}> Name </th>
@@ -73,31 +56,28 @@ export function ListUsers({ reloadPanel, setReloadPanel, editUserPanel, setEditU
                                     {users.map((user) => (
                                         <tr key={user.id}
                                             onDoubleClick={() => handleDirectToEdit(user.id)}
-                                            style={{
-                                                backgroundColor: "#d1e7dd",
-                                                cursor: "pointer"
-                                            }}
-                                        // {
-                                        //     isActive === user.id ? 'active-row' : ''
-                                        // }
+                                            className={isActive === user.id ? 'active-row' : ''}
+                                            style={{ cursor: 'pointer' }}
                                         >
-                                            <td style={{ width: '20%', textAlign: 'center', }}>{user.name}</td>
-                                            <td style={{ width: '10%', textAlign: 'center', }}>{user.age}</td>
-                                            <td style={{ width: '10%', textAlign: 'center', }}>{new Date(user.birth_date).toLocaleDateString('pt-BR')}</td>
-                                            <td style={{ width: '10%', textAlign: 'center', }}>{user.gender}</td>
-                                            <td style={{ width: '10%', textAlign: 'center', }}>{user.email}</td>
-                                            <td style={{ width: '10%', textAlign: 'center', }}>
+                                            <td className='table-name'>{user.name}</td>
+                                            <td>{user.age}</td>
+                                            <td>{new Date(user.birth_date).toLocaleDateString('pt-BR')}</td>
+                                            <td>{user.gender}</td>
+                                            <td>{user.email}</td>
+                                            <td>
 
-                                                <Button variant="danger"
-                                                    className="btn btn-danger"
-                                                    onClick={() => { handleDeleteUser(user.id, setReloadPanel) }}>
+                                                <button
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();
+                                                        handleDeleteUser(user.id, setReloadPanel)
+                                                    }}>
                                                     <Trash2 />
-                                                </Button>
+                                                </button>
                                             </td>
                                         </tr>
                                     ))}
                                 </tbody>
-                            </ Table>
+                            </ table>
                         </div>
                     </div>
                 }
